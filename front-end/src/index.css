@@ -12,3 +12,62 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* ----------
+
+---------- */
+
+
+
+.ListItem {
+  align-items: center;
+  border: 1px solid #DCDCDC;
+  display: flex;
+  height: 60px;
+  justify-content: space-between;
+  margin-left: -39px;
+  padding: 5px;
+}
+
+.task-name {
+  margin-left: 10px;
+}
+
+.item-modify-options {
+  display: flex;
+
+}
+
+.item-modify-options span {
+  margin: 0px 10px;
+}
+
+i {
+  position: relative;
+  top: 4px;
+}
+
+.fa-pencil-square-o:hover {
+  color: #003366;
+}
+
+.fa-check-circle-o:hover, .fa-check:hover {
+  color: #336600;
+}
+
+.fa-trash:hover, .fa-times:hover {
+  color: #B22222;
+}
+
+
+@media (min-width: 1200px) {
+
+  .ListItem {
+    max-width: 70%;
+    margin: 0 auto;
+  }
+
+  .item-modify-options span {
+    margin: 0px 20px;
+  }
+}
