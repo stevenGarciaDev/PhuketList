@@ -43,6 +43,7 @@ class OptionsToolbar extends Component {
         </React.Fragment>
       );
     }
+    
     return (
       <React.Fragment>
         <span>
