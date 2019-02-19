@@ -2,31 +2,24 @@ import React, { Component } from 'react';
 
 class OptionsToolbar extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEditing: false
-    }
-  }
-
-  editText() {
-    const { isEditing } = this.state;
+  editText = () => {
+    const { isEditing } = this.props;
     console.log("isEditing", isEditing);
     this.setState({
       isEditing: !isEditing
     });
   }
 
-  markCompleted() {
+  markCompleted = () => {
     console.log('completed');
   }
 
-  deleteTask() {
+  deleteTask = () => {
     console.log('delete task');
   }
 
-  displayOptions() {
-    const { isEditing } = this.state;
+  displayOptions = () => {
+    const { isEditing } = this.props;
     if (isEditing) {
       return (
         <React.Fragment>
@@ -38,12 +31,12 @@ class OptionsToolbar extends Component {
           <span>
             <i className="fa fa-times fa-2x"
                aria-hidden="true"
-               onClick={() => this.editText()}></i>
+               onClick={ this.props.onEdit }></i>
           </span>
         </React.Fragment>
       );
     }
-    
+
     return (
       <React.Fragment>
         <span>
@@ -54,7 +47,7 @@ class OptionsToolbar extends Component {
         <span>
           <i className="fa fa-pencil-square-o fa-2x"
              aria-hidden="true"
-             onClick={() => this.editText()}></i>
+             onClick={ this.props.onEdit }></i>
         </span>
 
         <span>

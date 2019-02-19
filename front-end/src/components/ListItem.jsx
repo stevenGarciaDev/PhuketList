@@ -1,30 +1,21 @@
 import React, { Component } from 'react';
+import TaskName from './TaskName';
 import OptionsToolbar from './OptionsToolbar';
 
 class ListItem extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditing: false
+    };
+  }
 
-  displayFormattedName() {
-    let { taskName } = this.props;
-
-    // if browser size is less than n,
-    // then only display c chars
-    // else display full size
-
-    if (window.innerWidth <= 400 && taskName.length > 13) {
-      taskName = `${taskName.substring(0, 9)}...`;
-
-      return (
-        <span className="task-name">{taskName}</span>
-      );
-    }
-
-    return (
-      <span className="task-name">{this.props.taskName}</span>
-    );
+  handleEditText = () => {
+    console.log('handle edit text');
+    this.setState({
+      isEditing: !this.state.isEditing
+    });
   }
 
   render() {
@@ -32,9 +23,9 @@ class ListItem extends Component {
       <React.Fragment>
         <li className="ListItem">
 
-          {this.displayFormattedName()}
-
-          <OptionsToolbar />
+          <TaskName isEditing={this.state.isEditing} taskName={this.props.taskName} />
+          <OptionsToolbar isEditing={this.state.isEditing}
+                          onEdit={this.handleEditText} />
 
         </li>
       </React.Fragment>
