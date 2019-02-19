@@ -19,13 +19,17 @@ class ListItem extends Component {
   }
 
   render() {
+    const { task } = this.props;
     return (
       <React.Fragment>
         <li className="ListItem">
 
-          <TaskName isEditing={this.state.isEditing} taskName={this.props.taskName} />
+          <TaskName isEditing={this.state.isEditing}
+                    taskName={task.name} />
           <OptionsToolbar isEditing={this.state.isEditing}
-                          onEdit={this.handleEditText} />
+                          onEdit={this.handleEditText}
+                          onDelete={this.props.onDelete}
+                          item={task} />
 
         </li>
       </React.Fragment>

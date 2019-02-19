@@ -25,10 +25,11 @@ class BucketList extends Component {
   }
 
   handleDelete = (item) => {
-    let currentItems = {...this.state.listItems};
+    let currentItems = [...this.state.listItems];
     let indexToDelete = currentItems.indexOf(item);
-    let newItemList = currentItems.splice( indexToDelete, 1)
-    console.log(`New list is ${newItemList}`);
+    currentItems.splice( indexToDelete, 1)
+    console.log(`New list is ${currentItems}`);
+    this.setState({ listItems: currentItems });
   }
 
   render() {
@@ -36,7 +37,9 @@ class BucketList extends Component {
       <div>
         <ul>
 
-          {this.state.listItems.map(item => <ListItem key={item._id} taskName={item.name} /> )}
+          {this.state.listItems.map(item => <ListItem key={item._id}
+                                                      task={item}
+                                                      onDelete={this.handleDelete} /> )}
 
         </ul>
       </div>

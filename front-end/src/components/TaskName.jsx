@@ -45,7 +45,7 @@ class TaskName extends Component {
   }
 
   render() {
-    const { isEditing, taskName } = this.props;
+    const { isEditing } = this.props;
     return (
       <div>
         { isEditing ? this.displayEditableName() : this.displayFormattedName() }

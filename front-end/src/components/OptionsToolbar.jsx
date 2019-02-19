@@ -10,14 +10,6 @@ class OptionsToolbar extends Component {
     });
   }
 
-  markCompleted = () => {
-    console.log('completed');
-  }
-
-  deleteTask = () => {
-    console.log('delete task');
-  }
-
   displayOptions = () => {
     const { isEditing } = this.props;
     if (isEditing) {
@@ -53,13 +45,13 @@ class OptionsToolbar extends Component {
         <span>
           <i className="fa fa-check-circle-o fa-2x"
              aria-hidden="true"
-             onClick={() => this.markCompleted()}></i>
+             ></i>
         </span>
 
         <span>
           <i className="fa fa-trash fa-2x"
              aria-hidden="true"
-             onClick={() => this.deleteTask()}></i>
+             onClick={() => this.props.onDelete( this.props.item )}></i>
         </span>
       </React.Fragment>
     );
