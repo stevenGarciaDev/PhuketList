@@ -9,6 +9,7 @@ class TaskName extends Component {
       return (
         <div>
           <input type="text"
+                 id={this.props.task._id}
                  className="form-control"
                  defaultValue={taskName} />
         </div>
@@ -17,6 +18,7 @@ class TaskName extends Component {
 
     return (
       <input type="text"
+             id={this.props.task._id}
              className="form-control"
              defaultValue={taskName}
              style={{ width: 600 }} />
@@ -35,18 +37,16 @@ class TaskName extends Component {
     // then only display c chars
     // else display full size
 
-
-
     if (window.innerWidth <= 400 && taskName.length > 13) {
       taskName = `${taskName.substring(0, 9)}...`;
 
       return (
-        <span className={classStyles}>{taskName}</span>
+        <span id={this.props.task._id} className={classStyles}>{taskName}</span>
       );
     }
 
     return (
-      <span className={classStyles}>{taskName}</span>
+      <span id={this.props.task._id} className={classStyles}>{taskName}</span>
     );
   }
 

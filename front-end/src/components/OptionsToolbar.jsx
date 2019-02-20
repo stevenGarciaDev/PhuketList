@@ -19,7 +19,10 @@ class OptionsToolbar extends Component {
             <i className="fa fa-check fa-2x"
                aria-hidden="true"
                style={{ cursor: 'pointer' }}
-               onClick={ () => this.props.onUpdate( this.props.item ) }></i>
+               onClick={ () => {
+                 this.props.onUpdate( this.props.item, document.getElementById(`${this.props.item._id}`).value);
+                 this.props.onEdit();
+               }}></i>
           </span>
 
           <span>

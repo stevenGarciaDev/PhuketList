@@ -11,6 +11,20 @@ class ListItem extends Component {
     };
   }
 
+  updateItemName = (item) => {
+    console.log("Handle update");
+
+    this.toggleEditMode();
+    /*
+    check mark icon is clicked
+
+      want to read the value of the input,
+      and update the name of the list item
+
+
+    */
+  }
+
   toggleEditMode = () => {
     console.log('handle edit text');
     this.setState({
@@ -29,7 +43,8 @@ class ListItem extends Component {
         <li className="ListItem">
 
           <TaskName isEditing={this.state.isEditing}
-                    task={task} />
+                    task={task}
+                    />
           <OptionsToolbar isEditing={this.state.isEditing}
                           onEdit={this.toggleEditMode}
                           onDelete={this.props.onDelete}

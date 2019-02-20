@@ -27,22 +27,26 @@ class BucketList extends Component {
     }
   }
 
-  updateItemName = (item) => {
-    console.log("Handle update");
+  handleUpdate = (item, newText) => {
+    let listItems = [...this.state.listItems];
+    const indexToUpdate = listItems.indexOf(item);
+    listItems[indexToUpdate].name = newText;
+    this.setState({ listItems });
   }
 
   handleDelete = (item) => {
     let currentItems = [...this.state.listItems];
-    let indexToDelete = currentItems.indexOf(item);
+    const indexToDelete = currentItems.indexOf(item);
     currentItems.splice( indexToDelete, 1)
     this.setState({ listItems: currentItems });
   }
 
   handleCompleted = (item) => {
-    let currentItems = [...this.state.listItems];
-    let indexToUpdate = currentItems.indexOf(item);
-    currentItems[indexToUpdate].isCompleted = true;
-    this.setState({ listItems: currentItems });
+    let listItems = [...this.state.listItems];
+    const indexToUpdate = listItems.indexOf(item);
+    const prevState = listItems[indexToUpdate].isCompleted;
+    listItems[indexToUpdate].isCompleted = !prevState;
+    this.setState({ listItems });
   }
 
   render() {
@@ -55,7 +59,7 @@ class BucketList extends Component {
                       task={item}
                       onDelete={this.handleDelete}
                       onComplete={this.handleCompleted}
-                      onUpdate={this.updateItemName} />
+                      onUpdate={this.handleUpdate} />
           ))}
         </ul>
       </div>
