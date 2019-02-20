@@ -11,11 +11,15 @@ class ListItem extends Component {
     };
   }
 
-  handleEditText = () => {
+  toggleEditMode = () => {
     console.log('handle edit text');
     this.setState({
       isEditing: !this.state.isEditing
     });
+  }
+
+  retreiveUpdatedText = () => {
+
   }
 
   render() {
@@ -25,12 +29,13 @@ class ListItem extends Component {
         <li className="ListItem">
 
           <TaskName isEditing={this.state.isEditing}
-                    taskName={task.name} />
+                    task={task} />
           <OptionsToolbar isEditing={this.state.isEditing}
-                          onEdit={this.handleEditText}
+                          onEdit={this.toggleEditMode}
                           onDelete={this.props.onDelete}
+                          onUpdate={this.props.onUpdate}
+                          onComplete={this.props.onComplete}
                           item={task} />
-
         </li>
       </React.Fragment>
     );

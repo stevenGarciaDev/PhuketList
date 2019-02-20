@@ -10,25 +10,38 @@ class BucketList extends Component {
       listItems: [
         {
           _id: 1,
-          name: "Skydiving"
+          name: "Skydiving",
+          isCompleted: false
         },
         {
           _id: 2,
-          name: "Travel Europe"
+          name: "Travel Europe",
+          isCompleted: false
         },
         {
           _id: 3,
-          name: "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          name: "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          isCompleted: false
         }
       ]
     }
+  }
+
+  updateItemName = (item) => {
+    console.log("Handle update");
   }
 
   handleDelete = (item) => {
     let currentItems = [...this.state.listItems];
     let indexToDelete = currentItems.indexOf(item);
     currentItems.splice( indexToDelete, 1)
-    console.log(`New list is ${currentItems}`);
+    this.setState({ listItems: currentItems });
+  }
+
+  handleCompleted = (item) => {
+    let currentItems = [...this.state.listItems];
+    let indexToUpdate = currentItems.indexOf(item);
+    currentItems[indexToUpdate].isCompleted = true;
     this.setState({ listItems: currentItems });
   }
 
@@ -37,10 +50,13 @@ class BucketList extends Component {
       <div>
         <ul>
 
-          {this.state.listItems.map(item => <ListItem key={item._id}
-                                                      task={item}
-                                                      onDelete={this.handleDelete} /> )}
-
+          {this.state.listItems.map(item => (
+            <ListItem key={item._id}
+                      task={item}
+                      onDelete={this.handleDelete}
+                      onComplete={this.handleCompleted}
+                      onUpdate={this.updateItemName} />
+          ))}
         </ul>
       </div>
     );

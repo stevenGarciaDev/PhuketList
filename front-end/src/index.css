@@ -17,8 +17,6 @@ code {
 
 ---------- */
 
-
-
 .ListItem {
   align-items: center;
   border: 1px solid #DCDCDC;
@@ -36,6 +34,13 @@ code {
 .item-modify-options {
   display: flex;
 
+}
+
+.completed-task {
+  color: #777;
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: line-through;
 }
 
 .item-modify-options span {
