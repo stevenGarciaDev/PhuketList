@@ -20,7 +20,8 @@ class OptionsToolbar extends Component {
                aria-hidden="true"
                style={{ cursor: 'pointer' }}
                onClick={ () => {
-                 this.props.onUpdate( this.props.item, document.getElementById(`${this.props.item._id}`).value);
+                 this.props.onUpdate( this.props.item,
+                   document.getElementById(`${this.props.item._id}`).value);
                  this.props.onEdit();
                }}></i>
           </span>

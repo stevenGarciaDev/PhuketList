@@ -35,10 +35,13 @@ class BucketList extends Component {
   }
 
   handleDelete = (item) => {
-    let currentItems = [...this.state.listItems];
-    const indexToDelete = currentItems.indexOf(item);
-    currentItems.splice( indexToDelete, 1)
-    this.setState({ listItems: currentItems });
+
+    if ( this.confirmDelete(item) ) {
+      let listItems = [...this.state.listItems];
+      const indexToDelete = listItems.indexOf(item);
+      listItems.splice( indexToDelete, 1)
+      this.setState({ listItems });
+    }
   }
 
   handleCompleted = (item) => {
@@ -47,6 +50,14 @@ class BucketList extends Component {
     const prevState = listItems[indexToUpdate].isCompleted;
     listItems[indexToUpdate].isCompleted = !prevState;
     this.setState({ listItems });
+  }
+
+  confirmDelete = (item) => {
+    const answer = window.confirm(`Are you sure you want to delete task, "${item.name}?"`);
+    if (answer) {
+      return true;
+    }
+    return false;
   }
 
   render() {
