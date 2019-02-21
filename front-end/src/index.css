@@ -68,6 +68,10 @@ i {
 
 ------------- */
 
+#bucket-list-jumbotron {
+  /* background-color: #fff; */
+}
+
 .page-title {
   margin-bottom: 15px;
 }
@@ -75,6 +79,10 @@ i {
 .sub-header {
   font-size: 20px;
   font-style: italic;
+}
+
+.input-group {
+   margin: 0 auto;
 }
 
 @media (min-width: 1200px) {
