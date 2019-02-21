@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Navbar from '../components/Navbar';
 import BucketList from '../components/BucketList';
 
 class MyBucketList extends Component {
@@ -7,8 +6,6 @@ class MyBucketList extends Component {
   render() {
     return (
       <div>
-        <Navbar />
-
         <div className="jumbotron text-center" id="bucket-list-jumbotron">
           <h1 className="page-title">My Bucket List</h1>
           <h2 className="sub-header">What have you always wanted to do?</h2>

@@ -5,10 +5,14 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
-import MyBucketList from './pages/MyBucketList';
+// import MyBucketList from './pages/MyBucketList';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 
 ReactDOM.render(
-  <MyBucketList />,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
    document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
