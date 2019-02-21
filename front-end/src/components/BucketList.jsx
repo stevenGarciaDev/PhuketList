@@ -35,7 +35,6 @@ class BucketList extends Component {
   }
 
   handleDelete = (item) => {
-
     if ( this.confirmDelete(item) ) {
       let listItems = [...this.state.listItems];
       const indexToDelete = listItems.indexOf(item);

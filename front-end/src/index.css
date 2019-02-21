@@ -64,13 +64,32 @@ i {
   color: #B22222;
 }
 
+/* -------------
+
+------------- */
+
+.page-title {
+  margin-bottom: 15px;
+}
+
+.sub-header {
+  font-size: 20px;
+  font-style: italic;
+}
 
 @media (min-width: 1200px) {
 
   .ListItem {
-    max-width: 70%;
+    max-width: 80%;
     margin: 0 auto;
   }
+
+}
+
+
+@media (min-width: 1200px) {
+
+
 
   .item-modify-options span {
     margin: 0px 20px;
