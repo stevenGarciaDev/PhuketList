@@ -4,6 +4,8 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import MyBucketList from './pages/MyBucketList';
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 
 class App extends Component {
   render() {
@@ -13,7 +15,8 @@ class App extends Component {
         <div className="content">
           <Switch>
             <Route path="/MyBucketList" component={MyBucketList} />
-
+            <Route path="/login" component={LoginForm} />
+            <Route path="/register" component={RegisterForm} />
           </Switch>
         </div>
       </div>
