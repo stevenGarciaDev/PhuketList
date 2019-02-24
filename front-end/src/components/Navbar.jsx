@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 class Navbar extends Component {
 
@@ -14,15 +14,18 @@ class Navbar extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item active">
-              <Link className="nav-link" to="#">MyList <span className="sr-only">(current)</span></Link>
+              <NavLink className="nav-link" to="#">MyList <span className="sr-only">(current)</span></NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="#">Dashboard</Link>
+              <NavLink className="nav-link" to="#">
+                Dashboard
+              </NavLink>
             </li>
+
             <li className="nav-item dropdown">
-              <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <NavLink className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Connect
-              </Link>
+              </NavLink>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link className="dropdown-item" to="#">Action</Link>
                 <Link className="dropdown-item" to="#">Another action</Link>
@@ -30,15 +33,16 @@ class Navbar extends Component {
                 <Link className="dropdown-item" to="#">Something else here</Link>
               </div>
             </li>
+
             <li className="nav-item dropdown">
-              <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <NavLink className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Account
-              </Link>
+              </NavLink>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link className="dropdown-item" to="#">Action</Link>
                 <Link className="dropdown-item" to="#">Another action</Link>
                 <div className="dropdown-divider"></div>
-                <Link className="dropdown-item" to="#">Something else here</Link>
+                <Link className="dropdown-item" to="#">Sign out</Link>
               </div>
             </li>
           </ul>

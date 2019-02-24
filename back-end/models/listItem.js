@@ -22,11 +22,10 @@ const listItemSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
     required: true
-  },
-
+  }
 });
 
-const ListItem = mongoose.model("BucketList", listItemSchema);
+const ListItem = mongoose.model("ListItem", listItemSchema);
 
 function validateItem(list) {
   const schema = {
@@ -38,4 +37,5 @@ function validateItem(list) {
   return Joi.validate(list, schema)
 }
 
-module.exports.BucketList = ListItem;
+module.exports.ListItem = ListItem;
+module.exports.listItemSchema = listItemSchema;
