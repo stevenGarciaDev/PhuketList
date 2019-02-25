@@ -12,16 +12,6 @@ const listItemSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
     required: true
-  },
-  dateCreated: {
-    type: Date,
-    default: Date.now,
-    required: true
-  },
-  dateModified: {
-    type: Date,
-    default: Date.now,
-    required: true
   }
 });
 
@@ -30,8 +20,7 @@ const ListItem = mongoose.model("ListItem", listItemSchema);
 function validateItem(list) {
   const schema = {
     taskName: Joi.string.min(5).max(50).required(),
-    isCompleted: Joi.boolean.required(),
-    dateCreated: Joi.date.required()
+    isCompleted: Joi.boolean.required()
   };
 
   return Joi.validate(list, schema)

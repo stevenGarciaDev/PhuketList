@@ -1,5 +1,5 @@
-const { User, validateUser } = require("../models.ListItem");
 const mongoose = require("mongoose");
+const Joi = require("joi");
 const express = require("express");
 const router = express.Router();
 
@@ -13,44 +13,49 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    minlength: 10,
-    maxlength: 100
+    minlength: 5,
+    maxlength: 255,
+    unique: true
   },
   bio: {
     type: String,
-    required: false,
     maxlength: 255
   },
   isPrivateProfile: {
     type: Boolean,
-    default: false,
-    required: true
+    default: false
   },
   isAdmin: {
     type: Boolean,
-    default: false,
-    required: true,
+    default: false
   },
   isActiveAccount: {
     type: Boolean,
-    default: false,
-    required: true
+    default: false
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 1024
   }
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 function validateUser(user) {
   const schema = {
     name: Joi.string().min(2).max(100).required(),
-    email: Joi.string().min(10).max(100).required(),
+    email: Joi.string().min(10).max(100).required().email(),
+    password: Joi.string().min(5).max(255).required(),
     bio: Joi.string().max(255),
-    isPrivateProfile: Joi.boolean().required(),
-    isAdmin: Joi.boolean().required(),
-    isActiveAccount: Joi.boolean().required()
+    isPrivateProfile: Joi.boolean(),
+    isAdmin: Joi.boolean(),
+    isActiveAccount: Joi.boolean()
   };
 
-  require Joi.validate(user, schema);
+  return Joi.validate(user, schema);
 }
 
 module.exports.User = User;
+module.exports.validate = validateUser;
