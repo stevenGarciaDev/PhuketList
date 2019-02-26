@@ -48,7 +48,6 @@ router.delete('/:id', (req, res) => {
 });
 
 
-
 async function findOrCreateTask(taskName) {
   let listItem = await ListItem.find({ taskName });
   //console.log(listItem);
@@ -66,7 +65,6 @@ async function addTask(listId, item) {
   bucketList.save();
   return bucketList;
 }
-
 
 async function removeTask(listId, prevId, taskName) {
   const bucketList = await BucketList.findById(listId);

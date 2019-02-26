@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+const List = require('./listItem');
 const listItemSchema = require("listItem");
 
 const bucketListSchema = new mongoose.Schema({
