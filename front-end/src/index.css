@@ -47,6 +47,14 @@ code {
   margin: 0px 10px;
 }
 
+.authenticate-form {
+  margin-top: 30px;
+}
+
+label {
+  float: left;
+}
+
 i {
   position: relative;
   top: 4px;
