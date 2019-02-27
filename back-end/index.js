@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const listItem = require("./routes/listItem");
 const config = require('config');
 const auth = require("./routes/auth");
+const bucketList = require("./routes/bucketList");
 const users = require("./routes/users");
 const express = require("express");
 const app = express();
@@ -18,7 +18,7 @@ mongoose.connect("mongodb://localhost/phuketlist")
 app.use(express.json());
 app.use('/api/users', users);
 app.use('/api/auth', auth);
-app.use('/api/bucketList', listItem);
+app.use('/api/bucketList', bucketList);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3900;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
-const List = require('./listItem');
-const listItemSchema = require("listItem");
+const { listItemSchema } = require("./listItem");
 
 const bucketListSchema = new mongoose.Schema({
   owner: {
@@ -16,7 +15,7 @@ const BucketList = mongoose.model("BucketList", bucketListSchema);
 
 function validateBucketList(list) {
   const schema = {
-    ownerId: Joi.string().required
+    owner: Joi.objectid().required
   }
 
   return Joi.validate(list, schema);

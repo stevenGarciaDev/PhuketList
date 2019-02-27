@@ -1,12 +1,14 @@
 const { BucketList, validateBucketList } = require("../models/bucketList");
-const { ListItem } = require("../models.listItem");
+const { ListItem } = require("../models/listItem");
+const auth = require('../middleware/auth');
 const express = require("express");
 const router = express.Router();
 
+// bucket list is req.params.id
+
 router.get('/:id', async (req, res) => {
-  const listItems = await BucketList
-    .find({ ownerId: req.params.id }).select('listItems');
-  console.log(listItems);
+  const listItems = await BucketList.findById(req.params.id).select('listItems');
+  console.log("The list items include " + listItems);
   res.send(listItems);
 });
 
@@ -16,9 +18,9 @@ router.post('/:id', (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   const newItem = findOrCreateTask(req.body.taskName);
-  const bucketList = addTask(req.params.id, newItem);
+  const bucketList = addTask(req.param.id, newItem);
 
-  res.send(bucketList);
+  res.send(bucketList.listItems);
 });
 
 // Update a List item in the Bucket List
@@ -36,7 +38,7 @@ router.put('/:id', (req, res) => {
   let listItem = findOrCreate(req.body.taskName);
   bucketList = addTask(req.params.id, listItem);
 
-  res.send(bucketList);
+  res.send(bucketList.listItems);
 });
 
 router.delete('/:id', (req, res) => {
@@ -44,7 +46,7 @@ router.delete('/:id', (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   const bucketList = removeTask(req.params.id, req.body.prev_id , req.body.taskName);
-  res.send(bucketList);
+  res.send(bucketList.listItems);
 });
 
 
@@ -74,6 +76,5 @@ async function removeTask(listId, prevId, taskName) {
   bucketList.listItems.splice(indexToDelete, 1)
   return bucketList;
 }
-
 
 module.exports = router;
