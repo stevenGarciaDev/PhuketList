@@ -1,4 +1,4 @@
-const { BucketList, validateBucketList } = require("../models/bucketList");
+const { BucketList } = require("../models/bucketList");
 const { ListItem } = require("../models/listItem");
 const auth = require('../middleware/auth');
 const express = require("express");
@@ -13,16 +13,34 @@ router.get('/:id', auth, async (req, res) => {
   res.send(listItems);
 });
 
-// Create a new List item
-router.post('/', auth, (req, res) => {
-  console.log("Got the request");
-  const { error } = validateBucketList(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+// Create a new List item for the current bucket list
+router.post('/:id', auth, async (req, res) => {
+  // create list item
+  let listItem = await ListItem.find({ taskName: req.body.taskName });
 
-  const newItem = findOrCreateTask(req.body.taskName);
-  const bucketList = addTask(req.param.id, newItem);
+  if (listItem.length === 0) {
+    listItem = new ListItem({ taskName: req.body.taskName });
+    listItem = await listItem.save();
+  }
 
-  res.send(bucketList.listItems);
+  console.log(listItem);
+
+  //retrieve user's bucket list
+  let bucketList = await BucketList.find({ owner: req.params.id });
+
+  console.log('The list items are');
+  console.log(bucketList);
+  console.log(bucketList.listItems);
+
+
+
+  // add item to bucket list
+
+
+  // return updated list to user
+
+
+  res.send(listItem);
 });
 
 // Update a List item in the Bucket List
@@ -31,9 +49,6 @@ router.post('/', auth, (req, res) => {
 // req.body.prev_id  => previous list item id
 // req.body.taskName => updated task name
 router.put('/', auth, (req, res) => {
-  const { error } = validateBucketList(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
   // get the previous list item as to remove it from bucket list
   let bucketList = removeTask(req.params.id, req.body.prev_id , req.body.taskName);
 
@@ -44,24 +59,11 @@ router.put('/', auth, (req, res) => {
 });
 
 router.delete('/', auth, (req, res) => {
-  const { error } = validateBucketList(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
   const bucketList = removeTask(req.params.id, req.body.prev_id , req.body.taskName);
   res.send(bucketList.listItems);
 });
 
 
-async function findOrCreateTask(taskName) {
-  let listItem = await ListItem.find({ taskName });
-  //console.log(listItem);
-
-  if (!listItem) {
-    listItem = new ListItem({ taskName: req.body.taskName });
-    listItem.save();
-  }
-  return listItem;
-}
 
 async function addTask(listId, item) {
   const bucketList = await BucketList.findById(listId);
