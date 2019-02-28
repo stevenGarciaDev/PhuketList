@@ -28,19 +28,12 @@ router.post('/:id', auth, async (req, res) => {
   //retrieve user's bucket list
   let bucketList = await BucketList.find({ owner: req.params.id });
 
-  console.log('The list items are');
-  console.log(bucketList);
-  console.log(bucketList.listItems);
-
-
-
   // add item to bucket list
-
+  bucketList[0].listItems.push(listItem);
+  const response = await bucketList[0].save();
 
   // return updated list to user
-
-
-  res.send(listItem);
+  res.send(bucketList[0].listItems);
 });
 
 // Update a List item in the Bucket List
