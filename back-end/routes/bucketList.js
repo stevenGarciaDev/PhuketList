@@ -15,6 +15,7 @@ router.get('/:id', auth, async (req, res) => {
 
 // Create a new List item
 router.post('/', auth, (req, res) => {
+  console.log("Got the request");
   const { error } = validateBucketList(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
