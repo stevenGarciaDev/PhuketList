@@ -9,15 +9,14 @@ class BucketList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user,
       listItems: []
     }
   }
 
   componentDidMount() {
     // get bucket list items
-    console.log(this.state.user);
-    let listItems = getListItems(this.state.user);
+    console.log(this.props.user);
+    let listItems = getListItems(this.props.user);
     this.setState({ listItems });
   }
 
