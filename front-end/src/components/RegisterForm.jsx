@@ -1,15 +1,16 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
+import { register } from "../services/userService";
 
 class RegisterForm extends Form {
   state = {
-    data: { full_name: "", email: "", password: "" },
+    data: { name: "", email: "", password: "" },
     errors: {}
   };
 
   schema = {
-    full_name: Joi.string()
+    name: Joi.string()
       .required()
       .label("Full Name"),
     email: Joi.string()
@@ -22,9 +23,21 @@ class RegisterForm extends Form {
       .label("Password")
   };
 
-  doSubmit = () => {
+  doSubmit = async () => {
     // Call the server
-    console.log("Submitted");
+    try {
+      const { data } = this.state;
+      const response = await register(data);
+      localStorage.setItem('token', response.headers['x-auth-token']);
+      window.location = "/bucketList";
+    }
+    catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = {...this.state.errors};
+        errors.name = ex.response.data; // get the error from the server
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
@@ -32,7 +45,7 @@ class RegisterForm extends Form {
       <div className="container authenticate-form">
         <h1>Register</h1>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInput("full_name", "Full Name")}
+          {this.renderInput("name", "Full Name")}
           {this.renderInput("email", "Email", "email")}
           {this.renderInput("password", "Password", "password")}
           {this.renderButton("Register")}

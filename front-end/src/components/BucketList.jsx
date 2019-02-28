@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
+import { getListItems } from '../services/bucketListService';
+
 
 // max length for taskName is 60 char
 class BucketList extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      listItems: [
-        {
-          _id: 1,
-          name: "Skydiving",
-          isCompleted: false
-        },
-        {
-          _id: 2,
-          name: "Travel Europe",
-          isCompleted: false
-        },
-        {
-          _id: 3,
-          name: "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
-          isCompleted: false
-        }
-      ]
+      user: props.user,
+      listItems: []
     }
+  }
+
+  componentDidMount() {
+    // get bucket list items
+    console.log(this.state.user);
+    let listItems = getListItems(this.state.user);
+    this.setState({ listItems });
+  }
+
+  handleAdd = (item) => {
+    let listItems = [...this.state.listItems];
+    listItems.push(item);
+    this.setState({ listItems });
   }
 
   handleUpdate = (item, newText) => {
@@ -32,6 +32,7 @@ class BucketList extends Component {
     const indexToUpdate = listItems.indexOf(item);
     listItems[indexToUpdate].name = newText;
     this.setState({ listItems });
+
   }
 
   handleDelete = (item) => {
@@ -61,17 +62,30 @@ class BucketList extends Component {
 
   render() {
     return (
-      <div>
-        <ul>
 
-          {this.state.listItems.map(item => (
-            <ListItem key={item._id}
-                      task={item}
-                      onDelete={this.handleDelete}
-                      onComplete={this.handleCompleted}
-                      onUpdate={this.handleUpdate} />
-          ))}
-        </ul>
+      <div>
+        <div className="jumbotron text-center" id="bucket-list-jumbotron">
+          <h1 className="page-title">My Bucket List</h1>
+          <h2 className="sub-header">What have you always wanted to do?</h2>
+
+          <div className="input-group col-md-6 col-md-offset-3">
+            <input type="text" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" />
+            <button className="btn btn-outline-success" type="submit">Add New Task</button>
+          </div>
+        </div>
+
+        <div>
+          <ul>
+            {this.state.listItems.map(item => (
+              <ListItem key={item._id}
+                        task={item}
+                        onDelete={this.handleDelete}
+                        onComplete={this.handleCompleted}
+                        onUpdate={this.handleUpdate} />
+            ))}
+          </ul>
+        </div>
+
       </div>
     );
   }
