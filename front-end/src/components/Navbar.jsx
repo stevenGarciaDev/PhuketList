@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { NavDropdown } from 'react-bootstrap';
 
 class Navbar extends Component {
 
@@ -28,29 +29,20 @@ class Navbar extends Component {
                 </NavLink>
               </li>
 
-              <li className="nav-item dropdown">
-                <NavLink className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Connect
-                </NavLink>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link className="dropdown-item" to="#">Action</Link>
-                  <Link className="dropdown-item" to="#">Another action</Link>
-                  <div className="dropdown-divider"></div>
-                  <Link className="dropdown-item" to="#">Something else here</Link>
-                </div>
-              </li>
+              <NavDropdown title="Connect" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Friends</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Messages</NavDropdown.Item>
+              </NavDropdown>
 
-              <li className="nav-item dropdown">
-                <NavLink className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Account
-                </NavLink>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link className="dropdown-item" to="#">Action</Link>
-                  <Link className="dropdown-item" to="#">Another action</Link>
-                  <div className="dropdown-divider"></div>
-                  <Link className="dropdown-item" to="#">Sign out</Link>
-                </div>
-              </li>
+              <NavDropdown title="Account" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Setting</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">Contact</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  <NavLink className="nav-link" to="/logout">Sign out</NavLink>
+                </NavDropdown.Item>
+              </NavDropdown>
             </React.Fragment>
           }
 

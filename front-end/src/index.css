@@ -33,7 +33,6 @@ code {
 
 .item-modify-options {
   display: flex;
-
 }
 
 .completed-task {
@@ -75,6 +74,7 @@ i {
 /* -------------
 
 ------------- */
+
 
 #bucket-list-jumbotron {
   /* background-color: #fff; */

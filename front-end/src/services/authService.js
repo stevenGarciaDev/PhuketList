@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode';
 const apiEndpoint = apiUrl + "/auth";
 
 export function login(email, password) {
-  return http.post(apiEndpoint, { email,password });
+  return http.post(apiEndpoint, { email, password });
 }
 
 export function getCurrentUser() {

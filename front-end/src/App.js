@@ -5,18 +5,21 @@ import BucketList from './components/BucketList';
 import Navbar from './components/Navbar';
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import Logout from './components/logout';
 import NotFound from "./components/notFound";
 import ProtectedRoute from "./components/common/protectedRoute";
 import { getCurrentUser } from "./services/authService";
 
+
 class App extends Component {
 
-  state = { };
+  state = {
+    user: ''
+  };
 
   componentDidMount() {
     const user = getCurrentUser();
-    console.log("The user is ", user);
-    this.setState({ user });
+    if (user) this.setState({ user });
   }
 
   render() {
@@ -31,6 +34,7 @@ class App extends Component {
             />
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
+            <Route path="/logout" component={Logout} />
             <Route path="/not-found" component={NotFound} />
             <Route path="/" component={LoginForm} />
             <Redirect to="/not-found" />
