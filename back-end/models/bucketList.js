@@ -8,7 +8,10 @@ const bucketListSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  listItems: [listItemSchema]
+  listItems: {
+    type: [listItemSchema],
+    default: []
+  }
 });
 
 const BucketList = mongoose.model("BucketList", bucketListSchema);

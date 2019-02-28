@@ -4,16 +4,17 @@ const auth = require('../middleware/auth');
 const express = require("express");
 const router = express.Router();
 
-// bucket list is req.params.id
+// req.params.id is the user id
 
-router.get('/:id', async (req, res) => {
-  const listItems = await BucketList.findById(req.params.id).select('listItems');
-  console.log("The list items include " + listItems);
+router.get('/:id', auth, async (req, res) => {
+  const listItems = await BucketList
+    .find({ owner: req.params.id })
+    .select('listItems');
   res.send(listItems);
 });
 
 // Create a new List item
-router.post('/:id', (req, res) => {
+router.post('/', auth, (req, res) => {
   const { error } = validateBucketList(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -28,7 +29,7 @@ router.post('/:id', (req, res) => {
 // req.params.id     => bucket list id
 // req.body.prev_id  => previous list item id
 // req.body.taskName => updated task name
-router.put('/:id', (req, res) => {
+router.put('/', auth, (req, res) => {
   const { error } = validateBucketList(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -41,7 +42,7 @@ router.put('/:id', (req, res) => {
   res.send(bucketList.listItems);
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/', auth, (req, res) => {
   const { error } = validateBucketList(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 

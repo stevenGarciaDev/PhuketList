@@ -3,6 +3,7 @@ const config = require('config');
 const auth = require("./routes/auth");
 const bucketList = require("./routes/bucketList");
 const users = require("./routes/users");
+var cors = require('cors');
 const express = require("express");
 const app = express();
 
@@ -15,6 +16,7 @@ mongoose.connect("mongodb://localhost/phuketlist")
   .then(() => console.log("Connected to db"))
   .catch(() => console.log("Unable to connect to db"));
 
+app.use(cors());
 app.use(express.json());
 app.use('/api/users', users);
 app.use('/api/auth', auth);
