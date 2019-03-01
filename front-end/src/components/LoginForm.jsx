@@ -2,13 +2,16 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { login } from "../services/authService";
-import { Link } from 'react-router-dom';
 
 class LoginForm extends Form {
-  state = {
-    data: { email: "", password: "" },
-    errors: {}
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: { email: "", password: "" },
+      errors: {}
+    };
+  }
 
   schema = {
     email: Joi.string()
@@ -24,7 +27,7 @@ class LoginForm extends Form {
     // Call the server
     try {
       const { data } = this.state;
-      const { data: jwt } = await login(data.username, data.password);
+      const { data: jwt } = await login(data.email, data.password);
       localStorage.setItem('token', jwt);
       window.location = "/bucketList";
     }
@@ -46,7 +49,6 @@ class LoginForm extends Form {
           {this.renderInput("password", "Password", "password")}
           {this.renderButton("Login")}
         </form>
-        <Link to="/resetPassword">Forgot password?</Link>
       </div>
     );
   }

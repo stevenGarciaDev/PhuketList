@@ -4,10 +4,14 @@ import Form from "./common/form";
 import { register } from "../services/userService";
 
 class RegisterForm extends Form {
-  state = {
-    data: { name: "", email: "", password: "" },
-    errors: {}
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: { name: "", email: "", password: "" },
+      errors: {}
+    };
+  }
 
   schema = {
     name: Joi.string()

@@ -26,14 +26,9 @@ class ListItem extends Component {
   }
 
   toggleEditMode = () => {
-    console.log('handle edit text');
     this.setState({
       isEditing: !this.state.isEditing
     });
-  }
-
-  retreiveUpdatedText = () => {
-
   }
 
   render() {

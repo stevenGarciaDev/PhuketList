@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class TaskName extends Component {
 
   displayEditableName = () => {
-    let taskName = this.props.task.name;
+    let taskName = this.props.task.taskName;
 
     if (window.innerWidth <= 400) {
       return (
@@ -27,7 +27,7 @@ class TaskName extends Component {
   }
 
   displayFormattedName = () => {
-    let taskName = this.props.task.name;
+    let taskName = this.props.task.taskName;
     let isCompleted = this.props.task.isCompleted;
 
     let classStyles = "task-name";

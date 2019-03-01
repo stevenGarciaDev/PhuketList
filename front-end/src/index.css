@@ -72,12 +72,17 @@ i {
 }
 
 /* -------------
-
+ User's Bucket List Component/Page
 ------------- */
 
 
 #bucket-list-jumbotron {
-  /* background-color: #fff; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(./assets/images/jackie-tsang-458443-unsplash.jpg);
+  height: 500px;
+  width: 100%;
 }
 
 .page-title {
