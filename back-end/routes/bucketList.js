@@ -49,6 +49,34 @@ router.put('/', auth, (req, res) => {
   res.send(bucketList.listItems);
 });
 
+router.put('/:id', auth, async (req, res) => {
+  // retrieve user's bucket list
+  let bucketList = await BucketList.find({ owner: req.params.id });
+  bucketList = bucketList[0];
+  console.log('the bucket list is ...');
+  console.log(bucketList.listItems);
+
+  // find index of item to modify
+  let index = -1;
+  for (let i = 0; i < bucketList.listItems.length; i++) {
+    const currentItem = bucketList.listItems[i];
+    const currentId = String( currentItem._id );
+
+    if (currentId === req.body.item._id) {
+      index = i;
+      break;
+    }
+  }
+
+  // toggle the isCompleted
+  bucketList.listItems[index].isCompleted = !bucketList.listItems[index].isCompleted;
+
+  // save return back to user
+  await bucketList.save();
+
+  res.send(bucketList.listItems);
+});
+
 // remove a list item from user's bucket list
 router.post('/remove/:id', auth, async (req, res) => {
   // retrieve the user's bucket list
@@ -64,7 +92,6 @@ router.post('/remove/:id', auth, async (req, res) => {
 
   res.send(bucketList.listItems);
 });
-
 
 async function removeTask(listId, prevId, taskName) {
   const bucketList = await BucketList.findById(listId);
