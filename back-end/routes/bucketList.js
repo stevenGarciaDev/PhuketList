@@ -1,4 +1,4 @@
-const { BucketList, validateBucketList } = require("../models/bucketList");
+const { BucketList } = require("../models/bucketList");
 const { ListItem } = require("../models/listItem");
 const auth = require('../middleware/auth');
 const express = require("express");
@@ -13,70 +13,97 @@ router.get('/:id', auth, async (req, res) => {
   res.send(listItems);
 });
 
-// Create a new List item
-router.post('/', auth, (req, res) => {
-  console.log("Got the request");
-  const { error } = validateBucketList(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+// Create a new List item for the current bucket list
+router.post('/:id', auth, async (req, res) => {
+  // create list item
+  let listItem = await ListItem.find({ taskName: req.body.taskName });
 
-  const newItem = findOrCreateTask(req.body.taskName);
-  const bucketList = addTask(req.param.id, newItem);
+  if (listItem.length === 0) {
+    listItem = new ListItem({ taskName: req.body.taskName });
+    listItem = await listItem.save();
+  }
 
-  res.send(bucketList.listItems);
+  //retrieve user's bucket list
+  let bucketList = await BucketList.find({ owner: req.params.id });
+
+  // add item to bucket list
+  bucketList[0].listItems.push(listItem);
+  const response = await bucketList[0].save();
+
+  // return updated list to user
+  res.send(bucketList[0].listItems);
 });
 
 // Update a List item in the Bucket List
-// so should get
-// req.params.id     => bucket list id
-// req.body.prev_id  => previous list item id
-// req.body.taskName => updated task name
-router.put('/', auth, (req, res) => {
-  const { error } = validateBucketList(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+router.post('/update/:id', auth, async (req, res) => {
+  // retrieve user's bucket list
+  let bucketList = await BucketList.find({ owner: req.params.id });
+  bucketList = bucketList[0];
 
-  // get the previous list item as to remove it from bucket list
-  let bucketList = removeTask(req.params.id, req.body.prev_id , req.body.taskName);
+  // get the list item
+  let listItem = await ListItem.findById( req.body.item._id );
+  listItem.taskName = req.body.newText;
+  await listItem.save();
 
-  let listItem = findOrCreate(req.body.taskName);
-  bucketList = addTask(req.params.id, listItem);
+  // change the name of the item
+  for (let i = 0; i < bucketList.listItems.length; i++) {
+    const currentItem = bucketList.listItems[i];
+    const currentId = String( currentItem._id );
 
-  res.send(bucketList.listItems);
-});
-
-router.delete('/', auth, (req, res) => {
-  const { error } = validateBucketList(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  const bucketList = removeTask(req.params.id, req.body.prev_id , req.body.taskName);
-  res.send(bucketList.listItems);
-});
-
-
-async function findOrCreateTask(taskName) {
-  let listItem = await ListItem.find({ taskName });
-  //console.log(listItem);
-
-  if (!listItem) {
-    listItem = new ListItem({ taskName: req.body.taskName });
-    listItem.save();
+    if (currentId === req.body.item._id) {
+      bucketList.listItems[i].taskName = req.body.newText;
+      break;
+    }
   }
-  return listItem;
-}
 
-async function addTask(listId, item) {
-  const bucketList = await BucketList.findById(listId);
-  bucketList.listItems.push(item);
-  bucketList.save();
-  return bucketList;
-}
+  // save return back to user
+  await bucketList.save();
 
-async function removeTask(listId, prevId, taskName) {
-  const bucketList = await BucketList.findById(listId);
-  const item = await ListItem.findById(prevId);
+  res.send(bucketList.listItems);
+});
 
-  const indexToDelete = bucketList.listItems.indexOf(item);
-  bucketList.listItems.splice(indexToDelete, 1)
-  return bucketList;
-}
+
+router.put('/:id', auth, async (req, res) => {
+  // retrieve user's bucket list
+  let bucketList = await BucketList.find({ owner: req.params.id });
+  bucketList = bucketList[0];
+
+  // find index of item to modify
+  let index = -1;
+  for (let i = 0; i < bucketList.listItems.length; i++) {
+    const currentItem = bucketList.listItems[i];
+    const currentId = String( currentItem._id );
+
+    if (currentId === req.body.item._id) {
+      index = i;
+      break;
+    }
+  }
+
+  // toggle the isCompleted
+  bucketList.listItems[index].isCompleted = !bucketList.listItems[index].isCompleted;
+
+  // save return back to user
+  await bucketList.save();
+
+  res.send(bucketList.listItems);
+});
+
+// remove a list item from user's bucket list
+router.post('/remove/:id', auth, async (req, res) => {
+  // retrieve the user's bucket list
+  let bucketList = await BucketList.find({ owner: req.params.id });
+  bucketList = bucketList[0];
+
+  // remove the list item from the bucket list
+  bucketList.listItems = bucketList.listItems.filter(item => item._id != req.body.item._id );
+  await bucketList.save();
+
+  // remove the list item
+  await ListItem.deleteOne({ _id: req.body.item._id });
+
+  res.send(bucketList.listItems);
+});
+
 
 module.exports = router;

@@ -16,13 +16,4 @@ const bucketListSchema = new mongoose.Schema({
 
 const BucketList = mongoose.model("BucketList", bucketListSchema);
 
-function validateBucketList(list) {
-  const schema = {
-    owner: Joi.objectid().required
-  }
-
-  return Joi.validate(list, schema);
-}
-
 module.exports.BucketList = BucketList;
-module.exports.validateBucketList = validateBucketList;
