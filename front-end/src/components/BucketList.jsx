@@ -9,7 +9,7 @@ class BucketList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      listItems: []
+      listItems: [],
     }
   }
 
@@ -24,9 +24,9 @@ class BucketList extends Component {
     this.setState({ listItems });
   }
 
-  handleAdd = () => {    
+  handleAdd = () => {
     const user = getCurrentUser();
-    const newTaskName = document.querySelector('#new_task').value;
+    const newTaskName = document.getElementById('new_task').value;
     const jwt = localStorage.getItem('token');
 
     // create a new list item
@@ -36,9 +36,6 @@ class BucketList extends Component {
   }
 
   handleUpdate = (item, newText) => {
-
-
-
     const user = getCurrentUser();
     const jwt = localStorage.getItem('token');
 
@@ -92,7 +89,9 @@ class BucketList extends Component {
 
             <form onSubmit={this.handleAdd} className="input-group col-md-6 col-md-offset-3">
               <input type="text" name="new_task" id="new_task" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" />
-              <button className="btn btn-outline-success" type="submit">Add New Task</button>
+              <div className="input-group-append">
+                <button className="btn btn-outline-success" type="submit">Add New Task</button>
+              </div>
             </form>
           </div>
         </div>

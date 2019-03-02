@@ -9,7 +9,7 @@ class Navbar extends Component {
 
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <Link className="navbar-brand" to="#">PhuketList</Link>
+          <Link className="navbar-brand" to="/bucketList">PhuketList</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -21,25 +21,25 @@ class Navbar extends Component {
           {user &&
             <React.Fragment>
               <li className="nav-item">
-                <NavLink className="nav-link" to="#">MyList <span className="sr-only">(current)</span></NavLink>
+                <NavLink className="nav-link" to="/bucketList">MyList <span className="sr-only">(current)</span></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="#">
+                <NavLink className="nav-link" to="/dashboard">
                   Dashboard
                 </NavLink>
               </li>
 
               <NavDropdown title="Connect" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Friends</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Messages</NavDropdown.Item>
+                <Link className="nav-link dropdown-item" to="/friends">Friends</Link>
+                <Link className="nav-link dropdown-item" to="/messages">Messages</Link>
               </NavDropdown>
 
               <NavDropdown title="Account" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Setting</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Contact</NavDropdown.Item>
+                <Link className="nav-link dropdown-item" to="/myProfile">My Profile</Link>
+                <Link className="nav-link dropdown-item" to="/settings">Setting</Link>
+                <Link className="nav-link dropdown-item" to="/contact">Contact</Link>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
+                <NavDropdown.Item>
                   <NavLink className="nav-link" to="/logout">Sign out</NavLink>
                 </NavDropdown.Item>
               </NavDropdown>
