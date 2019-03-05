@@ -46,15 +46,19 @@ class RegisterForm extends Form {
 
   render() {
     return (
-      <div className="container authenticate-form">
-        <h1>Register</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("name", "Full Name")}
-          {this.renderInput("email", "Email", "email")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderButton("Register")}
-        </form>
-      </div>
+      <React.Fragment>
+        <div className="jumbotron" id="auth-jumbotron"></div>
+        
+        <div className="authenticate-form">
+          <h1>Register</h1>
+          <form onSubmit={this.handleSubmit}>
+            {this.renderInput("name", "Full Name")}
+            {this.renderInput("email", "Email", "email")}
+            {this.renderInput("password", "Password", "password")}
+            {this.renderButton("Register")}
+          </form>
+        </div>
+      </React.Fragment>
     );
   }
 }

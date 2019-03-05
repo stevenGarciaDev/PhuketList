@@ -42,14 +42,18 @@ class LoginForm extends Form {
 
   render() {
     return (
-      <div className="container authenticate-form">
-        <h1>Login</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("email", "Email", "email")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderButton("Login")}
-        </form>
-      </div>
+      <React.Fragment>
+        <div className="jumbotron" id="auth-jumbotron"></div>
+
+        <div className="authenticate-form">
+            <h1>Login</h1>
+            <form onSubmit={this.handleSubmit}>
+              {this.renderInput("email", "Email", "email")}
+              {this.renderInput("password", "Password", "password")}
+              {this.renderButton("Login")}
+            </form>
+        </div>
+      </React.Fragment>
     );
   }
 }

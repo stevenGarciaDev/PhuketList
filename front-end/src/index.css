@@ -47,7 +47,15 @@ code {
 }
 
 .authenticate-form {
-  margin-top: 30px;
+  color: white;
+  top: 150px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 80%;
 }
 
 label {
@@ -72,9 +80,22 @@ i {
 }
 
 /* -------------
- User's Bucket List Component/Page
+ Login and Register
 ------------- */
 
+#auth-jumbotron {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(./assets/images/jailam-rashad-1061261-unsplash.jpg);
+  filter: brightness(50%);
+  height: 700px;
+  width: 100%;
+}
+
+/* -------------
+ User's Bucket List Component/Page
+------------- */
 
 #bucket-list-jumbotron {
   background-position: center;
