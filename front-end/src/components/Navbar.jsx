@@ -51,6 +51,9 @@ class Navbar extends Component {
                 Login
               </NavLink>
 
+              <li><Link to={'/myProfile'} className="nav-link">Account Profile</Link></li>
+              
+
               <NavLink className="nav-link" to="/register">
                 Register
               </NavLink>
