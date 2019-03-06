@@ -43,7 +43,7 @@ class App extends Component {
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/friends" component={FriendsList} />
             <Route path="/messages" component={Messages} />
-            <Route path="/myProfile" component={Profile} />
+            <Route path="/myProfile" render={(props) => <Profile user={this.state.user} /> } />
             <Route path="/settings" component={Settings} />
             <Route path="/contact" component={Contact} />
             <Route path="/not-found" component={NotFound} />
