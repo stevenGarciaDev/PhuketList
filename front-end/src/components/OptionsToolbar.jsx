@@ -12,6 +12,7 @@ class OptionsToolbar extends Component {
 
   displayOptions = () => {
     const { isEditing } = this.props;
+
     if (isEditing) {
       return (
         <React.Fragment>
@@ -19,7 +20,8 @@ class OptionsToolbar extends Component {
             <i className="fa fa-check fa-2x"
                aria-hidden="true"
                style={{ cursor: 'pointer' }}
-               onClick={ () => {
+               onClick={ (e) => {
+                 e.preventDefault();
                  this.props.onUpdate( this.props.item,
                    document.getElementById(`${this.props.item._id}`).value);
                  this.props.onEdit();

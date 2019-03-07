@@ -51,7 +51,7 @@ class BucketList extends Component {
 
   handleUpdate = (item, newText) => {
     const originalList = this.state.listItems;
-    const updatedList = [this.state.listItems];
+    const updatedList = [...this.state.listItems];
     const index = updatedList.indexOf(item);
     updatedList[index] = { taskName: newText, isCompleted: false };
     this.setState({ listItems: updatedList });
@@ -60,11 +60,7 @@ class BucketList extends Component {
       const user = getCurrentUser();
       const jwt = localStorage.getItem('token');
 
-      const response = updateTask(user, item, newText, jwt);
-      response.then(result => {
-        const listItems = result.data;
-        this.setState({ listItems });
-      });
+      updateTask(user, item, newText, jwt);
     }
     catch (ex) {
       alert('Unable to update the list.');
