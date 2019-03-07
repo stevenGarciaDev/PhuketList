@@ -24,28 +24,52 @@ class BucketList extends Component {
     this.setState({ listItems });
   }
 
-  handleAdd = () => {
-    const user = getCurrentUser();
-    const newTaskName = document.getElementById('new_task').value;
-    const jwt = localStorage.getItem('token');
+  handleAdd = e => {
+    e.preventDefault();
 
-    // create a new list item
-    const response = findOrCreateTask(user, newTaskName, jwt);
-    const listItems = response.data[0].listItems;
-    this.setState({ listItems });
+    const newTaskName = document.getElementById('new_task').value;
+    const originalList = this.state.listItems;
+    let updatedList = [...this.state.listItems];
+    const newItem = { taskName: newTaskName, isCompleted: false };
+    updatedList.push(newItem);
+    this.setState({ listItems: updatedList });
+
+    try {
+      const user = getCurrentUser();
+      const jwt = localStorage.getItem('token');
+
+      // create a new list item
+      findOrCreateTask(user, newTaskName, jwt);
+      //const listItems = response.data[0].listItems;
+      //this.setState({ listItems });
+    }
+    catch (ex) {
+      alert('Unable to add item.');
+      this.setState({ listItems: originalList });
+    }
   }
 
   handleUpdate = (item, newText) => {
-    const user = getCurrentUser();
-    const jwt = localStorage.getItem('token');
+    const originalList = this.state.listItems;
+    const updatedList = [this.state.listItems];
+    const index = updatedList.indexOf(item);
+    updatedList[index] = { taskName: newText, isCompleted: false };
+    this.setState({ listItems: updatedList });
 
-    const response = updateTask(user, item, newText, jwt);
-    console.log(typeof response);
+    try {
+      const user = getCurrentUser();
+      const jwt = localStorage.getItem('token');
 
-    response.then(result => {
-      const listItems = result.data;
-      this.setState({ listItems });
-    });
+      const response = updateTask(user, item, newText, jwt);
+      response.then(result => {
+        const listItems = result.data;
+        this.setState({ listItems });
+      });
+    }
+    catch (ex) {
+      alert('Unable to update the list.');
+      this.setState({ listItems: originalList });
+    }
   }
 
   handleDelete = async (item) => {

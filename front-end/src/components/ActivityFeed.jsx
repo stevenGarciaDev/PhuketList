@@ -4,8 +4,13 @@ class ActivityFeed extends Component {
 
   render() {
     return (
-      <div>
-        Dashboard
+      <div className="ActivityFeed">
+        <aside className="activity-profile-content">
+
+        </aside>
+        <div className="activity-content">
+          
+        </div>
       </div>
     );
   }
