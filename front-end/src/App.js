@@ -5,7 +5,7 @@ import BucketList from './components/BucketList';
 import Navbar from './components/Navbar';
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
-import Dashboard from "./components/Dashboard";
+import ActivityFeed from "./components/ActivityFeed";
 import FriendsList from "./components/FriendsList";
 import Messages from "./components/Messages";
 import Profile from "./components/Profile";
@@ -40,7 +40,7 @@ class App extends Component {
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
             <Route path="/logout" component={Logout} />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/activityFeed" component={ActivityFeed} />
             <Route path="/friends" component={FriendsList} />
             <Route path="/messages" component={Messages} />
             <Route path="/myProfile" render={(props) => <Profile user={this.state.user} /> } />

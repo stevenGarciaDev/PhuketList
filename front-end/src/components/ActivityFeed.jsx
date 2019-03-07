@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Dashboard extends Component {
+class ActivityFeed extends Component {
 
   render() {
     return (
@@ -9,7 +9,7 @@ class Dashboard extends Component {
       </div>
     );
   }
-  
+
 }
 
-export default Dashboard;
+export default ActivityFeed;
