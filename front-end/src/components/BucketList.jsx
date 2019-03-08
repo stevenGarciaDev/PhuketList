@@ -40,8 +40,6 @@ class BucketList extends Component {
 
       // create a new list item
       findOrCreateTask(user, newTaskName, jwt);
-      //const listItems = response.data[0].listItems;
-      //this.setState({ listItems });
     }
     catch (ex) {
       alert('Unable to add item.');

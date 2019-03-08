@@ -28,9 +28,6 @@ class Navbar extends Component {
                 </NavLink>
               </li>
 
-              <li><Link to={'/myProfile'} className="nav-link">Account Profile</Link></li>
-
-
               <NavDropdown title="Connect" id="basic-nav-dropdown">
                 <Link className="nav-link dropdown-item" to="/friends">Friends</Link>
                 <Link className="nav-link dropdown-item" to="/messages">Messages</Link>
