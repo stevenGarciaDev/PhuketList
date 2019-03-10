@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import ListItem from './ListItem';
-import { getListItems, findOrCreateTask, removeTask, toggleComplete, updateTask } from '../services/bucketListService';
+import { getListItems, seachListItems, findOrCreateTask, removeTask, toggleComplete, updateTask } from '../services/bucketListService';
 import { getCurrentUser } from '../services/authService';
 
 // max length for taskName is 60 char
@@ -10,6 +11,7 @@ class BucketList extends Component {
     super(props);
     this.state = {
       listItems: [],
+      searchResults: [],
     }
   }
 
@@ -94,6 +96,17 @@ class BucketList extends Component {
     return false;
   }
 
+  handleChange(event) {
+    if (!event) return;
+    var searchInput = event.target.value;
+    searchInput = searchInput.toLowerCase(); // Lowercase for uniform search
+
+    console.log("Searching: " + searchInput);
+    const response = seachListItems(searchInput);
+    const listItems = response;
+    console.log(response);
+  }
+
   render() {
     const { listItems } = this.state;
     const { user } = this.props;
@@ -106,7 +119,7 @@ class BucketList extends Component {
             <h2 className="sub-header">What have you always wanted to do?</h2>
 
             <form onSubmit={this.handleAdd} className="input-group col-md-6 col-md-offset-3">
-              <input type="text" name="new_task" id="new_task" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" />
+              <input onChange={this.handleChange} type="text" autoComplete="off" name="new_task" id="new_task" className="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" />
               <div className="input-group-append">
                 <button className="btn btn-outline-success" type="submit">Add New Task</button>
               </div>

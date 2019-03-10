@@ -2,10 +2,16 @@ import http from './httpService';
 import { apiUrl } from "../config.json";
 
 const apiEndpoint = apiUrl + "/bucketList";
+const apiEndpointListItems = apiUrl + "/ListItem";
 
 export async function getListItems(user, jwt) {
   const response = await http.get(`${apiEndpoint}/${user._id}`,
      { 'headers': {'x-auth-token': jwt } });
+  return response;
+}
+
+export async function seachListItems(item) {
+  const response = await http.get(`${apiEndpointListItems}/${item}`);
   return response;
 }
 
