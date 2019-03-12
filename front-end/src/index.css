@@ -119,6 +119,44 @@ i {
    margin: 0 auto;
 }
 
+/* -------------
+ Activity Feed
+------------- */
+
+.activity-content {
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  margin: 10px;
+}
+
+.Post {
+  display: grid;
+}
+
+.post-profile-img {
+  background-image: url(./assets/images/dog1-sq.jpg);
+  background-size: cover;
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+}
+
+.post-author {
+
+}
+
+.post-date {
+
+}
+
+.post-content {
+
+}
+
+.post-img {
+
+}
+
 @media (min-width: 1200px) {
 
   .ListItem {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Post from './post';
 
 class ActivityFeed extends Component {
 
@@ -9,7 +10,7 @@ class ActivityFeed extends Component {
 
         </aside>
         <div className="activity-content">
-          
+          <Post />
         </div>
       </div>
     );
