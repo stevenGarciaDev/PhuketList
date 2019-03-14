@@ -45,4 +45,10 @@ router.post("/", async (req, res) => {
     });
 });
 
+router.post('/updateProfile', async (req, res) => {
+  // receive uploaded image and bio
+
+  // save to db
+});
+
 module.exports = router;
