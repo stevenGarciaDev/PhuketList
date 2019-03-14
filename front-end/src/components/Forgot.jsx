@@ -25,7 +25,7 @@ class Forgot extends Form {
           <React.Fragment>
             <div className="jumbotron" id="auth-jumbotron"></div>
     
-            <div className="authenticate-form">
+            <div className="Forgot-form">
                 <h1>Forgot Password</h1>
                 <form onSubmit={this.handleSubmit}>
                   {this.renderInput("email", "Email", "email")}
