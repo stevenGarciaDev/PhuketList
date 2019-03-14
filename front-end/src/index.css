@@ -123,38 +123,59 @@ i {
  Activity Feed
 ------------- */
 
+.ActivityFeed {
+  background-color: #f5f8fa;
+}
+
 .activity-content {
   border: 1px solid #cccccc;
-  border-radius: 2px;
+  border-radius: 5px;
   margin: 10px;
 }
 
 .Post {
   display: grid;
+  background-color: #fff;
 }
 
 .post-profile-img {
   background-image: url(./assets/images/dog1-sq.jpg);
   background-size: cover;
   height: 42px;
+  margin-top: 10px;
+  margin-left: 5px;
   width: 42px;
   border-radius: 50%;
 }
 
 .post-author {
-
+  font-size: 14px;
+  position: relative;
+  top: -30px;
+  left: -100px;
 }
 
 .post-date {
-
+  color: #6c757d;
+  font-size: 12px;
+  position: relative;
+  top: -50px;
+  right: -140px;
 }
 
 .post-content {
-
+  margin: 15px;
+  position: relative;
+  top: -40px;
+  text-align: left;
+  font-size: 13px;
 }
 
 .post-img {
-
+  width: 80%;
+  margin: 0 auto;
+  margin-top: -10px;
+  margin-bottom: 20px;
 }
 
 @media (min-width: 1200px) {
