@@ -128,14 +128,15 @@ i {
 }
 
 .activity-content {
-  border: 1px solid #cccccc;
-  border-radius: 5px;
-  margin: 10px;
+  margin: 0 auto;
 }
 
 .Post {
   display: grid;
   background-color: #fff;
+  border: 1px solid #cccccc;
+  border-bottom: none;
+  position: relative;
 }
 
 .post-profile-img {
@@ -150,21 +151,22 @@ i {
 
 .post-author {
   font-size: 14px;
-  position: relative;
-  top: -30px;
-  left: -100px;
+  position: absolute;
+  top: 20px;
+  left: 55px;
 }
 
 .post-date {
   color: #6c757d;
   font-size: 12px;
+  text-align: right;
   position: relative;
-  top: -50px;
-  right: -140px;
+  top: -30px;
+  right: 15px;
 }
 
 .post-content {
-  margin: 15px;
+  margin: 30px 15px 15px 15px;
   position: relative;
   top: -40px;
   text-align: left;
@@ -178,7 +180,19 @@ i {
   margin-bottom: 20px;
 }
 
+@media (min-width: 800px) {
+
+  .activity-content {
+    width: 50%;
+  }
+
+}
+
 @media (min-width: 1200px) {
+
+  .activity-content {
+    width: 580px;
+  }
 
   .ListItem {
     max-width: 80%;
@@ -190,9 +204,8 @@ i {
 
 @media (min-width: 1200px) {
 
-
-
   .item-modify-options span {
     margin: 0px 20px;
   }
+
 }
