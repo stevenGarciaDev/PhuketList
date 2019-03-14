@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import BucketList from './components/BucketList';
 import Navbar from './components/Navbar';
 import LoginForm from "./components/LoginForm";
+import Forgot from "./components/Forgot";
 import RegisterForm from "./components/RegisterForm";
 import ActivityFeed from "./components/ActivityFeed";
 import FriendsList from "./components/FriendsList";
@@ -40,6 +41,7 @@ class App extends Component {
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
             <Route path="/logout" component={Logout} />
+            <Route path="/Forgot" component={Forgot} />
             <Route path="/activityFeed" component={ActivityFeed} />
             <Route path="/friends" component={FriendsList} />
             <Route path="/messages" component={Messages} />

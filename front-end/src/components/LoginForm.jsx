@@ -40,6 +40,10 @@ class LoginForm extends Form {
     }
   };
 
+  forgotPage = () =>{
+    window.location = "/Forgot";
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -51,6 +55,10 @@ class LoginForm extends Form {
               {this.renderInput("email", "Email", "email")}
               {this.renderInput("password", "Password", "password")}
               {this.renderButton("Login")}
+              {<button onClick={this.forgotPage} variant="primary" size="sm" className = "smButton">
+              Forgot Password
+              </button>}
+              {}
             </form>
         </div>
       </React.Fragment>
