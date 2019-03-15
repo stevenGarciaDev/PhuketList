@@ -2,7 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { login } from "../services/authService";
-
+import { Link } from "react-router-dom";
 class LoginForm extends Form {
 
   constructor(props) {
@@ -55,9 +55,7 @@ class LoginForm extends Form {
               {this.renderInput("email", "Email", "email")}
               {this.renderInput("password", "Password", "password")}
               {this.renderButton("Login")}
-              {<button onClick={this.forgotPage} variant="primary" size="sm" className = "smButton">
-              Forgot Password
-              </button>}
+              <Link to="/Forgot">Forgot password?</Link>
               {}
             </form>
         </div>
