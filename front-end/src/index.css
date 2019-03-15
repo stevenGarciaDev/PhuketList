@@ -180,6 +180,46 @@ i {
   margin-bottom: 20px;
 }
 
+/* -------
+User Profile
+--------- */
+
+.profile-container {
+  background-image: url(./assets/images/will-truettner-1380995-unsplash.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 550px;
+}
+
+.profile-headshot-container {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  margin: 0 auto;
+  padding: 10px;
+  width: 275px;
+  height: 330px;
+  margin-bottom: 10px;
+}
+
+.profile-name {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.profile-img {
+  background-image: url(./assets/images/dog1-sq.jpg);
+  background-size: cover;
+  border: 1px solid #fff;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}
+
 @media (min-width: 800px) {
 
   .activity-content {

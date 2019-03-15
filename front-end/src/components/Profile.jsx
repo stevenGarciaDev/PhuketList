@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-//import { AppRegistry, Text, StyleSheet } from 'react-native';
-
 import Jumbotron from 'react-bootstrap/Jumbotron';
+//import { AppRegistry, Text, StyleSheet } from 'react-native';
 
 class Profile extends Component {
 
@@ -26,25 +25,25 @@ class Profile extends Component {
 
       return (
         <div>
-          <div className="profile-btn-container">
-            <button className="btn btn-success" onClick={() => this.toggleEdit()}>Save Changes</button>
-          </div>
+          <div className="jumbotron profile-container">
+             <div className="profile-headshot-container">
+                <img className="profile-img" />
 
-           <div>
-                 {`${user.name}'s Profile` }
+                <p className="profile-name">{user.name}</p>
+
+                <div>
+                   <textarea />
+                   <div>
+                     I like peanut butter!
+                   </div>
+
+                </div>
+             </div>
+
+             <div className="profile-btn-container">
+               <button className="btn btn-success" onClick={() => this.toggleEdit()}>Save Changes</button>
+             </div>
            </div>
-
-           <div>
-                  Your Bio
-                    <div>
-                    {`${user.bio}` }
-                    </div>
-           </div>
-
-           <div>
-              Pictures
-           </div>
-
         </div>
       );
 
@@ -52,32 +51,29 @@ class Profile extends Component {
 
         return (
           <div>
-            <div className="profile-btn-container">
-              <button className="btn btn-info" onClick={() => this.toggleEdit()}>Edit Profile</button>
+            <div className="jumbotron profile-container">
+
+              <div className="profile-headshot-container">
+                 <img className="profile-img" />
+
+                 <p className="profile-name">{user.name}</p>
+
+                  <div>
+                    I like peanut butter!
+                  </div>
+
+              </div>
+
+               <div className="profile-btn-container">
+                 <button className="btn btn-info" onClick={() => this.toggleEdit()}>Edit Profile</button>
+               </div>
             </div>
-
-             <div className="profile-">
-                   {`${user.name}'s Profile` }
-             </div>
-
-             <div>
-                    Your Bio
-                      <div>
-                      {`${user.bio}` }
-                      </div>
-             </div>
-
-             <div>
-                Pictures
-             </div>
-
           </div>
       );
     }
   }
 
   render() {
-
 
     return (
       <div>
