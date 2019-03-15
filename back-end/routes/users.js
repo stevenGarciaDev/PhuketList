@@ -45,6 +45,12 @@ router.post("/", async (req, res) => {
     });
 });
 
+router.get('/publicUsers', async (req, res) => {
+  const users = await User.find({ isPrivateProfile: false });
+  console.log('Users are', users);
+  res.send(users);
+});
+
 router.post('/updateProfile', async (req, res) => {
   // receive uploaded image and bio
 
