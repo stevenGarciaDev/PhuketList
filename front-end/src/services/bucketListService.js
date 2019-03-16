@@ -53,11 +53,3 @@ export async function updateTask(user, item, newText, jwt) {
   return response;
 }
 
-export async function updateProfile(user, bio, bioText, jwt) {
-  const response = await http.post(`${apiEndpoint}/update/${user._id}`,
-    { bio, bioText },
-    { 'headers': {'x-auth-token': jwt }
-  });
-
-  return response;
-}
