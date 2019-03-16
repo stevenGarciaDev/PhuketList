@@ -30,6 +30,7 @@ class Form extends Component {
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
+
     if (errors) return;
 
     this.doSubmit();
@@ -54,8 +55,8 @@ class Form extends Component {
       </button>
     );
   }
-  
-  renderInput(name, label, type = "text") {
+
+  renderInput(name, label, type = "text", placeholder = "") {
     const { data, errors } = this.state;
 
     return (
@@ -66,6 +67,7 @@ class Form extends Component {
         label={label}
         onChange={this.handleChange}
         error={errors[name]}
+        placeholder={placeholder}
       />
     );
   }
