@@ -86,12 +86,22 @@ class BucketList extends Component {
   };
 
   handleCompleted = async item => {
-    const user = getCurrentUser();
-    const jwt = localStorage.getItem("token");
+    const originalList = this.state.listItems;
+    const modifiedList = [...this.state.listItems];
+    const index = modifiedList.indexOf(item);
+    modifiedList[index].isCompleted = !modifiedList[index].isCompleted;
+    this.setState({ listItems: modifiedList });
 
-    const response = await toggleComplete(user, item, jwt);
-    const listItems = response.data;
-    this.setState({ listItems: listItems });
+    try {
+      const user = getCurrentUser();
+      const jwt = localStorage.getItem("token");
+
+      const response = await toggleComplete(user, item, jwt);
+      const listItems = response.data;
+    } catch (ex) {
+      this.setState({ listItems: originalList });
+    }
+
   };
 
   confirmDelete = item => {
