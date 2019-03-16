@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 
 class OptionsToolbar extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditing: false
+    };
+  }
+
   editText = () => {
     const { isEditing } = this.props;
     console.log("isEditing", isEditing);
