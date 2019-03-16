@@ -40,7 +40,7 @@ class LoginForm extends Form {
     }
   };
 
-  forgotPage = () =>{
+  forgotPage = () => {
     window.location = "/Forgot";
   }
 
