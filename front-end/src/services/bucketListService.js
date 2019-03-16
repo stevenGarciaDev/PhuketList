@@ -10,8 +10,8 @@ export async function getListItems(user, jwt) {
   return response;
 }
 
-export async function seachListItems(item) {
-  const response = await http.get(`${apiEndpointListItems}/${item}`);
+export async function getLikeTasks(item) {
+  const response = await http.get(`${apiEndpointListItems}/task?q=${item}`);
   return response;
 }
 
