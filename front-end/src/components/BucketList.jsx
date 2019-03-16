@@ -76,12 +76,22 @@ class BucketList extends Component {
 
   handleDelete = async item => {
     if (this.confirmDelete(item)) {
-      const user = getCurrentUser();
-      const jwt = localStorage.getItem("token");
+      const originalList = this.state.listItems;
+      const modifiedList = [...this.state.listItems];
+      const index = modifiedList.indexOf(item);
+      modifiedList.splice(index, 1);
+      this.setState({ listItems: modifiedList });
 
-      const response = await removeTask(user, item, jwt);
-      const listItems = response.data;
-      this.setState({ listItems: listItems });
+      try {
+        const user = getCurrentUser();
+        const jwt = localStorage.getItem("token");
+
+        const response = await removeTask(user, item, jwt);
+        //const listItems = response.data;
+      } catch (ex) {
+        alert('Unable to delete item.');
+        this.setState({ listItems: originalList });
+      }
     }
   };
 

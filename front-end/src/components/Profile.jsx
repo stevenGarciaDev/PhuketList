@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import {
- 
+
   updateProfile
 } from "../services/userService";
 
@@ -18,13 +18,6 @@ class Profile extends Component {
       isEditing: false
     }
   }
-
-
-
-
-
-
-
 
   handleUpdate = (bio, bioText) => {
     //const originalList = this.props;
@@ -43,11 +36,6 @@ class Profile extends Component {
       //this.setState({ listItems: originalList });
     }
   };
-
-
-
-
-
 
   toggleEdit = () => {
     this.setState({
@@ -70,11 +58,11 @@ class Profile extends Component {
                 <p className="profile-name">{user.name}</p>
 
                 <div>
-                   <textarea />
-                   {this.handleUpdate( user.bio, "zxaxzxxzx")} 
+                   <textarea className="form-control" />
+                   {this.handleUpdate( user.bio, "zxaxzxxzx")}
                    <div>
-                   {user.bio} 
-                   
+                   {user.bio}
+
                    </div>
 
                 </div>
