@@ -37,6 +37,9 @@ class BucketList extends Component {
 
   handleAdd = e => {
     e.preventDefault();
+    if (document.getElementById("new_task").value.length < 5) {
+      return;
+    }
 
     const newTaskName = document.getElementById("new_task").value;
     const originalList = this.state.listItems;
@@ -123,7 +126,7 @@ class BucketList extends Component {
     var searchInput = e.target.value;
     this.setState({searchInput: searchInput});
     searchInput = searchInput.toLowerCase(); // Lowercase for uniform search
-    if (searchInput.length > 1) {
+    if (searchInput.length > 0) {
       console.log("Searching: " + searchInput);
       const response = getLikeTasks(searchInput); // Query from
       response.then(
