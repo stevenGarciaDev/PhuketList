@@ -1,4 +1,4 @@
-3const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const Joi = require("joi");
 const config = require('config');
 const jwt = require('jsonwebtoken');
