@@ -48,7 +48,7 @@ class RegisterForm extends Form {
     return (
       <React.Fragment>
         <div className="jumbotron" id="auth-jumbotron"></div>
-        
+
         <div className="authenticate-form">
           <h1>Register</h1>
           <form onSubmit={this.handleSubmit}>

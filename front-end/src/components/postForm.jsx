@@ -6,7 +6,7 @@ class PostForm extends Form {
   constructor(props) {
     super(props);
     this.state = {
-      data: { post: "", image: ""},
+      data: { text: "", image: ""},
       errors: {}
     };
   }
@@ -33,6 +33,9 @@ class PostForm extends Form {
           <span>
             <i className="fa fa-camera fa-2x" aria-hidden="true"></i>
           </span>
+          <div>
+          <button id="post-btn" className="btn btn-info btn-block">Post</button>
+          </div>
         </form>
       </div>
     )

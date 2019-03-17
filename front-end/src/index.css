@@ -204,6 +204,12 @@ i {
   width: 80%;
 }
 
+#post-btn {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  width: 80%;
+}
+
 /* -------
 User Profile
 --------- */
@@ -246,7 +252,7 @@ User Profile
 
 @media (min-width: 800px) {
 
-  .activity-content {
+  .activity-content, #post-btn {
     width: 50%;
   }
 
@@ -259,7 +265,7 @@ User Profile
 
 @media (min-width: 1200px) {
 
-  .activity-content {
+  .activity-content, #post-btn {
     width: 580px;
   }
 
