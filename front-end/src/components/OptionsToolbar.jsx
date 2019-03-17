@@ -18,12 +18,12 @@ class OptionsToolbar extends Component {
                aria-hidden="true"
                onClick={ (e) => {
                  e.preventDefault();
-                 console.log(`Value is ${item._id}`);
+                 console.log(`Value is ${item.taskName}`);
                  this.props.onUpdate(
                    this.props.item,
-                   document.getElementById(`${item._id}`).value
+                   document.getElementById(`${item.taskName}`).value
                  );
-                 console.log(document.getElementById(`${item._id}`).value);
+                 console.log(document.getElementById(`${item.taskName}`).value);
                  this.props.onEdit();
                }}></i>
           </span>
