@@ -15,6 +15,11 @@ export async function getLikeTasks(item) {
   return response;
 }
 
+export async function getListItem(itemid) {
+  const response = await http.get(`${apiEndpointListItems}/${itemid}`);
+  return response;
+}
+
 export async function findOrCreateTask(user, name, jwt) {
   const response = await http.post(`${apiEndpoint}/${user._id}`,
     { taskName: name },

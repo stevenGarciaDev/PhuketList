@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 
+// Get a set of tasks similar to query parameter.
 router.get('/task', async (req, res) => {
 	const searchKeyword = req.query.q;
 	const listItem = await ListItem.find(
@@ -14,14 +15,14 @@ router.get('/task', async (req, res) => {
 			});
 });
 
+// Get a particular list item
+router.get('/:id', async (req, res) => {
+  const listItem = await ListItem.findById(req.params.id);
+  res.send(listItem);
+});
+
 // ALL THIS IS UNNECESSARY FOR NOW
 // WILL DELETE IN FUTURE IF WE STILL HAVE NO USE FOR IT.
-
-// Get a particular list item
-//router.get('/:id', async (req, res) => {
-//  const listItem = await ListItem.findById(req.params.id);
-//  res.send(listItem);
-//});
 
 // Get all list items
 //router.get('/', async (req, res) => {

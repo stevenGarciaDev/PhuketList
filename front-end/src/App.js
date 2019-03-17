@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import BucketList from './components/BucketList';
+import TaskGroup from './components/TaskGroup';
 import Navbar from './components/Navbar';
 import LoginForm from "./components/LoginForm";
 import Forgot from "./components/Forgot";
@@ -38,6 +39,7 @@ class App extends Component {
               path="/bucketList"
               render={(props) => <BucketList user={this.state.user} {...props} /> }
             />
+            <Route path="/taskgroup/:task_id" component={TaskGroup} />
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
             <Route path="/logout" component={Logout} />

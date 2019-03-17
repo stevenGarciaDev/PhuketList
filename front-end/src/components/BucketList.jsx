@@ -18,6 +18,7 @@ class BucketList extends Component {
     super(props);
     this.state = {
       listItems: [],
+      searchCurrent: '',
       searchResults: [],
       loading: ""
     };
@@ -57,31 +58,34 @@ class BucketList extends Component {
   };
 
   handleUpdate = (item, newText) => {
-    const originalList = this.state.listItems;
-    const updatedList = [...this.state.listItems];
-    const index = updatedList.indexOf(item);
-    updatedList[index] = { taskName: newText, isCompleted: false };
-    this.setState({ listItems: updatedList });
+    const user = getCurrentUser();
+    const jwt = localStorage.getItem("token");
 
-    try {
-      const user = getCurrentUser();
-      const jwt = localStorage.getItem("token");
-
-      updateTask(user, item, newText, jwt);
-    } catch (ex) {
-      alert("Unable to update the list.");
-      this.setState({ listItems: originalList });
-    }
+    const response = updateTask(user, item, newText, jwt);
+    response.then(result => {
+      const updatedList = result.data;
+      this.setState({ listItems: updatedList });
+    });
   };
 
   handleDelete = async item => {
     if (this.confirmDelete(item)) {
-      const user = getCurrentUser();
-      const jwt = localStorage.getItem("token");
+      const originalList = this.state.listItems;
+      const modifiedList = [...this.state.listItems];
+      const index = modifiedList.indexOf(item);
+      modifiedList.splice(index, 1);
+      this.setState({ listItems: modifiedList });
 
-      const response = await removeTask(user, item, jwt);
-      const listItems = response.data;
-      this.setState({ listItems: listItems });
+      try {
+        const user = getCurrentUser();
+        const jwt = localStorage.getItem("token");
+
+        const response = await removeTask(user, item, jwt);
+        //const listItems = response.data;
+      } catch (ex) {
+        alert('Unable to delete item.');
+        this.setState({ listItems: originalList });
+      }
     }
   };
 
@@ -117,6 +121,7 @@ class BucketList extends Component {
   onChange = e => {
     if (!e) return;
     var searchInput = e.target.value;
+    this.setState({searchInput: searchInput});
     searchInput = searchInput.toLowerCase(); // Lowercase for uniform search
     if (searchInput.length > 1) {
       console.log("Searching: " + searchInput);
@@ -147,6 +152,7 @@ class BucketList extends Component {
                     selection.taskName
                   }`)
                 }
+                onOuterClick={() => (document.getElementById("new_task").value = this.state.searchInput)}
               >
                 {({
                   getInputProps,

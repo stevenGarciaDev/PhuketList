@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import {
- 
+
   updateProfile
 } from "../services/userService";
 
 import { getCurrentUser } from "../services/authService";
 
-import axios from 'axios';
-import { apiUrl } from "../config.json";
 
 //import { AppRegistry, Text, StyleSheet } from 'react-native';
-
-const apiEndpoint = apiUrl + "/users";
 
 class Profile extends Component {
 
@@ -23,41 +19,23 @@ class Profile extends Component {
     }
   }
 
-
-
-
-
-
-
-
   handleUpdate = (bio, bioText) => {
     //const originalList = this.props;
     //const updatedList = [...this.props];
-    //const index = updatedList.indexOf(getCurrentUser());
+    //const index = updatedList.indexOf(user);
     //updatedList[index] = { bio: bioText };
     //this.setState({ listItems: updatedList });
 
     try {
-      const user2 = getCurrentUser();
+      const user = getCurrentUser();
       const jwt = localStorage.getItem("token");
-      
-      updateProfile(user2, bio, bioText, jwt);
+
+      updateProfile(user, user.bio, bioText, jwt);
     } catch (ex) {
       alert("Unable to update the profile.");
       //this.setState({ listItems: originalList });
     }
   };
-
-
-   //profileUpdate = async (bio) =>
-  //{
-    //const user = getCurrentUser();
-   // await axios.put(  apiEndpoint + "/" + bio, "zxsddsd");
-    //const user = getCurrentUser();
-    
-  //}
-
-
 
   toggleEdit = () => {
     this.setState({
@@ -68,7 +46,6 @@ class Profile extends Component {
   displayProfile = () => {
     const { isEditing } = this.state;
     const { user } = this.props;
-
 
     if (isEditing) {
 
@@ -81,11 +58,11 @@ class Profile extends Component {
                 <p className="profile-name">{user.name}</p>
 
                 <div>
-                   <textarea />
-                   {this.handleUpdate(user.bio, "bioText") } 
+                   <textarea className="form-control" />
+                   {this.handleUpdate( user.bio, "zxaxzxxzx")}
                    <div>
-                   {user.bio} 
-                   
+                   {user.bio}
+
                    </div>
 
                 </div>
