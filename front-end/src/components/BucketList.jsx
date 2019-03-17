@@ -18,6 +18,7 @@ class BucketList extends Component {
     super(props);
     this.state = {
       listItems: [],
+      searchCurrent: '',
       searchResults: [],
       loading: ""
     };
@@ -120,6 +121,7 @@ class BucketList extends Component {
   onChange = e => {
     if (!e) return;
     var searchInput = e.target.value;
+    this.setState({searchInput: searchInput});
     searchInput = searchInput.toLowerCase(); // Lowercase for uniform search
     if (searchInput.length > 1) {
       console.log("Searching: " + searchInput);
@@ -150,6 +152,7 @@ class BucketList extends Component {
                     selection.taskName
                   }`)
                 }
+                onOuterClick={() => (document.getElementById("new_task").value = this.state.searchInput)}
               >
                 {({
                   getInputProps,
