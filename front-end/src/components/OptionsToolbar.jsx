@@ -4,21 +4,10 @@ class OptionsToolbar extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      isEditing: false
-    };
-  }
-
-  editText = () => {
-    const { isEditing } = this.props;
-    console.log("isEditing", isEditing);
-    this.setState({
-      isEditing: !isEditing
-    });
   }
 
   displayOptions = () => {
-    const { isEditing } = this.props;
+    const { isEditing, item } = this.props;
 
     if (isEditing) {
       return (
@@ -28,8 +17,11 @@ class OptionsToolbar extends Component {
                aria-hidden="true"
                onClick={ (e) => {
                  e.preventDefault();
-                 this.props.onUpdate( this.props.item,
-                   document.getElementById(`${this.props.item._id}`).value);
+                 console.log(`Value is ${item._id}`);
+                 this.props.onUpdate(
+                   this.props.item,
+                   document.getElementById(`${item._id}`).value
+                 );
                  this.props.onEdit();
                }}></i>
           </span>
@@ -59,13 +51,13 @@ class OptionsToolbar extends Component {
         <span>
           <i className="fa fa-check-circle-o fa-2x"
              aria-hidden="true"
-             onClick={ () => this.props.onComplete( this.props.item) }></i>
+             onClick={ () => this.props.onComplete(item) }></i>
         </span>
 
         <span>
           <i className="fa fa-trash fa-2x"
              aria-hidden="true"
-             onClick={() => this.props.onDelete( this.props.item )}></i>
+             onClick={() => this.props.onDelete(item )}></i>
         </span>
       </React.Fragment>
     );
