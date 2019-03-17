@@ -22,6 +22,7 @@ class OptionsToolbar extends Component {
                    this.props.item,
                    document.getElementById(`${item._id}`).value
                  );
+                 console.log(document.getElementById(`${item._id}`).value);
                  this.props.onEdit();
                }}></i>
           </span>
