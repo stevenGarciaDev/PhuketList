@@ -1,41 +1,20 @@
 import React, { Component } from 'react';
+import SettingsDetail from './settingsDetail';
 
 class Settings extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" id="body-wrapper">
        <h1>Account Settings</h1>
 
        <table className="table settings-container">
-        <tr>
-          <td>Full Name</td>
-          <td>John Smith</td>
-          <td>
-            Edit
-          </td>
-        </tr>
-        <tr>
-          <td>Email</td>
-          <td>email@gmail.com</td>
-          <td>
-            <button>Edit</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Account Privacy</td>
-          <td>Public</td>
-          <td>
-            <button>Edit</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Account Status</td>
-          <td>Active</td>
-          <td>
-            <button>Edit</button>
-          </td>
-        </tr>
+
+        <SettingsDetail settingProperty="Full Name" settingValue="John Smith" detailType="content" />
+        <SettingsDetail settingProperty="Email" settingValue="email@gmail.com" detailType="content" />
+        <SettingsDetail settingProperty="Account Privacy" settingValue="Public"detailType="toggle" />
+        <SettingsDetail settingProperty="Account Status" settingValue="Active" detailType="toggle" />
+
        </table>
       </div>
     );

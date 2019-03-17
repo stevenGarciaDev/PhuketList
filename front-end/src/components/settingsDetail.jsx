@@ -4,10 +4,11 @@ class SettingDetail extends Component {
 
   constructor(props) {
     super(props);
-    this.state {
+    this.state = {
       isEditing: false,
       settingProperty: this.props.settingProperty,
-      settingValue: ""
+      settingValue: this.props.settingValue,
+      detailType: this.props.detailType
     };
   }
 
@@ -23,15 +24,33 @@ class SettingDetail extends Component {
   }
 
   displayRow = () => {
-    const { isEditing, settingProperty, settingValue } = this.state;
+    const {
+      isEditing,
+      settingProperty,
+      settingValue,
+      detailType
+    } = this.state;
+
+    const isToggle = detailType != 'content';
 
     if (isEditing) {
       return (
         <tr>
           <td>{settingProperty}</td>
-          <td>{settingValue}</td>
-          <td>
-            <button onClick="">Edit</button>
+          <td className="settingsValue">
+            {isToggle ?
+              settingValue
+              :
+              <input type="text" className="form-control" value={settingValue}/>
+            }
+          </td>
+
+          <td className="settings-change-btn">
+            {isToggle ?
+              <i onClick={this.toggleEdit} className="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+              :
+              <i onClick={this.toggleEdit} className="fa fa-check-circle-o fa-2x" aria-hidden="true"></i>
+            }
           </td>
         </tr>
       );
@@ -39,9 +58,13 @@ class SettingDetail extends Component {
       return (
         <tr>
           <td>{settingProperty}</td>
-          <td><input type="text" value={settingValue}/></td>
-          <td>
-            <button onClick="">Apply</button>
+          <td className="settingsValue">{settingValue}</td>
+          <td className="settings-change-btn">
+            {isToggle ?
+            <i onClick={this.toggleEdit} className="fa fa-toggle-off fa-2x" aria-hidden="true"></i>
+            :
+            <i onClick={this.toggleEdit} className="fa fa-pencil fa-2x" aria-hidden="true"></i>
+          }
           </td>
         </tr>
       );
@@ -51,7 +74,7 @@ class SettingDetail extends Component {
   render() {
     return (
       <React.Fragment>
-        { () => this.displayRow() }
+        { this.displayRow() }
       </React.Fragment>
     );
   }
