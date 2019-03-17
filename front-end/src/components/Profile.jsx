@@ -7,8 +7,12 @@ import {
 
 import { getCurrentUser } from "../services/authService";
 
+import axios from 'axios';
+import { apiUrl } from "../config.json";
 
 //import { AppRegistry, Text, StyleSheet } from 'react-native';
+
+const apiEndpoint = apiUrl + "/users";
 
 class Profile extends Component {
 
@@ -29,15 +33,15 @@ class Profile extends Component {
   handleUpdate = (bio, bioText) => {
     //const originalList = this.props;
     //const updatedList = [...this.props];
-    //const index = updatedList.indexOf(user);
+    //const index = updatedList.indexOf(getCurrentUser());
     //updatedList[index] = { bio: bioText };
     //this.setState({ listItems: updatedList });
 
     try {
-      const user = getCurrentUser();
+      const user2 = getCurrentUser();
       const jwt = localStorage.getItem("token");
-
-      updateProfile(user, user.bio, bioText, jwt);
+      
+      updateProfile(user2, bio, bioText, jwt);
     } catch (ex) {
       alert("Unable to update the profile.");
       //this.setState({ listItems: originalList });
@@ -45,7 +49,13 @@ class Profile extends Component {
   };
 
 
-
+   //profileUpdate = async (bio) =>
+  //{
+    //const user = getCurrentUser();
+   // await axios.put(  apiEndpoint + "/" + bio, "zxsddsd");
+    //const user = getCurrentUser();
+    
+  //}
 
 
 
@@ -59,6 +69,7 @@ class Profile extends Component {
     const { isEditing } = this.state;
     const { user } = this.props;
 
+
     if (isEditing) {
 
       return (
@@ -71,7 +82,7 @@ class Profile extends Component {
 
                 <div>
                    <textarea />
-                   {this.handleUpdate( user.bio, "zxaxzxxzx")} 
+                   {this.handleUpdate(user.bio, "bioText") } 
                    <div>
                    {user.bio} 
                    

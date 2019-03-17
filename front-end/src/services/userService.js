@@ -17,7 +17,25 @@ export function getUsers() {
 
 export async function updateProfile(user, bio, bioText, jwt) {
   const response = await http.post(`${apiEndpoint}/update/${user._id}`,
-    { bio, bioText },
+    { bio: bioText },
+    { 'headers': {'x-auth-token': jwt }
+  });
+
+  return response;
+}
+
+
+
+export async function updateProfile2(user, bio, bioText, jwt) {
+  return http.put(apiEndpoint, {
+    bio: bioText
+  });
+}
+
+
+export async function updateTask(user, item, newText, jwt) {
+  const response = await http.post(`${apiEndpoint}/update/${user._id}`,
+    { item, newText },
     { 'headers': {'x-auth-token': jwt }
   });
 
