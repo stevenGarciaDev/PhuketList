@@ -5,18 +5,18 @@ const DropDown = styled.div`
   margin-top: 40px;
   width: 90%;
   z-index: 2;
-  border: 1px solid ${props => props.theme.lightgrey};
+  border: 1px solid #DCDCDC;
 `;
 
 const DropDownItem = styled.div`
-  border-bottom: 1px solid ${props => props.theme.lightgrey};
+  border-bottom: 1px solid #DCDCDC;
   background: ${props => (props.highlighted ? '#f7f7f7' : 'white')};
   padding: 1rem;
   transition: all 0.2s;
   ${props => (props.highlighted ? 'padding-left: 2rem;' : null)};
   display: flex;
   align-items: center;
-  border-left: 5px solid ${props => (props.highlighted ? props.theme.lightgrey : 'white')};
+  border-left: 5px solid ${props => (props.highlighted ? '#17a2b8' : 'white')};
 `;
 
 const glow = keyframes`

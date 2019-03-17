@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class OptionsToolbar extends Component {
 
@@ -39,8 +40,9 @@ class OptionsToolbar extends Component {
     return (
       <React.Fragment>
         <span>
-          <button
-            className="btn btn-warning">Groups</button>
+          <Link to={`/taskgroup/${this.props.item._id}`}>
+            <button className="btn btn-warning">Groups</button>
+          </Link>
         </span>
 
         <span>
