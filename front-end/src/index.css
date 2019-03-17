@@ -250,6 +250,26 @@ User Profile
   border-radius: 50%;
 }
 
+/* ---------
+Settings
+---------- */
+
+.settings-container {
+  margin: 0 auto;
+  margin-top: 30px;
+  border: 1px solid #cccccc;
+}
+
+table {
+  width:100%;
+}
+
+td {
+  width:33%;
+  text-align: left;
+}
+
+
 @media (min-width: 800px) {
 
   .activity-content, #post-btn {
