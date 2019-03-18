@@ -133,6 +133,16 @@ i {
    margin: 0 auto;
 }
 
+.container-list-filter {
+  margin-bottom: 5px;
+}
+
+.list-filter {
+  padding: 5px;
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 2px;
+}
+
 /* -------------
  Activity Feed
 ------------- */
