@@ -14,6 +14,14 @@ const Post = props => {
 
       <img className="post-img" src={photo} alt="Post" />
 
+      <div>
+        <div className="like-container">
+          <i className="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
+        </div>
+        <div className="comment-container">
+          <i className="fa fa-comment-o fa-2x" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
 
     <div className="Post">
