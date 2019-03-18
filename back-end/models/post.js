@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('Joi');
+const { commentSchema } = require('./comment');
 
 const postSchema = new mongoose.Schema({
   author: {
@@ -24,6 +25,14 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
     required: true
+  },
+  likes: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User'
+  },
+  comments: {
+    type: [commentSchema],
+    default: []
   }
 });
 
