@@ -3,7 +3,12 @@ const Joi = require('Joi');
 const { commentSchema } = require('./comment');
 
 const postSchema = new mongoose.Schema({
-  author: {
+  topicID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ListItem',
+    required: true
+  },
+    author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
