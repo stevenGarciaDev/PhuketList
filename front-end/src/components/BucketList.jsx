@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ListItem from "./ListItem";
 import Downshift from "downshift";
+import SearchResults from 'react-filter-search';
+import { Dropdown } from 'react-bootstrap';
 import {
   getListItems,
   getLikeTasks,
@@ -20,7 +22,9 @@ class BucketList extends Component {
       listItems: [],
       searchCurrent: '',
       searchResults: [],
-      loading: ""
+      loading: "",
+      listFilterSearch: '',
+      listFilterItems: [],
     };
   }
 
@@ -37,6 +41,9 @@ class BucketList extends Component {
 
   handleAdd = e => {
     e.preventDefault();
+    if (document.getElementById("new_task").value.length < 5) {
+      return;
+    }
 
     const newTaskName = document.getElementById("new_task").value;
     const originalList = this.state.listItems;
@@ -118,13 +125,15 @@ class BucketList extends Component {
     return false;
   };
 
+  // onChange function for Add New Task input
   onChange = e => {
-    if (!e) return;
+    if (!e) {
+      return;
+    }
     var searchInput = e.target.value;
     this.setState({searchInput: searchInput});
     searchInput = searchInput.toLowerCase(); // Lowercase for uniform search
-    if (searchInput.length > 1) {
-      console.log("Searching: " + searchInput);
+    if (searchInput.length > 0) {
       const response = getLikeTasks(searchInput); // Query from
       response.then(
         function(results) {
@@ -132,8 +141,56 @@ class BucketList extends Component {
         }.bind(this)
       );
     }
-    console.log(this.state.searchResults);
   };
+
+  // onChange function for user list filter search.
+  onFilterSearch = e => {
+    var searchInput = e.target.value;
+    if (searchInput.length > 0) {
+      this.setState({listFilterSearch: searchInput})
+    } else {
+      this.setState({listFilterSearch: ''})
+    }
+
+  }
+
+  async filterSort(value) {
+    console.log("Sorting started...");
+    switch(value) {
+      case 0: // Alphabetical sort (ascending)
+        var sortedArray = this.state.listItems;
+        sortedArray.sort(function (a, b) {
+                    var textA = a.taskName.toUpperCase();
+                    var textB = b.taskName.toUpperCase();
+
+                    return textA.localeCompare(textB);
+                  });
+        this.setState({listItems: sortedArray});
+        return;
+      case 1: // Alphabetical sort (descending)
+        var sortedArray = this.state.listItems;
+        sortedArray.sort(function (a, b) {
+                    var textA = a.taskName.toUpperCase();
+                    var textB = b.taskName.toUpperCase();
+
+                    return textB.localeCompare(textA);
+                  });
+        this.setState({listItems: sortedArray});
+        return;
+      case 2:
+        // get bucket list items
+        const user = getCurrentUser();
+        const jwt = localStorage.getItem("token");
+
+        // need to pass request headers
+        const response = await getListItems(user, jwt);
+        const listItems = response.data[0].listItems;
+        this.setState({ listItems: listItems });
+      default:
+        console.log("Sorting: invalid");
+        return;
+    }
+  }
 
   render() {
     const { user } = this.props;
@@ -221,17 +278,53 @@ class BucketList extends Component {
           <p>{`There are currently ${
             this.state.listItems.length
           } items in your bucket list`}</p>
-          <ul>
-            {this.state.listItems.length > 0 &&
-              this.state.listItems.map(item => (
-                <ListItem
-                  key={item._id}
-                  task={item}
-                  onDelete={this.handleDelete}
-                  onComplete={this.handleCompleted}
-                  onUpdate={this.handleUpdate}
+          <ul id="bucket-list-items">
+            <div className="row container-list-filter">
+              {/* Search bar to filter user's list items. */}
+              <input    onChange={this.onFilterSearch}
+                        type="text"
+                        placeholder="Search for an item on your list..."
+                        id="filter_list"
+                        name="filter_list"
+                        autoComplete="off"
+                        className="list-filter col-7 offset-2"
+                        aria-describedby="inputGroup-sizing-default"
                 />
-              ))}
+
+                {/* Drop down for filter type */}
+                <Dropdown className="col-2">
+                  <Dropdown.Toggle className="btn btn-info" variant="success" id="dropdown-basic">
+                    Filter by..
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => { this.filterSort(0) }}>Alphabetical (ascending)</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { this.filterSort(1) }}>Alphabetical (descending)</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { this.filterSort(2) }}>Default (newest first)</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+
+              <SearchResults
+                value={this.state.listFilterSearch}
+                data={this.state.listItems}
+                renderResults={results => (
+                  <div>
+                    {results.length > 0 &&
+                      results.map(item => (
+                        <ListItem
+                          key={item._id}
+                          task={item}
+                          onDelete={this.handleDelete}
+                          onComplete={this.handleCompleted}
+                          onUpdate={this.handleUpdate}
+                        />
+                      ))}
+                    {results.length < 1 &&
+                      <p>Sorry, nothing was found. Try a different search term.</p>
+                    }
+                  </div>
+                )}
+              />
           </ul>
         </div>
       </div>

@@ -21,19 +21,25 @@ router.post('/:id', auth, async (req, res) => {
   if (listItem.length === 0) {
     listItem = new ListItem({ taskName: req.body.taskName });
     listItem = await listItem.save();
+  } else {
+    listItem = listItem[0];
   }
 
   //retrieve user's bucket list
-  let bucketList = await BucketList.find({ owner: req.params.id });
+  try {
+    let bucketList = await BucketList.find({ owner: req.params.id });
 
-  console.log(bucketList);
+    // add item to bucket list
+    bucketList[0].listItems.push(listItem);
+    const response = await bucketList[0].save();
 
-  // add item to bucket list
-  bucketList[0].listItems.push(listItem);
-  const response = await bucketList[0].save();
+    // return updated list to user
+    res.send(bucketList[0].listItems);
+  } catch (ex) {
+    console.log('unable to complete');
+    console.log(ex);
+  }
 
-  // return updated list to user
-  res.send(bucketList[0].listItems);
 });
 
 // Update a List item in the Bucket List
@@ -102,7 +108,7 @@ router.post('/remove/:id', auth, async (req, res) => {
   await bucketList.save();
 
   // remove the list item
-  await ListItem.deleteOne({ _id: req.body.item._id });
+  // await ListItem.deleteOne({ _id: req.body.item._id });
 
   res.send(bucketList.listItems);
 });
