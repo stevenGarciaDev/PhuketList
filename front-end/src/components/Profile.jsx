@@ -7,6 +7,8 @@ import {
 
 import { getCurrentUser } from "../services/authService";
 
+import Form from 'react-bootstrap/Form';
+
 
 //import { AppRegistry, Text, StyleSheet } from 'react-native';
 
@@ -19,23 +21,7 @@ class Profile extends Component {
     }
   }
 
-  handleUpdate = (bio, bioText) => {
-    //const originalList = this.props;
-    //const updatedList = [...this.props];
-    //const index = updatedList.indexOf(user);
-    //updatedList[index] = { bio: bioText };
-    //this.setState({ listItems: updatedList });
-
-    try {
-      const user = getCurrentUser();
-      const jwt = localStorage.getItem("token");
-
-      updateProfile(user, user.bio, bioText, jwt);
-    } catch (ex) {
-      alert("Unable to update the profile.");
-      //this.setState({ listItems: originalList });
-    }
-  };
+  
 
   toggleEdit = () => {
     this.setState({
@@ -43,9 +29,29 @@ class Profile extends Component {
     });
   }
 
+
+
+  handleUpdate = ( bioText) => {
+    try {
+      const user = getCurrentUser();
+      const jwt = localStorage.getItem("token");
+
+      updateProfile(user, bioText, jwt);
+      this.toggleEdit();
+  
+     
+    } catch (ex) {
+      alert("Unable to update the profile.");
+   
+    }
+  };
+/////<button className="btn btn-success" onClick={() => this.toggleEdit() }>Save Changes</button>
+////// <textarea className="form-control" />
+
   displayProfile = () => {
     const { isEditing } = this.state;
     const { user } = this.props;
+    
 
     if (isEditing) {
 
@@ -58,10 +64,17 @@ class Profile extends Component {
                 <p className="profile-name">{user.name}</p>
 
                 <div>
-                   <textarea className="form-control" />
-                   {this.handleUpdate( user.bio, "zxaxzxxzx")}
+                  
+                   <Form>
+                      <Form.Group >
+                          
+                          <Form.Control as="textarea" rows="3"  placeholder={user.bio}  />
+                        
+                      </Form.Group>
+                   </Form>;
+                
                    <div>
-                   {user.bio}
+                   
 
                    </div>
 
@@ -69,7 +82,7 @@ class Profile extends Component {
              </div>
 
              <div className="profile-btn-container">
-               <button className="btn btn-success" onClick={() => this.toggleEdit()}>Save Changes</button>
+               <button className="btn btn-success" onClick={() => this.handleUpdate("sdsds") }>Save Changes</button>
              </div>
            </div>
         </div>

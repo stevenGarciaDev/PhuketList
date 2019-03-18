@@ -76,6 +76,7 @@ function validateUser(user) {
     isActiveAccount: Joi.boolean()
   };
 
+
   return Joi.validate(user, schema);
 }
 

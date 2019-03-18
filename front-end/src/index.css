@@ -333,6 +333,49 @@ td {
   text-align: left;
 }
 
+/* ---------
+Task Group page
+---------- */
+.task-group-body {
+  background-color: #f5f8fa;
+  width: 100%;
+  height: 100vh;
+  padding: 25px;
+}
+
+.task-group-jumbotron {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(./assets/images/jennvmy_-1194676-unsplash.jpg);
+  filter: brightness(50%);
+  height: 300px;
+  width: 100%;
+  margin-bottom: 0px !important;
+}
+
+.task-group-jumbotron-container {
+  color: black;
+  top: 150px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 80%;
+  margin-bottom: 0px;
+}
+
+.task-group-jumbotron-container > .btn {
+  margin: 5px;
+}
+
+.shadow-text {
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+}
+
 
 @media (min-width: 800px) {
 
