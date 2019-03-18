@@ -1,5 +1,6 @@
 import http from "./httpService";
 import { apiUrl } from "../config.json";
+import { join } from "path";
 
 const apiEndpoint = apiUrl + "/users";
 
@@ -15,9 +16,9 @@ export function getUsers() {
   return http.get(`${apiEndpoint}/publicUsers`, {});
 }
 
-export async function updateProfile(user, bio, bioText, jwt) {
-  const response = await http.post(`${apiEndpoint}/update/${user._id}`,
-    { bio: bioText },
+export async function updateProfile(user, bioText, jwt) {
+  const response = await http.post(`${apiEndpoint}/updateProfile/${user._id}`,
+    { bioText },
     { 'headers': {'x-auth-token': jwt }
   });
 
@@ -26,18 +27,6 @@ export async function updateProfile(user, bio, bioText, jwt) {
 
 
 
-export async function updateProfile2(user, bio, bioText, jwt) {
-  return http.put(apiEndpoint, {
-    bio: bioText
-  });
-}
 
 
-export async function updateTask(user, item, newText, jwt) {
-  const response = await http.post(`${apiEndpoint}/update/${user._id}`,
-    { item, newText },
-    { 'headers': {'x-auth-token': jwt }
-  });
 
-  return response;
-}

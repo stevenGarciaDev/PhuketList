@@ -51,10 +51,28 @@ router.get('/publicUsers', async (req, res) => {
   res.send(users);
 });
 
-router.post('/updateProfile', async (req, res) => {
+router.post('/updateProfile/:user_id', async (req, res) => {
   // receive uploaded image and bio
+  const {  bioText } = req.body;
 
+  //const users = await User.updateOne();   // Find  the user from the db with the user_id
+ 
+  //try {
+   // await User.updateOne(
+     //  { "user_id" : req.user_id },
+     //  { $set: { "bio" : bioText } } // update the  user's profile
+   // );
+
+
+ //} catch (e) {
+    //print(e);
+ //}
+  
+  
   // save to db
+
+  console.log("YES, !");
+  res.send("sdsdsd");
 });
 
 module.exports = router;
