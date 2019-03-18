@@ -1,12 +1,15 @@
+import Joi from "joi-browser";
 import React, { 
 	Component 
 } from "react";
+import ActivityFeed from "./ActivityFeed"
 import { 
 	getCurrentUser 
 } from "../services/authService";
 import {
   getListItem
 } from "../services/bucketListService";
+import { Redirect } from 'react-router-dom';
 
 class TaskGroup extends Component {
 
@@ -23,12 +26,26 @@ class TaskGroup extends Component {
 	    this.setState({task_name: response.data.taskName})
   	}
 
+  	renderRedirect = () => {
+	    if (this.state.task_name === '') {
+			return <Redirect to='/not-found' />
+		}
+	}
+
 	render() {
 		return (
-			<div>
-				<p>{`Group Page Task ID: ${this.state.task_id}`}</p>
-				<p>{`Group Page Task Name: ${this.state.task_name}`}</p>
-			</div>
+			<React.Fragment>
+				<div className="jumbotron task-group-jumbotron"> </div>
+					<div className="task-group-jumbotron-container" >
+							<h1 className="shadow-text">{`"${this.state.task_name}"`}</h1>
+							<h3 className="shadow-text">Group page</h3>
+							<btn className="btn btn-info">Join Group</btn>
+							<btn className="btn btn-warning">Add to my Bucket List!</btn>
+					</div>
+					<div className="task-group-body task-group-feed">
+						<ActivityFeed/>
+					</div>
+			</React.Fragment>
 		);
 	}
 
