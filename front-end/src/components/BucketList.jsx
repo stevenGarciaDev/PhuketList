@@ -154,6 +154,44 @@ class BucketList extends Component {
 
   }
 
+  async filterSort(value) {
+    console.log("Sorting started...");
+    switch(value) {
+      case 0: // Alphabetical sort (ascending)
+        var sortedArray = this.state.listItems;
+        sortedArray.sort(function (a, b) {
+                    var textA = a.taskName.toUpperCase();
+                    var textB = b.taskName.toUpperCase();
+
+                    return textA.localeCompare(textB);
+                  });
+        this.setState({listItems: sortedArray});
+        return;
+      case 1: // Alphabetical sort (descending)
+        var sortedArray = this.state.listItems;
+        sortedArray.sort(function (a, b) {
+                    var textA = a.taskName.toUpperCase();
+                    var textB = b.taskName.toUpperCase();
+
+                    return textB.localeCompare(textA);
+                  });
+        this.setState({listItems: sortedArray});
+        return;
+      case 2:
+        // get bucket list items
+        const user = getCurrentUser();
+        const jwt = localStorage.getItem("token");
+
+        // need to pass request headers
+        const response = await getListItems(user, jwt);
+        const listItems = response.data[0].listItems;
+        this.setState({ listItems: listItems });
+      default:
+        console.log("Sorting: invalid");
+        return;
+    }
+  }
+
   render() {
     const { user } = this.props;
 
@@ -259,9 +297,9 @@ class BucketList extends Component {
                     Filter by..
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item>Newest First</Dropdown.Item>
-                    <Dropdown.Item>Oldest First</Dropdown.Item>
-                    <Dropdown.Item>Alphabetical</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { this.filterSort(0) }}>Alphabetical (ascending)</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { this.filterSort(1) }}>Alphabetical (descending)</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { this.filterSort(2) }}>Default (newest first)</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
