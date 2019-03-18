@@ -29,6 +29,7 @@ class Form extends Component {
     e.preventDefault();
 
     const errors = this.validate();
+    console.log("error!!", errors);
     this.setState({ errors: errors || {} });
 
     if (errors) return;

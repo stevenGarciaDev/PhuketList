@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Like from './like';
+import Like from './Like';
+import CommentIcon from './CommentIcon';
 import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';
 
 
@@ -11,25 +12,37 @@ class Post extends Component {
       img: "",
       textContent: "",
       likes: 14,
-      didLike: false
+      didLike: false,
+      comments: 4,
+      displayComments: false
     };
   }
 
   handleLike = () => {
     const { didLike, likes } = this.state;
-    const prevLikeState = !didLike; // toggle
+    const currentLikeStatus = !didLike; // toggle
 
-    const amount = prevLikeState ? likes + 1 : likes - 1;
-    console.log(amount);
+    const amount = currentLikeStatus ? likes + 1 : likes - 1;
 
     this.setState({
-      didLike: !this.state.didLike,
+      didLike: currentLikeStatus,
       likes: amount
     });
   }
 
+  handleCommentsDropdown = () => {
+    this.setState({
+      displayComments: !this.state.displayComments
+    });
+  }
+
   render() {
-    const { didLike, likes } = this.state;
+    const {
+      didLike,
+      likes,
+      comments,
+      displayComments
+    } = this.state;
 
     return (
       <div className="Post">
@@ -43,10 +56,14 @@ class Post extends Component {
         <img className="post-img" src={photo} alt="Post" />
 
         <div>
-          <Like hasLiked={didLike} totalLikes={likes} onClick={this.handleLike} />
-          <div className="comment-container">
-            <i className="fa fa-comment-o fa-2x" aria-hidden="true"></i>
-          </div>
+          <Like
+            hasLiked={didLike}
+            totalLikes={likes}
+            onClick={this.handleLike} />
+          <CommentIcon
+            amount={comments}
+            displayComments={displayComments}
+            handleDropdown={this.handleCommentsDropdown} />
         </div>
       </div>
     );
