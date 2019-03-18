@@ -265,6 +265,22 @@ User Profile
 }
 
 /* ---------
+Like component
+---------- */
+
+.like-container, .comment-container {
+  display: inline-block;
+  border-top: 1px solid #cccccc;
+  width: 50%;
+  text-align: center;
+  padding: 8px;
+}
+
+.comment-container {
+  display: inline-block;
+}
+
+/* ---------
 Settings
 ---------- */
 
