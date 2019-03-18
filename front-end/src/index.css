@@ -85,13 +85,14 @@ i {
   color: #003366;
 }
 
-.fa-check-circle-o:hover, .fa-check:hover {
+.fa-check-circle-o:hover, .fa-check:hover, .thumbs-up-icon {
   color: #336600;
 }
 
 .fa-trash:hover, .fa-times:hover {
   color: #B22222;
 }
+
 
 /* -------------
  Login and Register
@@ -274,6 +275,10 @@ Like component
   width: 50%;
   text-align: center;
   padding: 8px;
+}
+
+.like-container span {
+  padding: 5px;
 }
 
 .comment-container {

@@ -9,7 +9,7 @@ class Settings extends Component {
        <h1>Account Settings</h1>
 
        <table className="table settings-container">
-
+       
         <SettingsDetail settingProperty="Full Name" settingValue="John Smith" detailType="content" />
         <SettingsDetail settingProperty="Email" settingValue="email@gmail.com" detailType="content" />
         <SettingsDetail settingProperty="Account Privacy" settingValue="Public"detailType="toggle" />

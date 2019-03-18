@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 
 class OptionsToolbar extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   displayOptions = () => {
     const { isEditing, item } = this.props;
 
