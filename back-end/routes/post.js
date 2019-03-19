@@ -1,4 +1,4 @@
-const { Post } = require('../models/post');
+const { Post, validate } = require('../models/post');
 const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
@@ -18,7 +18,12 @@ router.get('/', auth, async (req, res) => {
 });
 
 router.post('/', auth, async (req, res) => {
-
+  // extract and validate the data from request,
+  // create new post in database, and
+  // associate it with corresponding task item
+  console.log("getting backend request")
+  // const request = validate(req.body);
+  // console.log(request);
 });
 
 router.post('/:id', auth, async (req, res) => {

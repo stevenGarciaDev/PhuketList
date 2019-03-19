@@ -45,7 +45,6 @@ const Post = mongoose.model('Post', postSchema);
 
 function validate(post) {
   const schema = {
-    author: Joi.string().required(),
     content: Joi.string().max(144).required(),
     isAppropriate: Joi.boolean(),
     dateCreated: Joi.date().required()
