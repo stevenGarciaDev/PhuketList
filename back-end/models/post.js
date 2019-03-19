@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 const Joi = require('Joi');
+const { commentSchema } = require('./comment');
 
 const postSchema = new mongoose.Schema({
-  author: {
+  topicID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ListItem',
+    required: true
+  },
+    author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
@@ -24,6 +30,14 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
     required: true
+  },
+  likes: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User'
+  },
+  comments: {
+    type: [commentSchema],
+    default: []
   }
 });
 
@@ -31,7 +45,6 @@ const Post = mongoose.model('Post', postSchema);
 
 function validate(post) {
   const schema = {
-    author: Joi.string().required(),
     content: Joi.string().max(144).required(),
     isAppropriate: Joi.boolean(),
     dateCreated: Joi.date().required()

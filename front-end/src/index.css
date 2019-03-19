@@ -269,7 +269,7 @@ User Profile
 Like component
 ---------- */
 
-.like-container, .comment-container {
+.like-container, .comment-icon-container {
   display: inline-block;
   border-top: 1px solid #cccccc;
   width: 50%;
@@ -277,12 +277,33 @@ Like component
   padding: 8px;
 }
 
-.like-container span {
+.like-container span, .comment-icon-container span {
   padding: 5px;
 }
 
-.comment-container {
+.comment-icon-container {
   display: inline-block;
+}
+
+.comment-container {
+  margin: 10px 0px;
+}
+
+.Comment {
+  border: 1px solid #cccccc;
+  width: 80%;
+  border-radius: 10px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+}
+
+.comment-content {
+  font-size: 14px;
+}
+
+.comment-input {
+  margin: 0 auto;
+  width: 80%;
 }
 
 /* ---------

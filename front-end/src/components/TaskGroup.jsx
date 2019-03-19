@@ -18,12 +18,19 @@ class TaskGroup extends Component {
 	    this.state = {
 	      task_id: this.props.match.params.task_id,
 	      task_name: '',
+	      user_hastask: false,
+	      user_ismember: false,
 	    };
 	}
 
 	async componentDidMount() {
+		// Get task name
 	    const response = await getListItem(this.state.task_id);
 	    this.setState({task_name: response.data.taskName})
+  		
+  		// Identify if user has bucket task
+
+  		// Identify if user is part of group
   	}
 
   	renderRedirect = () => {

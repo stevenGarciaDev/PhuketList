@@ -37,6 +37,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "case-sensitive-paths-webpack-plugin": "^2.2.0",
     "eslint-plugin-flowtype": "^3.4.2",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",

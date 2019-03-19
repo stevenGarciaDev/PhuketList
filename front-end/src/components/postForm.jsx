@@ -12,14 +12,14 @@ class PostForm extends Form {
   }
 
   schema = {
-    post: Joi.string()
+    text: Joi.string()
       .max(255)
       .required(),
     photo: Joi.string()
   };
 
   doSubmit = async () => {
-  
+
   };
 
   render() {
@@ -28,7 +28,7 @@ class PostForm extends Form {
 
         <form onSubmit={this.handleSubmit}>
           <div className="new-post-input">
-            {this.renderInput("post", "", "text", "Add a new post...")}
+            {this.renderInput("text", "", "text", "Add a new post...")}
           </div>
           <span>
             <i className="fa fa-camera fa-2x" aria-hidden="true"></i>
