@@ -11,19 +11,23 @@ import Form from 'react-bootstrap/Form';
 
 
 //import { AppRegistry, Text, StyleSheet } from 'react-native';
+var wordd = "sdssdsd";
 
 class Profile extends Component {
-
+  
   constructor(props) {
     super(props);
     this.state = {
       isEditing: false
     }
+    this.inputRef = null;
   }
 
   
 
   toggleEdit = () => {
+    console.log("Toggle EDIT")
+
     this.setState({
       isEditing: !this.state.isEditing
     });
@@ -31,14 +35,22 @@ class Profile extends Component {
 
 
 
-  handleUpdate = ( bioText) => {
+  handleUpdate = (e) => {
+    e.preventDefault();
+    
+
+   // e.target.form.elements.title.value; {user.bio}
+    //console.log("HANDLE UPDATE")
+    //console.log(this.inputRef);
+    //wordd = this.inputRef.value;
+    //console.log(wordd);
+
     try {
       const user = getCurrentUser();
       const jwt = localStorage.getItem("token");
 
-      updateProfile(user, bioText, jwt);
+      updateProfile(user, this.inputRef.value, jwt);
       this.toggleEdit();
-  
      
     } catch (ex) {
       alert("Unable to update the profile.");
@@ -65,25 +77,29 @@ class Profile extends Component {
 
                 <div>
                   
-                   <Form>
+                  <Form onSubmit={e => this.handleUpdate( e)}> 
                       <Form.Group >
                           
-                          <Form.Control as="textarea" rows="3"  placeholder={user.bio}  />
+                          <Form.Control as="textarea" rows="3"   
+                          ref={(ref) => {this.inputRef = ref}} type="text" />
+                          <div></div>
+                          
+                          <div className="profile-btn-container">
+                            <button className="btn btn-success" type="submit">Save Changes</button>
+                        </div>
                         
                       </Form.Group>
-                   </Form>;
+                   </Form>
                 
                    <div>
-                   
+                   {user.bio}
 
                    </div>
 
                 </div>
              </div>
 
-             <div className="profile-btn-container">
-               <button className="btn btn-success" onClick={() => this.handleUpdate("sdsds") }>Save Changes</button>
-             </div>
+            
            </div>
         </div>
       );

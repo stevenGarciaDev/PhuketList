@@ -19,6 +19,7 @@
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.11",
-    "mongoose": "^5.4.15"
+    "mongoose": "^5.4.15",
+    "react-filter-search": "^1.0.8"
   }
 }

@@ -51,28 +51,36 @@ router.get('/publicUsers', async (req, res) => {
   res.send(users);
 });
 
+
+
+
+
 router.post('/updateProfile/:user_id', async (req, res) => {
   // receive uploaded image and bio
-  const {  bioText } = req.body;
+  ;
 
   //const users = await User.updateOne();   // Find  the user from the db with the user_id
  
-  //try {
-   // await User.updateOne(
-     //  { "user_id" : req.user_id },
-     //  { $set: { "bio" : bioText } } // update the  user's profile
-   // );
+  console.log("req.param.user_id");
+ // 
+  try {
+    console.log(req.body.bioText);
+    await User.updateOne(
+       { "user_id" : req.params.user_id },
+       { $set: { "bio" : req.body.bioText } } // update the  user's profile
+    );
 
-
- //} catch (e) {
+    
+    
+ } catch (e) {
     //print(e);
- //}
+ }
   
   
   // save to db
 
-  console.log("YES, !");
-  res.send("sdsdsd");
+  
+  res.send(req.user_id);
 });
 
 module.exports = router;
