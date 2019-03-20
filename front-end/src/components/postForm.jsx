@@ -21,9 +21,12 @@ class PostForm extends Form {
 
   doSubmit = async () => {
     // get data and make post request,
+    const { taskId } = this.props;
+    const jwt = localStorage.getItem("token");
+
     try {
       const { text, image } = this.state.data;
-      const response = await createPost(text, image);
+      const response = await createPost(text, image, taskId, jwt);
       console.log(response);
     } catch (ex) {
 

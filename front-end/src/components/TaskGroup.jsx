@@ -26,6 +26,7 @@ class TaskGroup extends Component {
 
 	async componentDidMount() {
 		// Get task name
+
 	    const response = await getListItem(this.state.task_id);
 	    this.setState({task_name: response.data.taskName})
 
@@ -41,18 +42,20 @@ class TaskGroup extends Component {
 	}
 
 	render() {
+		const { task_name, task_id } = this.state;
+
 		return (
 			<React.Fragment>
 				<div className="jumbotron task-group-jumbotron"> </div>
 					<div className="task-group-jumbotron-container" >
-							<h1 className="shadow-text">{`"${this.state.task_name}"`}</h1>
+							<h1 className="shadow-text">{`"${task_name}"`}</h1>
 							<h3 className="shadow-text">Group page</h3>
 							<btn className="btn btn-info">Join Group</btn>
 							<btn className="btn btn-warning">Add to my Bucket List!</btn>
 					</div>
 					<div className="task-group-body task-group-feed">
-						<PostForm />
-						<ActivityFeed/>
+						<PostForm taskId={task_id}/>
+						<ActivityFeed taskId={task_id}/>
 					</div>
 			</React.Fragment>
 		);

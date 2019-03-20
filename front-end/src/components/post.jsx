@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import Like from './like';
+import Moment from 'react-moment';
+import Like from './Like';
 import CommentIcon from './CommentIcon';
-import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';
-
+// import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';
 
 class Post extends Component {
 
   constructor(props) {
     super(props);
+    const { author, image, dateCreated, text, likes, comments } = this.props;
     this.state = {
-      img: "",
-      textContent: "",
-      likes: 14,
+      author: author,
+      image: image,
+      dateCreated: dateCreated,
+      text: text,
+      likes: likes,
       didLike: false,
-      comments: 4,
+      comments: comments,
       displayComments: false
     };
   }
@@ -38,6 +41,9 @@ class Post extends Component {
 
   render() {
     const {
+      author,
+      dateCreated,
+      text,
       didLike,
       likes,
       comments,
@@ -47,13 +53,11 @@ class Post extends Component {
     return (
       <div className="Post">
         <img className="post-profile-img" />
-        <h1 className="post-author">John Smith</h1>
-        <h2 className="post-date">30 min</h2>
-        <p className="post-content">
-          Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
-
-        <img className="post-img" src={photo} alt="Post" />
+        <h1 className="post-author">{author}</h1>
+        <h2 className="post-date">
+          <Moment fromNow>{dateCreated}</Moment>
+        </h2>
+        <p className="post-content">{text}</p>
 
         <div>
           <Like

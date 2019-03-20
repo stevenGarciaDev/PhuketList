@@ -57,7 +57,6 @@ class Form extends Component {
     );
   }
 
-
   renderInput(name, label, type = "text", placeholder = "") {
     const { data, errors } = this.state;
 
@@ -70,6 +69,10 @@ class Form extends Component {
         onChange={this.handleChange}
         error={errors[name]}
         placeholder={placeholder}
+        accept={ type === "file" ?
+          "image/gif, image/png, image/jpeg"
+        :
+          undefined }
       />
     );
   }

@@ -12,11 +12,11 @@ export function register(user) {
 }
 
 export function getUsers() {
-  return http.get(`${apiEndpoint}/publicUsers`, {});
+  return http.get(`${apiEndpoint}/publicUsers`);
 }
 
 export async function updateProfile(user, bioText, jwt) {
-   
+
 
   const response = await http.put(`${apiEndpoint}/updateProfile/${user.email}`,
     { bioText },
@@ -32,18 +32,14 @@ export async function getUserBIO(user) {
    var returnBIO = "";
 
   const bioUser = await http.get(`${apiEndpoint}/UserBio/${user.email}`, {}).then(function(result) {
-    
+
     returnBIO = result.data[0].bio;
-  
+
   });
 
   console.log(returnBIO);
 
-  
+
 
   return returnBIO;
 }
-
-
-
-

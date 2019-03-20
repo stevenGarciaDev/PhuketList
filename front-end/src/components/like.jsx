@@ -1,7 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Like = (props) => {
   const { hasLiked, totalLikes } = props;
+
+  let amountOfLikes;
+  try {
+    amountOfLikes = totalLikes.length;
+  } catch (ex) {
+    amountOfLikes = 0;
+  }
 
   return (
     <div className="like-container">
@@ -10,7 +17,7 @@ const Like = (props) => {
       :
         <i onClick={props.onClick} className="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
       }
-      <span>{totalLikes}</span>
+      <span>{amountOfLikes}</span>
     </div>
   );
 };
