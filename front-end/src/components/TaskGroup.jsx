@@ -1,14 +1,15 @@
 import Joi from "joi-browser";
-import React, { 
-	Component 
+import React, {
+	Component
 } from "react";
 import ActivityFeed from "./ActivityFeed"
-import { 
-	getCurrentUser 
+import {
+	getCurrentUser
 } from "../services/authService";
 import {
   getListItem
 } from "../services/bucketListService";
+import PostForm from './postForm';
 import { Redirect } from 'react-router-dom';
 
 class TaskGroup extends Component {
@@ -27,7 +28,7 @@ class TaskGroup extends Component {
 		// Get task name
 	    const response = await getListItem(this.state.task_id);
 	    this.setState({task_name: response.data.taskName})
-  		
+
   		// Identify if user has bucket task
 
   		// Identify if user is part of group
@@ -50,6 +51,7 @@ class TaskGroup extends Component {
 							<btn className="btn btn-warning">Add to my Bucket List!</btn>
 					</div>
 					<div className="task-group-body task-group-feed">
+						<PostForm />
 						<ActivityFeed/>
 					</div>
 			</React.Fragment>
