@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Like from './Like';
+import Like from './like';
 import CommentIcon from './CommentIcon';
 import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';
 
