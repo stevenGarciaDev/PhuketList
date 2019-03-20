@@ -4,28 +4,23 @@ const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', auth, async (req, res) => {
-  // retrieve all post
-  // relevant to the context
-  // that being either
-  // a user's activity feed,
-  // a user's profile page,
-  // or a group's activity feed
-
-  // so would consist of collections
-  // Post -> id
-  //
+// API endpoint to retrieve post corresponding to a topicID
+router.get('/:topicId', async (req, res) => {
+  let posts = ["No posts yet."];
+  try {
+    posts = await Post
+      .find({ topicID: req.params.topicId })
+      .populate('author', 'name')
+      .sort({ dateCreated: 1});
+    console.log(posts);
+  } catch(ex) {
+    console.log("No post were found");
+  }
+  res.send(posts);
 });
 
 // create a new Post,
-// :id is for list item
 router.post('/', auth, upload, resize, async (req, res) => {
-  console.log('backend');
-  console.log('text', req.body.text);
-  const { error } = validate(req.body);
-  console.log(error);
-  if (error) return res.status(400).send(error.details[0].message);
-
   let post = new Post({
     content: req.body.text,
     image: req.body.image,
@@ -33,7 +28,6 @@ router.post('/', auth, upload, resize, async (req, res) => {
     author: req.user._id
   });
   await post.save();
-
 });
 
 router.post('/:id', async (req, res) => {
