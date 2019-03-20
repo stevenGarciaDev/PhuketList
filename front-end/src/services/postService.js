@@ -1,23 +1,25 @@
 import http from "./httpService";
 import { apiUrl } from "../config.json";
 
-const apiEndpoint = apiUrl + "/posts";
+const apiEndpoint = apiUrl + "/post";
 
 export function retrieve(post) {
   return http.get(apiEndpoint, {});
 }
 
-export function createPost(text, photo) {
-  return http.post(apiEndpoint, {
-
+export async function createPost(text, image) {
+  const response = await http.post(`${apiEndpoint}`, {
+    text,
+    image
   });
+  return response;
 }
 
 export function edit(post) {
 
 }
 
-export function delete(post) {
+export function remove(post) {
 
 }
 
