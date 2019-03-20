@@ -1,7 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
-import { login } from "../services/authService";
+import { forgotPassword } from "../services/userService";
 
 class Forgot extends Form {
 
@@ -20,7 +20,25 @@ class Forgot extends Form {
         .label("Email"),
     };
 
-    render() {
+
+
+    doSubmit = async () => {
+    // Call the server
+    try {
+      const { data } = this.state;
+      console.log('test');
+      const response = await forgotPassword(data);
+      
+      window.location = "/login";
+    }
+    catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = {...this.state.errors};
+        errors.name = ex.response.data; // get the error from the server
+        this.setState({ errors });
+      }
+    }
+  };render() {
         return (
           <React.Fragment>
             <div className="jumbotron" id="auth-jumbotron"></div>

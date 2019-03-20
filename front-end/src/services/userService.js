@@ -15,6 +15,10 @@ export function getUsers() {
   return http.get(`${apiEndpoint}/publicUsers`);
 }
 
+export function forgotPassword(user){
+  return http.post(`${apiEndpoint}/forgotPassword`,{email: user.email});
+}
+
 export async function updateProfile(user, bioText, jwt) {
 
 
