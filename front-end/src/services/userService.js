@@ -18,14 +18,31 @@ export function getUsers() {
 export async function updateProfile(user, bioText, jwt) {
    
 
-  const response = await http.post(`${apiEndpoint}/updateProfile/${user._id}`,
+  const response = await http.put(`${apiEndpoint}/updateProfile/${user.email}`,
     { bioText },
     { 'headers': {'x-auth-token': jwt }
   });
-  console.log("re.bioText"); //user._id
+  //console.log(response); //user._id
   return response;
 }
 
+
+
+export async function getUserBIO(user) {
+   var returnBIO = "";
+
+  const bioUser = await http.get(`${apiEndpoint}/UserBio/${user.email}`, {}).then(function(result) {
+    
+    returnBIO = result.data[0].bio;
+  
+  });
+
+  console.log(returnBIO);
+
+  
+
+  return returnBIO;
+}
 
 
 

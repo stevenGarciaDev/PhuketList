@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import {
 
-  updateProfile
+  updateProfile, getUserBIO
 } from "../services/userService";
 
 import { getCurrentUser } from "../services/authService";
@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 
 
 //import { AppRegistry, Text, StyleSheet } from 'react-native';
-var wordd = "sdssdsd";
+var UserBio = "";
 
 class Profile extends Component {
   
@@ -21,12 +21,13 @@ class Profile extends Component {
       isEditing: false
     }
     this.inputRef = null;
+    //UserBio = this.setBIO();
   }
 
   
 
   toggleEdit = () => {
-    console.log("Toggle EDIT")
+    //console.log("Toggle EDIT")
 
     this.setState({
       isEditing: !this.state.isEditing
@@ -39,24 +40,48 @@ class Profile extends Component {
     e.preventDefault();
     
 
-   // e.target.form.elements.title.value; {user.bio}
-    //console.log("HANDLE UPDATE")
-    //console.log(this.inputRef);
-    //wordd = this.inputRef.value;
-    //console.log(wordd);
 
     try {
-      const user = getCurrentUser();
-      const jwt = localStorage.getItem("token");
 
-      updateProfile(user, this.inputRef.value, jwt);
+      
+        const user = getCurrentUser();
+        const jwt = localStorage.getItem("token");
+
+        const a = updateProfile(user, this.inputRef.value, jwt);
+  
+      
       this.toggleEdit();
-     
+      
+      
     } catch (ex) {
       alert("Unable to update the profile.");
    
     }
+
+    
+  }; 
+
+
+ 
+  setBIO = () => {
+    
+
+      const user = getCurrentUser();
+     
+      //getUserBIO(user);
+
+
+   
+
+   
+    
+    getUserBIO(user);
   };
+
+
+
+
+
 /////<button className="btn btn-success" onClick={() => this.toggleEdit() }>Save Changes</button>
 ////// <textarea className="form-control" />
 
@@ -92,7 +117,7 @@ class Profile extends Component {
                    </Form>
                 
                    <div>
-                   {user.bio}
+                 
 
                    </div>
 
@@ -115,9 +140,9 @@ class Profile extends Component {
 
                  <p className="profile-name">{user.name}</p>
 
-                  <div>
-                  {user.bio}
-                  </div>
+                <div>{this.setBIO()}</div>
+                  
+                 
 
               </div>
 

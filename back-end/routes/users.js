@@ -55,32 +55,37 @@ router.get('/publicUsers', async (req, res) => {
 
 
 
-router.post('/updateProfile/:user_id', async (req, res) => {
+router.put('/updateProfile/:user_id', async (req, res) => {
   // receive uploaded image and bio
-  ;
 
-  //const users = await User.updateOne();   // Find  the user from the db with the user_id
- 
-  console.log("req.param.user_id");
- // 
   try {
     console.log(req.body.bioText);
-    await User.updateOne(
-       { "user_id" : req.params.user_id },
-       { $set: { "bio" : req.body.bioText } } // update the  user's profile
-    );
 
-    
-    
+    const lll =  await User.collection.updateOne({email: req.params.user_id}, {$set: {bio: req.body.bioText}});
+
+    console.log(req.params.user_id);
+    //console.log(User.getUsers());
  } catch (e) {
     //print(e);
  }
-  
-  
-  // save to db
+   const users = await User.find( {email: req.params.user_id} , { bio: 1} );
 
-  
-  res.send(req.user_id);
+  //console.log(lsl);
+  res.send(users);
 });
+
+
+
+
+
+router.get('/UserBio/:user_id', async (req, res) => {
+  //const users = await User.find( {email: req.params.user_id} , { bio: 1} );
+  const users = await User.find( {email: req.params.user_id}  );
+  //console.log(lsl);
+  res.send(users);
+});
+
+
+
 
 module.exports = router;
