@@ -22,14 +22,18 @@ class Post extends Component {
   }
 
   handleLike = () => {
-    const { didLike, likes } = this.state;
+    const { author, didLike } = this.state;
+    let likes = [...this.state.likes];
     const currentLikeStatus = !didLike; // toggle
 
-    const amount = currentLikeStatus ? likes + 1 : likes - 1;
+    const amount = currentLikeStatus ?
+      likes.push(author._id)
+     :
+      likes.splice( likes.indexOf(author._id), 1 );
 
     this.setState({
       didLike: currentLikeStatus,
-      likes: amount
+      likes: likes
     });
   }
 
@@ -53,7 +57,7 @@ class Post extends Component {
     return (
       <div className="Post">
         <img className="post-profile-img" />
-        <h1 className="post-author">{author}</h1>
+        <h1 className="post-author">{author.name}</h1>
         <h2 className="post-date">
           <Moment fromNow>{dateCreated}</Moment>
         </h2>
