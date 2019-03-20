@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('Joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const { commentSchema } = require('./comment');
 
 const postSchema = new mongoose.Schema({
@@ -13,13 +14,13 @@ const postSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  content: {
+  text: {
     type: String,
     maxlength: 144,
     trim: true,
     required: true
   },
-  photo: {
+  image: {
     type: String
   },
   isAppropriate: {
@@ -45,9 +46,9 @@ const Post = mongoose.model('Post', postSchema);
 
 function validate(post) {
   const schema = {
-    content: Joi.string().max(144).required(),
-    isAppropriate: Joi.boolean(),
-    dateCreated: Joi.date().required()
+    text: Joi.string().max(144).required(),
+    image: Joi.string(),
+    topicID: Joi.objectId().required()
   };
 
   return Joi.validate(post, schema);

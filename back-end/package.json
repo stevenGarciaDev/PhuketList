@@ -15,11 +15,14 @@
     "config": "^3.0.1",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "jimp": "^0.6.0",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.4.15",
-    "react-filter-search": "^1.0.8"
+    "multer": "^1.4.1",
+    "react-filter-search": "^1.0.8",
+    "uuid": "^3.3.2"
   }
 }
