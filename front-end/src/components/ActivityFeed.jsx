@@ -17,10 +17,6 @@ class ActivityFeed extends Component {
 
     let posts = await getPosts(taskId, jwt);
     posts = posts.data;
-
-    console.log("Activity Feed post are", posts);
-    console.log("Activity Feed post are", posts.length);
-    console.log("post data type is ", typeof posts);
     this.setState({ posts });
   }
 
@@ -34,6 +30,7 @@ class ActivityFeed extends Component {
           {posts && this.state.posts.map((post) => (
             <Post
               key={post._id}
+              id={post._id}
               author={post.author}
               image={post.image}
               dateCreated={post.dateCreated}

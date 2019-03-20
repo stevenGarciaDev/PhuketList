@@ -34,8 +34,18 @@ router.post('/:id', async (req, res) => {
     console.log("getting backend request");
 });
 
-router.put('/:id', auth, async (req, res) => {
+// for updating the like attribute in Post model
+router.post('/:id/likes', auth, async (req, res) => {
+  console.log('backend reached for update');
 
+  try {
+    const post = await Post.findById(req.params.id);
+    post.likes = req.body.likesArr;
+    post.save();
+    console.log(post.likes);
+  } catch (ex) {
+    console.log("unable to update Post's likes");
+  }
 });
 
 router.delete('/:id', auth, async (req, res) => {
