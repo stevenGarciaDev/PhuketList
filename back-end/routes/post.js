@@ -43,11 +43,19 @@ router.post('/:id', async (req, res) => {
 // for updating the like attribute in Post model
 router.post('/:id/likes', auth, async (req, res) => {
   console.log('backend reached for update');
+  const { likesArr } = req.body;
 
   try {
     console.log("the POST ID TO LIKE Is", req.params.id);
+    console.log("BODY", req.body);
     const post = await Post.findById(req.params.id);
-    post.likes = req.body.likesArr;
+
+    if (likesArr[0] == null) {
+      post.likes = [];
+    } else {
+      post.likes = likesArr;
+    }
+
     post.save();
     console.log(post.likes);
   } catch (ex) {

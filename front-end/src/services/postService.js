@@ -17,6 +17,7 @@ export async function createPost(text, image, taskId, jwt) {
 }
 
 export async function updateLikeInfo(likesArr, taskId, jwt) {
+  console.log("the likeArr is", likesArr);
   const response = await http.post(`${apiEndpoint}/${taskId}/likes`,
     { likesArr },
     { 'headers': {'x-auth-token': jwt }
