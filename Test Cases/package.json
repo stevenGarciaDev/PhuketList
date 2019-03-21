@@ -1,0 +1,19 @@
+{
+  "name": "test-cases",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive --timeout 30000 Register.js Login.js",
+    "registeraccount":"mocha --recursive --timeout 30000 "
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chromedriver": "^2.46.0",
+    "selenium-webdriver": "^4.0.0-alpha.1"
+  },
+  "devDependencies": {
+    "mocha": "^6.0.2"
+  }
+}
