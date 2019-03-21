@@ -13,6 +13,8 @@ import Form from 'react-bootstrap/Form';
 
 //import { AppRegistry, Text, StyleSheet } from 'react-native';
 
+//const URL_Images = "/Phukitlist_New/front-end/src/assets/images"; // '../assets/images/jackie-tsang-458443-unsplash.jpg'\
+//const olol = document.images;
 
 class Profile extends Component {
   
@@ -21,11 +23,12 @@ class Profile extends Component {
     this.state = {
       isEditing: false,
       bio: "",
+      image: null
 
     }
     this.inputRef = null;
+    
 
-    //UserBio = this.setBIO();
     
   }
 
@@ -35,6 +38,23 @@ class Profile extends Component {
     this.setState({bio: theBIO });
   }
 
+
+
+  changeProfileUrl = () => {
+   
+    //var profURL = document.getElementById('root').src
+    //console.log( profURL.b);
+    //profURL.body.style.backgroundImage = "url('img_tree.png')";
+
+  }; 
+
+  fileSelect = event => {
+    //console.log( event.target.files[0]);
+    this.setState({image : event.target.files[0]});
+
+  }; 
+
+
   toggleEdit = () => {
     //console.log( );
 
@@ -43,7 +63,7 @@ class Profile extends Component {
     });
   }
 
-
+ 
 
 
 
@@ -78,11 +98,11 @@ class Profile extends Component {
 
 
 
-
+  
 
 
 /////<button className="btn btn-success" onClick={() => this.toggleEdit() }>Save Changes</button>
-////// <textarea className="form-control" />
+////// <textarea className="form-control" />     <img src =  />   dog1-sq
 
   displayProfile = () => {
     const { isEditing } = this.state;
@@ -96,10 +116,14 @@ class Profile extends Component {
           <div className="jumbotron profile-container">
              <div className="profile-headshot-container">
 
-             <img className="profile-img" />
+             
                 
 
                 <p className="profile-name">{user.name}</p>
+              
+                <div> <input type = "file" onChange = {this.fileSelect}/> 
+                      
+                </div>
 
                 <div>
                 
@@ -143,7 +167,7 @@ class Profile extends Component {
 
                 <div> {this.state.bio} </div>
                   
-                 
+                 {this.changeProfileUrl()}
 
               </div>
 
