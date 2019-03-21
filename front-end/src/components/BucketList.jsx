@@ -57,7 +57,11 @@ class BucketList extends Component {
       const jwt = localStorage.getItem("token");
 
       // create a new list item
-      findOrCreateTask(user, newTaskName, jwt);
+      const response = findOrCreateTask(user, newTaskName, jwt);
+      response.then(result => {
+        const listItems = result.data;
+        this.setState({ listItems });
+      });
     } catch (ex) {
       alert("Unable to add item.");
       this.setState({ listItems: originalList });

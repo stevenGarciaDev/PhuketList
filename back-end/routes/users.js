@@ -9,6 +9,7 @@ const auth = require('../middleware/auth');
 const { BucketList } = require("../models/bucketList");
 const crypto =require( 'crypto');
 const nodemailer = require('nodemailer');
+
 // get a user,
 // read from JSON web tokens; req.user._id
 router.get("/me", auth, async (req, res) => {

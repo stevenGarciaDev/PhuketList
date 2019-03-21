@@ -16,7 +16,7 @@ class PostForm extends Form {
     text: Joi.string()
       .max(255)
       .required(),
-    image: Joi.string()
+    image: Joi.string().allow(null, '')
   };
 
   doSubmit = async () => {
@@ -36,7 +36,6 @@ class PostForm extends Form {
   render() {
     return (
       <div className="new-post-container">
-
         <form onSubmit={this.handleSubmit} encType="multipart/form-data">
           <div className="new-post-input">
             {this.renderInput("text", "", "text", "Add a new post...")}
@@ -45,7 +44,7 @@ class PostForm extends Form {
             {this.renderInput("image", "", "file", "")}
           </div>
           <div>
-          <button id="post-btn" className="btn btn-info btn-block">Post</button>
+            {this.renderButton("Post", "post-btn", "btn btn-info btn-block")}
           </div>
         </form>
       </div>
