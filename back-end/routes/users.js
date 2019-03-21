@@ -11,6 +11,7 @@ const crypto =require( 'crypto');
 const nodemailer = require('nodemailer');
 const Sequelize =require( 'sequelize');
 const Op = Sequelize.Op;
+require('dotenv').config();
 // get a user,
 // read from JSON web tokens; req.user._id
 router.get("/me", auth, async (req, res) => {
@@ -96,8 +97,8 @@ router.post('/forgotPassword', async (req,  res)=> {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth:{
-        user: 'list.phuket@gmail.com',
-        pass: 'iLoveChocolate',
+        user: `${process.env.GMAILID}`,
+        pass: `${process.env.GMAILPW}`
       },
     });
     const mailOptions = {
