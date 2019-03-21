@@ -45,7 +45,7 @@ export async function getUserBIO(user) {
 
   });
 
-  console.log(returnBIO);
+  //console.log(returnBIO);
 
 
 
