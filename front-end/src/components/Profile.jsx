@@ -21,10 +21,10 @@ class Profile extends Component {
     this.state = {
       isEditing: false,
       bio: "",
-      pictures: []
+
     }
     this.inputRef = null;
-    this.onDrop = this.onDrop.bind(this);
+
     //UserBio = this.setBIO();
     
   }
@@ -43,12 +43,7 @@ class Profile extends Component {
     });
   }
 
-  onDrop(picture) {
-    this.setState({
-        pictures: this.state.pictures.concat(picture),
-    });
-    console.log(picture);
-}
+
 
 
 
