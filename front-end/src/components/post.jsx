@@ -58,6 +58,7 @@ class Post extends Component {
   render() {
     const {
       author,
+      image,
       dateCreated,
       text,
       didLike,
@@ -76,6 +77,8 @@ class Post extends Component {
            </Moment>
         </h2>
         <p className="post-content">{text}</p>
+
+        { image !== '' && <img src={image} /> }
 
         <div>
           <Like

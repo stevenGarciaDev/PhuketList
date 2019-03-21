@@ -197,8 +197,8 @@ i {
   display: grid;
   background-color: #fff;
   border: 1px solid #cccccc;
-  border-bottom: none;
   position: relative;
+  margin: 20px;
 }
 
 .post-profile-img {
