@@ -11,7 +11,7 @@ router.get('/:topicId', async (req, res) => {
     posts = await Post
       .find({ topicID: req.params.topicId })
       .populate('author', 'name')
-      .sort({ dateCreated: 1});
+      .sort({ dateCreated: -1 });
     console.log(posts);
   } catch(ex) {
     console.log("No post were found");
@@ -21,18 +21,19 @@ router.get('/:topicId', async (req, res) => {
 
 // create a new Post,
 router.post('/', auth, upload, resize, async (req, res) => {
+  let post = "";
   try {
-    let post = new Post({
+    post = new Post({
       text: req.body.text,
       image: req.body.image,
       topicID: req.body.topicID,
       author: req.user._id
     });
     await post.save();
-    console.log("saved", post);
   } catch (ex) {
     console.log('unable to create post', ex);
   }
+  res.send(post);
 });
 
 router.post('/:id', async (req, res) => {
