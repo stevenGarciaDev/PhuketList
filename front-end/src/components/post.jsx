@@ -11,7 +11,7 @@ class Post extends Component {
     super(props);
     const { id, author, image, dateCreated, text, likes, comments } = this.props;
 
-    const didPrevLike = likes.indexOf(id) ? true : false;
+    const didPrevLike = likes.indexOf(author._id) !== -1 ? true : false;
 
     this.state = {
       id: id,
@@ -34,7 +34,7 @@ class Post extends Component {
     const currentLikeStatus = !didLike; // toggle
 
     if (currentLikeStatus) {
-      likes.push(author._id)
+      likes.push(author._id);
     } else {
       likes.splice( likes.indexOf(author._id), 1 );
     }
@@ -47,7 +47,6 @@ class Post extends Component {
     } catch (ex) {
       console.log('did not update');
     }
-
   }
 
   handleCommentsDropdown = () => {
