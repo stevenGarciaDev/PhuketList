@@ -15,6 +15,10 @@ export function getUsers() {
   return http.get(`${apiEndpoint}/publicUsers`);
 }
 
+export function getPublicuser(id) {
+  return http.get(`${apiEndpoint}/publicUsers/${id}`);
+}
+
 export function forgotPassword(user){
   return http.post(`${apiEndpoint}/forgotPassword`,{email: user.email});
 }
@@ -48,7 +52,7 @@ export async function getUserBIO(user) {
 
   });
 
-  console.log(returnBIO);
+  //console.log(returnBIO);
 
 
 

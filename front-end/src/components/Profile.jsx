@@ -10,8 +10,9 @@ import { getCurrentUser } from "../services/authService";
 import Form from 'react-bootstrap/Form';
 
 
+
 //import { AppRegistry, Text, StyleSheet } from 'react-native';
-var UserBio = "";
+
 
 class Profile extends Component {
   
@@ -19,10 +20,13 @@ class Profile extends Component {
     super(props);
     this.state = {
       isEditing: false,
-      bio: ""
+      bio: "",
+
     }
     this.inputRef = null;
+
     //UserBio = this.setBIO();
+    
   }
 
   async componentDidMount() {
@@ -32,12 +36,14 @@ class Profile extends Component {
   }
 
   toggleEdit = () => {
-    //console.log("Toggle EDIT")
+    //console.log( );
 
     this.setState({
       isEditing: !this.state.isEditing
     });
   }
+
+
 
 
 
@@ -89,15 +95,17 @@ class Profile extends Component {
         <div>
           <div className="jumbotron profile-container">
              <div className="profile-headshot-container">
-                <img className="profile-img" />
+
+             <img className="profile-img" />
+                
 
                 <p className="profile-name">{user.name}</p>
 
                 <div>
-                  
+                
                   <Form onSubmit={e => this.handleUpdate( e)}> 
                       <Form.Group >
-                          
+                      
                           <Form.Control as="textarea" rows="3"   
                           ref={(ref) => {this.inputRef = ref}} type="text" />
                           <div></div>

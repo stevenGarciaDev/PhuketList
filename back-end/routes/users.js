@@ -54,7 +54,12 @@ router.get('/publicUsers', async (req, res) => {
   res.send(users);
 });
 
-
+// Get public user by ID
+router.get('/publicUsers/:id', async (req, res) => {
+  const users = await User.find({ _id: req.params.id, isPrivateProfile: false })
+  .select('name');
+  res.send(users);
+});
 
 
 
@@ -152,7 +157,7 @@ router.get('/resetPassword',async (req, res) => {
 
 router.get('/UserBio/:user_id', async (req, res) => {
   //const users = await User.find( {email: req.params.user_id} , { bio: 1} );
-  const users = await User.find( {email: req.params.user_id}  );
+  const users = await User.find( {email: req.params.user_id},  { bio: 1}  );
   //console.log(lsl);
   res.send(users);
 });
