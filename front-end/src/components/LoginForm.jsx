@@ -32,6 +32,7 @@ class LoginForm extends Form {
       window.location = "/bucketList";
     }
     catch (ex) {
+      alert("wrong email or pass");
       if (ex.response && ex.response.status === 400) {
         const errors = {...this.state.errors};
         errors.username = ex.response.data;  // display error from server

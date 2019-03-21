@@ -78,7 +78,6 @@ router.put('/updateProfile/:user_id', async (req, res) => {
 });
 
 router.post('/forgotPassword', async (req,  res)=> {
-  console.log(req.body.email);
   if(req.body.email === ''){
     res.status(400).send('email required');
   }
@@ -122,8 +121,21 @@ router.post('/forgotPassword', async (req,  res)=> {
   }
 });
 
+router.put('/updatePassword',async(req,res)=>{
+  let user = await User.findOne({email: req.body.params.email});
+  if(user){
+    user.password = req.body.params.password;
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    await user.save();
+    res.send("Password changed");
+  }
+  else{
+    res.send("User not found");
+  }
+});
+
 router.get('/resetPassword',async (req, res) => {
-  console.log(req.query.token);
   let user =await  User.findOne({resetPasswordToken: req.query.token});
   if(user){
     res.status(200).send({
