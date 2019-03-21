@@ -11,10 +11,7 @@ class Post extends Component {
     super(props);
     const { id, author, image, dateCreated, text, likes, comments } = this.props;
 
-    const didPrevLike = likes.indexOf(id) !== -1 ? true : false;
-    console.log("likes list is", likes);
-    console.log("the id is", id);
-    console.log("did like is ", didPrevLike);
+    const didPrevLike = likes.indexOf(author._id) !== -1 ? true : false;
 
     this.state = {
       id: id,
