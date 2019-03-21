@@ -50,7 +50,7 @@ router.post('/:id/likes', auth, async (req, res) => {
     post.save();
     console.log(post.likes);
   } catch (ex) {
-    console.log("unable to update Post's likes");
+    console.log("unable to update Post's likes", ex);
   }
 });
 
