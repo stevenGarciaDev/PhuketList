@@ -21,13 +21,18 @@ router.get('/:topicId', async (req, res) => {
 
 // create a new Post,
 router.post('/', auth, upload, resize, async (req, res) => {
-  let post = new Post({
-    content: req.body.text,
-    image: req.body.image,
-    topicID: req.body.topicID,
-    author: req.user._id
-  });
-  await post.save();
+  try {
+    let post = new Post({
+      text: req.body.text,
+      image: req.body.image,
+      topicID: req.body.topicID,
+      author: req.user._id
+    });
+    await post.save();
+    console.log("saved", post);
+  } catch (ex) {
+    console.log('unable to create post', ex);
+  }
 });
 
 router.post('/:id', async (req, res) => {

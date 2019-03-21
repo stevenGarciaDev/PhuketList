@@ -34,7 +34,7 @@ class ActivityFeed extends Component {
               author={post.author}
               image={post.image}
               dateCreated={post.dateCreated}
-              text={post.content}
+              text={post.text}
               likes={post.likes}
               comments={post.comments}
             />
