@@ -1,17 +1,14 @@
 import React from 'react';
 import Joi from "joi-browser";
 import Form from './common/form';
-import { createComment } from '../services/postService';
 
 class CommentForm extends Form {
 
   constructor(props) {
     super(props);
-
     this.state = {
       data: { comment: "" },
-      errors: {},
-      taskId: this.props.taskId
+      errors: {}
     };
   }
 
@@ -20,17 +17,7 @@ class CommentForm extends Form {
   };
 
   doSubmit = async () => {
-    const jwt = localStorage.getItem("token");
 
-    console.log("the task id is ", this.state.taskId);
-
-    try {
-      const { taskId, comment } = this.state.data;
-      console.log(comment);
-      await createComment(comment, taskId, jwt);
-    } catch (ex) {
-      console.log("could not create comment");
-    }
   };
 
   render() {

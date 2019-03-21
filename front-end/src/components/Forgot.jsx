@@ -26,16 +26,10 @@ class Forgot extends Form {
     // Call the server
     try {
       const { data } = this.state;
+      console.log('test');
       const response = await forgotPassword(data);
-      if(response.data === "email not Found"){
-        alert("email not found in database");
-        window.location = "/Forgot";
-      }
-      else{
-        alert("Recovery email sent");
-        window.location = "/login";
-      }
       
+      window.location = "/login";
     }
     catch (ex) {
       if (ex.response && ex.response.status === 400) {

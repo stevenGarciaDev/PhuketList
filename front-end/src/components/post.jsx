@@ -57,7 +57,6 @@ class Post extends Component {
 
   render() {
     const {
-      id,
       author,
       dateCreated,
       text,
@@ -83,7 +82,6 @@ class Post extends Component {
             onClick={this.handleLike} />
           <CommentIcon
             amount={comments}
-            taskId={id}
             displayComments={displayComments}
             handleDropdown={this.handleCommentsDropdown} />
         </div>

@@ -2,19 +2,16 @@ import React, { Component } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import {
 
-  updateProfile, getUserBIO, updatePhotofile
+  updateProfile, getUserBIO
 } from "../services/userService";
 
 import { getCurrentUser } from "../services/authService";
 
 import Form from 'react-bootstrap/Form';
-const $ = window.$;
 
 
 //import { AppRegistry, Text, StyleSheet } from 'react-native';
-
-//const URL_Images = "/Phukitlist_New/front-end/src/assets/images/dog1-sq.jpg"; // '../assets/images/jackie-tsang-458443-unsplash.jpg'\
-//const olol = document.images;
+var UserBio = "";
 
 class Profile extends Component {
   
@@ -22,15 +19,10 @@ class Profile extends Component {
     super(props);
     this.state = {
       isEditing: false,
-      bio: "",
-      image: null,
-      imageSrc: ""
-
+      bio: ""
     }
     this.inputRef = null;
-    
-
-    
+    //UserBio = this.setBIO();
   }
 
   async componentDidMount() {
@@ -39,18 +31,13 @@ class Profile extends Component {
     this.setState({bio: theBIO });
   }
 
-
-
-
   toggleEdit = () => {
-    //console.log( );
+    //console.log("Toggle EDIT")
 
     this.setState({
       isEditing: !this.state.isEditing
     });
   }
-
- 
 
 
 
@@ -65,11 +52,10 @@ class Profile extends Component {
         const user = getCurrentUser();
         const jwt = localStorage.getItem("token");
 
+        const a = updateProfile(user, this.inputRef.value, jwt);
+
         
-
-        const a = updateProfile(user, this.inputRef.value, jwt); 
         this.setState({bio: this.inputRef.value });
-
       
         this.toggleEdit();
       
@@ -82,58 +68,15 @@ class Profile extends Component {
     
   }; 
 
-  handlePhotoUpdate = () => {
-    //e.preventDefault();
-
-    try {
-
-        const user = getCurrentUser();
-        const jwt = localStorage.getItem("token");
-
-        //console.log(this.state.image);
-
-        const a = updatePhotofile(user, this.state.image, jwt); //this.state.image
-        console.log(this.state.image);
-   
-      
-    } catch (ex) {
-      alert("Unable to update the photo.");
-   
-    }
-
-  }; 
 
 
 
-   readURL= event => {
-    if (event.target.files &&  event.target.files[0]) {
 
 
-      this.setState({image : event.target.files[0]});
-      this.setState({imageSrc : event.target.files[0].name});
-
-
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#blah')
-                .attr('src', e.target.result);
-        };
-
-      
-    
-
-        reader.readAsDataURL(event.target.files[0]);
-    }
-}
-
-
-
-  
 
 
 /////<button className="btn btn-success" onClick={() => this.toggleEdit() }>Save Changes</button>
-////// <textarea className="form-control" />     <img src =  />   dog1-sq
+////// <textarea className="form-control" />
 
   displayProfile = () => {
     const { isEditing } = this.state;
@@ -146,23 +89,15 @@ class Profile extends Component {
         <div>
           <div className="jumbotron profile-container">
              <div className="profile-headshot-container">
-
-             
-                
+                <img className="profile-img" />
 
                 <p className="profile-name">{user.name}</p>
-              
-                
-                <div>
-                <input type='file' onChange= {this. readURL} accept="image/*"  />
-                  <img id="blah"  alt="No Image" width = {75} height = {75}  />
-                </div>
 
                 <div>
-                
+                  
                   <Form onSubmit={e => this.handleUpdate( e)}> 
                       <Form.Group >
-                      
+                          
                           <Form.Control as="textarea" rows="3"   
                           ref={(ref) => {this.inputRef = ref}} type="text" />
                           <div></div>
@@ -198,11 +133,9 @@ class Profile extends Component {
 
                  <p className="profile-name">{user.name}</p>
 
-                <div> {this.state.bio}  
-            
-                 </div>
+                <div> {this.state.bio} </div>
                   
-               
+                 
 
               </div>
 

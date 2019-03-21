@@ -26,9 +26,6 @@ export function resetPassword(params){
   var tokens = params.params.resetPasswordToken;
   return http.get(`${apiEndpoint}/resetPassword`,{params: {token: tokens}});
 }
-export function updatePassword(data){
-  return http.put(`${apiEndpoint}/updatePassword`,{params: {email: data.params.email, password: data.params.Password},});
-}
 
 export async function updateProfile(user, bioText, jwt) {
 
@@ -43,21 +40,6 @@ export async function updateProfile(user, bioText, jwt) {
 
 
 
-
-export async function updatePhotofile(user, photo, jwt) {
-
-
-  const response = await http.put(`${apiEndpoint}/updatePhoto/${user.email}`,
-    {  photo },
-    { 'headers': {'x-auth-token': jwt }
-  });
-  console.log(response); //user._id
-  return response;
-}
-
-
-
-
 export async function getUserBIO(user) {
    var returnBIO = "";
 
@@ -67,7 +49,7 @@ export async function getUserBIO(user) {
 
   });
 
-  //console.log(returnBIO);
+  console.log(returnBIO);
 
 
 

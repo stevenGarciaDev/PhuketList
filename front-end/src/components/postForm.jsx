@@ -28,7 +28,6 @@ class PostForm extends Form {
       const { text, image } = this.state.data;
       const response = await createPost(text, image, taskId, jwt);
       console.log(response);
-      this.props.updatePostList();
     } catch (ex) {
 
     }

@@ -27,6 +27,7 @@ class Form extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+
     const errors = this.validate();
     console.log("error!!", errors);
     this.setState({ errors: errors || {} });
@@ -55,6 +56,7 @@ class Form extends Component {
       </button>
     );
   }
+
   renderInput(name, label, type = "text", placeholder = "") {
     const { data, errors } = this.state;
 
