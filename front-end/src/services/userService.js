@@ -18,6 +18,10 @@ export function getUsers() {
 export function forgotPassword(user){
   return http.post(`${apiEndpoint}/forgotPassword`,{email: user.email});
 }
+export function resetPassword(params){
+  var tokens = params.params.resetPasswordToken;
+  return http.get(`${apiEndpoint}/resetPassword`,{params: {token: tokens}});
+}
 
 export async function updateProfile(user, bioText, jwt) {
 

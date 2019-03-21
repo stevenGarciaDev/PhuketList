@@ -17,6 +17,7 @@ import Logout from './components/logout';
 import NotFound from "./components/notFound";
 import ProtectedRoute from "./components/common/protectedRoute";
 import { getCurrentUser } from "./services/authService";
+import Reset from './components/Reset';
 
 class App extends Component {
 
@@ -28,7 +29,7 @@ class App extends Component {
     const user = getCurrentUser();
     if (user) this.setState({ user });
   }
-
+  
   render() {
     return (
       <div className="App">
@@ -44,6 +45,7 @@ class App extends Component {
             <Route path="/register" component={RegisterForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/Forgot" component={Forgot} />
+            <Route path="/Reset/:token" component={Reset} />
             <Route path="/activityFeed" component={ActivityFeed} />
             <Route path="/friends" component={FriendsList} />
             <Route path="/messages" component={Messages} />

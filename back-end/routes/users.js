@@ -9,7 +9,8 @@ const auth = require('../middleware/auth');
 const { BucketList } = require("../models/bucketList");
 const crypto =require( 'crypto');
 const nodemailer = require('nodemailer');
-
+const Sequelize =require( 'sequelize');
+const Op = Sequelize.Op;
 // get a user,
 // read from JSON web tokens; req.user._id
 router.get("/me", auth, async (req, res) => {
@@ -85,8 +86,9 @@ router.post('/forgotPassword', async (req,  res)=> {
   if(user){
     const token = crypto.randomBytes(20).toString('hex');
     user.resetPasswordToken = token;
+    await user.save();
     user.reserPasswordExpires= Date.now() + 360000;
-
+    await user.save();
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth:{
@@ -101,7 +103,7 @@ router.post('/forgotPassword', async (req,  res)=> {
       text:
         'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
         + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
-        + `http://localhost:3031/reset/${token}\n\n`
+        + `http://localhost:3000/reset/${token}\n\n`
         + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
     };
     console.log('sending mail');
@@ -117,6 +119,21 @@ router.post('/forgotPassword', async (req,  res)=> {
   }
   else{
     res.send("email not Found");
+  }
+});
+
+router.get('/resetPassword',async (req, res) => {
+  console.log(req.query.token);
+  let user =await  User.findOne({resetPasswordToken: req.query.token});
+  if(user){
+    res.status(200).send({
+      email: user.email,
+      message: 'password reset link a-ok',
+    });
+  }
+  else{
+     console.error('password reset link is invalid or has expired');
+      res.status(403).send('password reset link is invalid or has expired');
   }
 });
 
