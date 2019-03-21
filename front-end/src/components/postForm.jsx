@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from './common/form';
-import { createPost } from '../services/postService';
 import Joi from "joi-browser";
+import { createPost } from '../services/postService';
 
 class PostForm extends Form {
   constructor(props) {
@@ -26,8 +26,9 @@ class PostForm extends Form {
 
     try {
       const { text, image } = this.state.data;
-      const response = await createPost(text, image, taskId, jwt);
-      console.log(response);
+      const data = await createPost(text, image, taskId, jwt);
+      this.props.onNewPost(data);
+      console.log(data);
     } catch (ex) {
 
     }

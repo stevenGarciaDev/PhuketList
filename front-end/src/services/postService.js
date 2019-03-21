@@ -13,7 +13,8 @@ export async function createPost(text, image, taskId, jwt) {
     {text, image, topicID: taskId },
     { 'headers': {'x-auth-token': jwt }
   });
-  return response;
+  console.log("RESPONES", response.data);
+  return response.data;
 }
 
 export async function updateLikeInfo(likesArr, taskId, jwt) {

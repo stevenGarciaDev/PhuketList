@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getPosts } from '../services/postService';
 import Post from './post';
+import PostForm from './postForm';
 
 class ActivityFeed extends Component {
 
@@ -20,12 +21,22 @@ class ActivityFeed extends Component {
     this.setState({ posts });
   }
 
+  onNewPost = (post) => {
+    console.log("ON NEW POST", post);
+    const posts = [...this.state.posts];
+    posts.unshift(post);
+    this.setState({ posts });
+  }
+
   render() {
     const { posts } = this.state;
+    const { taskId } = this.props;
 
     return (
       <div className="ActivityFeed">
         <div className="activity-content">
+
+          <PostForm taskId={taskId} onNewPost={this.onNewPost} />
 
           {posts && this.state.posts.map((post) => (
             <Post
