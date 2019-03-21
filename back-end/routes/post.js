@@ -21,6 +21,9 @@ router.get('/:topicId', async (req, res) => {
 
 // create a new Post,
 router.post('/', auth, upload, resize, async (req, res) => {
+
+  console.log("REQ.BODY", req.body);
+
   let post = "";
   try {
     post = new Post({
