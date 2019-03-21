@@ -44,11 +44,23 @@ export async function updateProfile(user, bioText, jwt) {
 }
 
 
+export async function updatePhotoFile(user, photo, jwt) {
+
+
+  const response = await http.put(`${apiEndpoint}/updatePhoto/${user.email}`,
+    { photo },
+    { 'headers': {'x-auth-token': jwt }
+  });
+  //console.log(response); //user._id
+  return response;
+}
+
+
 
 export async function getUserBIO(user) {
    var returnBIO = "";
 
-  const bioUser = await http.get(`${apiEndpoint}/UserBio/${user.email}`, {}).then(function(result) {
+   await http.get(`${apiEndpoint}/UserBio/${user.email}`, {}).then(function(result) {
 
     returnBIO = result.data[0].bio;
 
@@ -59,4 +71,21 @@ export async function getUserBIO(user) {
 
 
   return returnBIO;
+}
+
+
+export async function getUserPHOTO(user) {
+  var returnPhoto = "";
+
+  await http.get(`${apiEndpoint}/UserPhoto/${user.email}`, {}).then(function(result) {
+
+  returnPhoto = result.data[0].photo;
+
+ });
+
+ console.log(returnPhoto);
+
+
+
+ return returnPhoto;
 }
