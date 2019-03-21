@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import HomePage from './components/HomePage';
 import BucketList from './components/BucketList';
 import TaskGroup from './components/TaskGroup';
 import Navbar from './components/Navbar';
@@ -35,6 +36,7 @@ class App extends Component {
         <Navbar user={this.state.user} />
         <div className="content">
           <Switch>
+            <Route path="/home" component={HomePage} />
             <ProtectedRoute
               path="/bucketList"
               render={(props) => <BucketList user={this.state.user} {...props} /> }
@@ -51,7 +53,7 @@ class App extends Component {
             <Route path="/settings" component={Settings} />
             <Route path="/contact" component={Contact} />
             <Route path="/not-found" component={NotFound} />
-            <Redirect to="/not-found" />
+            <Redirect to="/home" />
           </Switch>
         </div>
       </div>

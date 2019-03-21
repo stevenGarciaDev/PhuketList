@@ -98,6 +98,37 @@ i {
   color: #B22222;
 }
 
+/* -------------
+ Homepage
+------------- */
+.home-container {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #EAEAEA;
+}
+
+.home-title-container {
+  padding-top: 50px;
+  width: 100%;
+}
+
+.home-title {
+  font-size: 72px;
+  font-weight: 900;
+  color: #17a2b8;
+}
+
+.home-subtitle {
+  font-size: 32px;
+  font-weight: 100;
+  color: #17a2b8;
+}
+
+.home-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* -------------
  Login and Register
@@ -349,7 +380,6 @@ Task Group page
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url(./assets/images/jennvmy_-1194676-unsplash.jpg);
-  filter: brightness(50%);
   height: 300px;
   width: 100%;
   margin-bottom: 0px !important;
@@ -377,6 +407,14 @@ Task Group page
   text-shadow: 2px 2px 4px #000000;
 }
 
+.shadow-text-blue {
+  color: #17a2b8;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.bold-text {
+  font-weight: 900;
+}
 
 @media (min-width: 800px) {
 
