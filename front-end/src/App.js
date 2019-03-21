@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import LoginForm from "./components/LoginForm";
 import Forgot from "./components/Forgot";
 import RegisterForm from "./components/RegisterForm";
-import ActivityFeed from "./components/ActivityFeed";
+import ActivityPage from "./components/ActivityPage";
 import FriendsList from "./components/FriendsList";
 import Messages from "./components/Messages";
 import Profile from "./components/Profile";
@@ -30,7 +30,7 @@ class App extends Component {
     const user = getCurrentUser();
     if (user) this.setState({ user });
   }
-  
+
   render() {
     return (
       <div className="App">
@@ -48,7 +48,7 @@ class App extends Component {
             <Route path="/logout" component={Logout} />
             <Route path="/Forgot" component={Forgot} />
             <Route path="/Reset/:token" component={Reset} />
-            <Route path="/activityFeed" component={ActivityFeed} />
+            <Route path="/activityPage" component={ActivityPage} />
             <Route path="/friends" component={FriendsList} />
             <Route path="/messages" component={Messages} />
             <Route path="/myProfile" render={(props) => <Profile user={this.state.user} /> } />

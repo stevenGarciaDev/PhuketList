@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getPosts } from '../services/postService';
+import PostForm from './postForm';
 import Post from './post';
 
 class ActivityFeed extends Component {
@@ -7,7 +8,8 @@ class ActivityFeed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      taskId: ""
     };
   }
 
@@ -21,11 +23,13 @@ class ActivityFeed extends Component {
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, taskId } = this.state;
 
     return (
       <div className="ActivityFeed">
         <div className="activity-content">
+
+          { taskId !== null && <PostForm taskId={taskId} /> }
 
           {posts && this.state.posts.map((post) => (
             <Post
