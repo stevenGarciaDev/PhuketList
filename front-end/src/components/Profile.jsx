@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import {
 
-  updateProfile, getUserBIO
+  updateProfile, getUserBIO, updatePhotofile
 } from "../services/userService";
 
 import { getCurrentUser } from "../services/authService";
 
 import Form from 'react-bootstrap/Form';
-
+const $ = window.$;
 
 
 //import { AppRegistry, Text, StyleSheet } from 'react-native';
 
-//const URL_Images = "/Phukitlist_New/front-end/src/assets/images"; // '../assets/images/jackie-tsang-458443-unsplash.jpg'\
+//const URL_Images = "/Phukitlist_New/front-end/src/assets/images/dog1-sq.jpg"; // '../assets/images/jackie-tsang-458443-unsplash.jpg'\
 //const olol = document.images;
 
 class Profile extends Component {
@@ -23,7 +23,8 @@ class Profile extends Component {
     this.state = {
       isEditing: false,
       bio: "",
-      image: null
+      image: null,
+      imageSrc: ""
 
     }
     this.inputRef = null;
@@ -39,20 +40,6 @@ class Profile extends Component {
   }
 
 
-
-  changeProfileUrl = () => {
-   
-    //var profURL = document.getElementById('root').src
-    //console.log( profURL.b);
-    //profURL.body.style.backgroundImage = "url('img_tree.png')";
-
-  }; 
-
-  fileSelect = event => {
-    //console.log( event.target.files[0]);
-    this.setState({image : event.target.files[0]});
-
-  }; 
 
 
   toggleEdit = () => {
@@ -78,10 +65,11 @@ class Profile extends Component {
         const user = getCurrentUser();
         const jwt = localStorage.getItem("token");
 
-        const a = updateProfile(user, this.inputRef.value, jwt);
-
         
+
+        const a = updateProfile(user, this.inputRef.value, jwt); 
         this.setState({bio: this.inputRef.value });
+
       
         this.toggleEdit();
       
@@ -94,7 +82,50 @@ class Profile extends Component {
     
   }; 
 
+  handlePhotoUpdate = () => {
+    //e.preventDefault();
 
+    try {
+
+        const user = getCurrentUser();
+        const jwt = localStorage.getItem("token");
+
+        //console.log(this.state.image);
+
+        const a = updatePhotofile(user, this.state.image, jwt); //this.state.image
+        console.log(this.state.image);
+   
+      
+    } catch (ex) {
+      alert("Unable to update the photo.");
+   
+    }
+
+  }; 
+
+
+
+   readURL= event => {
+    if (event.target.files &&  event.target.files[0]) {
+
+
+      this.setState({image : event.target.files[0]});
+      this.setState({imageSrc : event.target.files[0].name});
+
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah')
+                .attr('src', e.target.result);
+        };
+
+      
+    
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
+}
 
 
 
@@ -121,8 +152,10 @@ class Profile extends Component {
 
                 <p className="profile-name">{user.name}</p>
               
-                <div> <input type = "file" onChange = {this.fileSelect}/> 
-                      
+                
+                <div>
+                <input type='file' onChange= {this. readURL} accept="image/*"  />
+                  <img id="blah"  alt="No Image" width = {75} height = {75}  />
                 </div>
 
                 <div>
@@ -165,9 +198,11 @@ class Profile extends Component {
 
                  <p className="profile-name">{user.name}</p>
 
-                <div> {this.state.bio} </div>
+                <div> {this.state.bio}  
+            
+                 </div>
                   
-                 {this.changeProfileUrl()}
+               
 
               </div>
 

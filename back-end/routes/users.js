@@ -68,11 +68,13 @@ router.put('/updateProfile/:user_id', async (req, res) => {
   // receive uploaded image and bio
 
   try {
-    console.log(req.body.bioText);
+    //console.log(req.body.bioText);
 
-    const lll =  await User.collection.updateOne({email: req.params.user_id}, {$set: {bio: req.body.bioText}});
+     await User.collection.updateOne({email: req.params.user_id}, {$set: {bio: req.body.bioText}});
 
-    console.log(req.params.user_id);
+
+    //console.log(req.params.user_id);
+
     //console.log(User.getUsers());
  } catch (e) {
     //print(e);
@@ -82,6 +84,31 @@ router.put('/updateProfile/:user_id', async (req, res) => {
   //console.log(lsl);
   res.send(users);
 });
+
+
+
+
+router.put('/updatePhoto/:user_id', async (req, res) => {
+ 
+
+  try {
+    
+
+     await User.collection.updateOne({email: req.params.user_id}, {$set: {photo: req.body.photo}});
+
+
+    console.log(req.body.photo);
+    //console.log(User.getUsers());
+ } catch (e) {
+    //print(e);
+ }
+   const users = await User.find( {email: req.params.user_id} , { photo: 1} );
+
+  //console.log(lsl);
+  res.send(users);
+});
+
+
 
 router.post('/forgotPassword', async (req,  res)=> {
   if(req.body.email === ''){
@@ -162,6 +189,18 @@ router.get('/UserBio/:user_id', async (req, res) => {
   //console.log(lsl);
   res.send(users);
 });
+
+
+router.get('/UserPhoto/:user_id', async (req, res) => {
+ 
+  const users = await User.find( {email: req.params.user_id},  { photo: 1}  );
+
+  res.send(users);
+});
+
+
+
+
 
 
 

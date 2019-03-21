@@ -43,6 +43,21 @@ export async function updateProfile(user, bioText, jwt) {
 
 
 
+
+export async function updatePhotofile(user, photo, jwt) {
+
+
+  const response = await http.put(`${apiEndpoint}/updatePhoto/${user.email}`,
+    {  photo },
+    { 'headers': {'x-auth-token': jwt }
+  });
+  console.log(response); //user._id
+  return response;
+}
+
+
+
+
 export async function getUserBIO(user) {
    var returnBIO = "";
 

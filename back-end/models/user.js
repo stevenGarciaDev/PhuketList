@@ -43,9 +43,9 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 5,
     maxlength: 1024
-  },
+  }, 
   photo: {
-    type: String
+    data: Buffer, contentType: String 
   },
   resetPasswordToken:{ 
     type: String
