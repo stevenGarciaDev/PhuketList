@@ -45,6 +45,7 @@ router.post('/:id/likes', auth, async (req, res) => {
   console.log('backend reached for update');
 
   try {
+    console.log("the POST ID TO LIKE Is", req.params.id);
     const post = await Post.findById(req.params.id);
     post.likes = req.body.likesArr;
     post.save();

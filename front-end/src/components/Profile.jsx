@@ -14,7 +14,7 @@ import Form from 'react-bootstrap/Form';
 var UserBio = "";
 
 class Profile extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -43,30 +43,30 @@ class Profile extends Component {
 
   handleUpdate = (e) => {
     e.preventDefault();
-    
+
 
 
     try {
 
-      
+
         const user = getCurrentUser();
         const jwt = localStorage.getItem("token");
 
         const a = updateProfile(user, this.inputRef.value, jwt);
 
-        
+
         this.setState({bio: this.inputRef.value });
-      
+
         this.toggleEdit();
-      
-      
+
+
     } catch (ex) {
       alert("Unable to update the profile.");
-   
+
     }
 
-    
-  }; 
+
+  };
 
 
 
@@ -81,34 +81,34 @@ class Profile extends Component {
   displayProfile = () => {
     const { isEditing } = this.state;
     const { user } = this.props;
-    
+
 
     if (isEditing) {
 
       return (
         <div>
-          <div className="jumbotron profile-container">
+          <div className="profile-container">
              <div className="profile-headshot-container">
                 <img className="profile-img" />
 
                 <p className="profile-name">{user.name}</p>
 
                 <div>
-                  
-                  <Form onSubmit={e => this.handleUpdate( e)}> 
+
+                  <Form onSubmit={e => this.handleUpdate( e)}>
                       <Form.Group >
-                          
-                          <Form.Control as="textarea" rows="3"   
+
+                          <Form.Control as="textarea" rows="3"
                           ref={(ref) => {this.inputRef = ref}} type="text" />
                           <div></div>
-                          
+
                           <div className="profile-btn-container">
                             <button className="btn btn-success" type="submit">Save Changes</button>
                         </div>
-                        
+
                       </Form.Group>
                    </Form>
-                
+
                    <div>
                    {this.state.bio}
 
@@ -117,7 +117,7 @@ class Profile extends Component {
                 </div>
              </div>
 
-            
+
            </div>
         </div>
       );
@@ -134,8 +134,8 @@ class Profile extends Component {
                  <p className="profile-name">{user.name}</p>
 
                 <div> {this.state.bio} </div>
-                  
-                 
+
+
 
               </div>
 

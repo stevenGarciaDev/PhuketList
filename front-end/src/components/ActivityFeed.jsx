@@ -22,7 +22,6 @@ class ActivityFeed extends Component {
   }
 
   onNewPost = (post) => {
-    console.log("ON NEW POST", post);
     const posts = [...this.state.posts];
     posts.unshift(post);
     this.setState({ posts });
