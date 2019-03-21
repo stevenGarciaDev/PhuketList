@@ -5,12 +5,19 @@ const express = require("express");
 const router = express.Router();
 
 // req.params.id is the user id
-
 router.get('/:id', auth, async (req, res) => {
   const listItems = await BucketList
     .find({ owner: req.params.id })
     .select('listItems');
   res.send(listItems);
+});
+
+// Get users that have a list item (aka part of group)
+router.get('/users/:id', async (req, res) => {
+  const users = await BucketList
+    .find({ 'listItems._id': req.params.id })
+    .select('owner');
+  res.send(users);
 });
 
 // Create a new List item for the current bucket list

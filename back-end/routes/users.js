@@ -54,7 +54,12 @@ router.get('/publicUsers', async (req, res) => {
   res.send(users);
 });
 
-
+// Get public user by ID
+router.get('/publicUsers/:id', async (req, res) => {
+  const users = await User.find({ _id: req.params.id, isPrivateProfile: false })
+  .select('name');
+  res.send(users);
+});
 
 
 
