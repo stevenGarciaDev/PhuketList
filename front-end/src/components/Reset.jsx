@@ -2,14 +2,13 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import PropTypes from 'prop-types';
-import { resetPassword } from "../services/userService";
+import { resetPassword,updatePassword } from "../services/userService";
 class Reset extends Form {
 
     constructor(props) {
         super(props);
         this.state = {  
-          data: { email: '',
-                updated: false,
+          data: { 
                 Password: "",
                   confirmPassword: ""},
           errors: {}
@@ -22,27 +21,58 @@ class Reset extends Form {
         .label("Password"),
         confirmPassword: Joi.string()
         .required()
-        .label("ConfirmPassword")
+        .label("confirmPassword")
     };
     async componentDidMount() {
         const response = await resetPassword({params: {
             resetPasswordToken: this.props.match.params.token,
           },
         })
-        console.log("test");
+        
           if(response.data.message === 'password reset link a-ok'){
               this.setState({
                  email: response.data.email,
-                 updated: false, 
               });
+              console.log(this.state);
           }
           else{
             console.log(response);
             this.setState({
-                updated: false,
             })
           }
         }
+        doSubmit = async () => {
+          // Call the server
+          try {
+            const { data } = this.state;
+            const email = this.state.email;
+            console.log(data.Password);
+            if(data.Password === data.confirmPassword){
+              const response = await updatePassword({params: {email,data}});
+              if(response.data === "Password changed"){
+               alert("Password Changed");
+            }
+               else{
+                alert("Wrong User, could not change password");
+              }
+              window.location = "/login";
+            }
+            else{
+              alert("Passwords dont match");
+            }
+            
+            
+            
+            //window.location = "/login";
+          }
+          catch (ex) {
+            if (ex.response && ex.response.status === 400) {
+              const errors = {...this.state.errors};
+              errors.name = ex.response.data; // get the error from the server
+              this.setState({ errors });
+            }
+          }
+        };
     /*
     async componentDidMount() {
         await axios

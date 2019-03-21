@@ -26,6 +26,11 @@ export function resetPassword(params){
   var tokens = params.params.resetPasswordToken;
   return http.get(`${apiEndpoint}/resetPassword`,{params: {token: tokens}});
 }
+export function updatePassword(params){
+  console.log(params.params.email);
+  console.log(params.params.data.Password);
+  return http.put(`${apiEndpoint}/updatePassword`,{params});
+}
 
 export async function updateProfile(user, bioText, jwt) {
 
