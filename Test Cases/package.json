@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive --timeout 30000 Register.js Login.js",
+    "test": "mocha --recursive --timeout 30000 Register.js Login.js Task.js",
     "registeraccount":"mocha --recursive --timeout 30000 "
   },
   "author": "",
