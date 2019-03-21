@@ -20,6 +20,11 @@ export async function getListItem(itemid) {
   return response;
 }
 
+export async function getTaskUsers(taskid) {
+  const response = await http.get(`${apiEndpoint}/users/${taskid}`);
+  return response;
+}
+
 export async function findOrCreateTask(user, name, jwt) {
   const response = await http.post(`${apiEndpoint}/${user._id}`,
     { taskName: name },

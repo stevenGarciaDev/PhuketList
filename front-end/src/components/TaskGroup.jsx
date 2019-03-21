@@ -12,8 +12,12 @@ import {
 import {
 	getListItems,
 	getListItem,
-	findOrCreateTask
+	findOrCreateTask,
+	getTaskUsers
 } from "../services/bucketListService";
+import {
+	getPublicuser
+} from "../services/userService";
 import PostForm from './postForm';
 
 
@@ -26,9 +30,8 @@ class TaskGroup extends Component {
 	      task_name: '',
 	      user_hastask: false,
 	      message: '',
+	      members: [],
 	    };
-
-
 	}
 
 	async componentDidMount() {
@@ -47,6 +50,22 @@ class TaskGroup extends Component {
 	    if (this.contains(listItems, "_id", this.state.task_id) ) {
 	    	this.setState({user_hastask: true});
 	    }
+
+	    // Call function to retrieve members
+	    this.getMembers();
+  	}
+
+  	async getMembers() {
+  		// Get members with this task in bucketlist
+		const membersresponse = await getTaskUsers(this.state.task_id);
+	    const members = [];
+	    for (var i = 0; i < membersresponse.data.length; i++) {
+	    	var member = membersresponse.data[i];
+	    	const response = await getPublicuser(member.owner);
+	    	//console.log(response.data[0]);
+	    	members.push(response.data[0]);
+	    }
+	    this.setState({members: members});
   	}
 
   	contains = (arr, key, val) => {
@@ -90,12 +109,24 @@ class TaskGroup extends Component {
 						<btn className="btn btn-warning" onClick={this.addTask}>Add to my Bucket List!</btn>}
 						<h3 className="shadow-text">{`${message}`}</h3>
 				</div>
-					<div className="task-group-jumbotron-container" >
-					</div>
-					<div className="task-group-body task-group-feed">
-					{user_hastask &&
-						<PostForm taskId={task_id}/>}
-						<ActivityFeed taskId={task_id}/>
+					<div className="row">
+						<div className="col-md-8 col-sm-9 col-lg-9 col-xl-10 nopadding">
+							<div className="task-group-body task-group-feed">
+							{user_hastask &&
+								<PostForm taskId={task_id}/>}
+								<ActivityFeed taskId={task_id}/>
+							</div>
+						</div>
+						<div className="col-md-4 col-sm-3 col-lg-3 col-xl-2 nopadding">
+							<div className="task-group-members-nav">
+								<h3>Members</h3>
+								<div className="task-group-members-list">
+									{this.state.members.map(function(item, i){
+									  return <div className="task-group-members-list-item">{`${item.name}`}</div>
+									})}
+								</div>
+							</div>
+						</div>
 					</div>
 			</React.Fragment>
 		);
