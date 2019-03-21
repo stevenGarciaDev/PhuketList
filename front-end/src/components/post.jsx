@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
-import Like from './Like';
+import Like from './like';
 import CommentIcon from './CommentIcon';
 import { updateLikeInfo } from '../services/postService';
 // import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';

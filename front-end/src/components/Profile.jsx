@@ -18,13 +18,18 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditing: false
+      isEditing: false,
+      bio: ""
     }
     this.inputRef = null;
     //UserBio = this.setBIO();
   }
 
-  
+  async componentDidMount() {
+    const user = getCurrentUser();
+    const theBIO = await getUserBIO(user);
+    this.setState({bio: theBIO });
+  }
 
   toggleEdit = () => {
     //console.log("Toggle EDIT")
@@ -48,9 +53,11 @@ class Profile extends Component {
         const jwt = localStorage.getItem("token");
 
         const a = updateProfile(user, this.inputRef.value, jwt);
-  
+
+        
+        this.setState({bio: this.inputRef.value });
       
-      this.toggleEdit();
+        this.toggleEdit();
       
       
     } catch (ex) {
@@ -62,21 +69,7 @@ class Profile extends Component {
   }; 
 
 
- 
-  setBIO = () => {
-    
 
-      const user = getCurrentUser();
-     
-      //getUserBIO(user);
-
-
-   
-
-   
-    
-    getUserBIO(user);
-  };
 
 
 
@@ -117,7 +110,7 @@ class Profile extends Component {
                    </Form>
                 
                    <div>
-                 
+                   {this.state.bio}
 
                    </div>
 
@@ -140,7 +133,7 @@ class Profile extends Component {
 
                  <p className="profile-name">{user.name}</p>
 
-                <div>{this.setBIO()}</div>
+                <div> {this.state.bio} </div>
                   
                  
 
