@@ -120,9 +120,7 @@ class TaskGroup extends Component {
 							<div className="task-group-members-nav">
 								<h3>Members</h3>
 								<div className="task-group-members-list">
-									{this.state.members.map(function(item, i){
-									  return <div className="task-group-members-list-item">{`${item.name}`}</div>
-									})}
+									
 								</div>
 							</div>
 						</div>
