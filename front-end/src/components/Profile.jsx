@@ -135,8 +135,8 @@ class Profile extends Component {
         //var compressed = LZString.compress(base64String);
         //str = LZString.decompress(compressed);//////
 
-        //console.log(compressed );
-
+        //console.log(compressed );//
+  
         const user = getCurrentUser();
         const jwt = localStorage.getItem("token");
 
