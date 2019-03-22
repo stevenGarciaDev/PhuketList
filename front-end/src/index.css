@@ -201,6 +201,50 @@ i {
   margin: 20px;
 }
 
+.box__dragndrop,
+.box__uploading,
+.box__success,
+.box__error {
+  display: none;
+}
+
+.input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.input-file + label {
+  cursor: pointer;
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: #17a2b8;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.fa-upload {
+  margin-right: 15px;
+  position: relative;
+  left: 8px;
+  top: 0px;
+}
+
+.input-file:focus + label,
+.input-file + label:hover {
+    background-color: #117a8b;
+}
+
+.input-file:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
 .post-profile-img {
   background-image: url(./assets/images/dog1-sq.jpg);
   background-size: cover;

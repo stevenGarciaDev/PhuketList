@@ -111,7 +111,7 @@ class TaskGroup extends Component {
 					<div className="row">
 						<div className="col-md-8 col-sm-9 col-lg-9 col-xl-10 nopadding">
 							<div className="task-group-body task-group-feed">
-								<ActivityFeed taskId={task_id}/>
+								<ActivityFeed taskId={task_id} />
 							</div>
 						</div>
 						<div className="col-md-4 col-sm-3 col-lg-3 col-xl-2 nopadding">

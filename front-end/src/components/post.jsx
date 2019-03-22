@@ -3,21 +3,15 @@ import Moment from 'react-moment';
 import Like from './Like';
 import CommentIcon from './CommentIcon';
 import { updateLikeInfo } from '../services/postService';
+import { getCurrentUser } from '../services/authService';
 // import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';
 
 class Post extends Component {
 
   constructor(props) {
     super(props);
-    const { id, author, currentUser, image, dateCreated, text, likes, comments } = this.props;
+    const { id, author, image, dateCreated, text, likes, comments } = this.props;
 
-    let didPrevLike = false;
-    try {
-      didPrevLike = likes.indexOf(currentUser._id) !== -1 ? true : false;
-      this.setState({ didLike: didPrevLike });
-    } catch (ex) {
-
-    }
     this.state = {
       id: id,
       author: author,
@@ -25,16 +19,19 @@ class Post extends Component {
       dateCreated: dateCreated,
       text: text,
       likes: likes,
-      didLike: didPrevLike,
+      didLike: true,
       comments: comments,
       displayComments: false
     };
-
-    console.log("In Post component, the comments are ", this.state.comments);
   }
 
   async componentDidMount () {
-
+    const currentUser = await getCurrentUser();
+    const { likes } = this.state;
+    
+    let didPrevLike = false;
+    didPrevLike = likes.indexOf(currentUser._id) !== -1 ? true : false;
+    this.setState({ didLike: didPrevLike });
   }
 
   handleLike = async () => {

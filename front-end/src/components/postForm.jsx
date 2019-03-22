@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from './common/form';
+import ImageInput from './common/imageInput';
 import Joi from "joi-browser";
 import { createPost } from '../services/postService';
 
@@ -34,6 +35,14 @@ class PostForm extends Form {
     }
   };
 
+  updateFileInputLabel = (e) => {
+    console.log("button was pressed", e);
+    let filename = "";
+    filename = document.getElementById('post-image');
+    filename = filename.value.split("\\").pop();
+    console.log("filename is", filename);
+  }
+
   render() {
     return (
       <div className="new-post-container">
@@ -43,6 +52,11 @@ class PostForm extends Form {
           </div>
           <div className="new-post-input">
             {this.renderInput("image", "", "file", "")}
+          </div>
+          <div>
+
+            <ImageInput handleChange={this.updateFileInputLabel}/>
+
           </div>
           <div>
             {this.renderButton("Post", "post-btn", "btn btn-info btn-block")}
