@@ -8,6 +8,13 @@ import {
 import { getCurrentUser } from "../services/authService";
 
 import Form from 'react-bootstrap/Form';
+////var Jimp = require('jimp');
+///var resizebase64 = require('resize-base64');  
+
+
+
+
+
 const $ = window.$;
 
 
@@ -41,6 +48,9 @@ class Profile extends Component {
     this.setState({bio: theBIO });
     this.setState({photo: thePhoto });
   }
+
+
+
 
 
 
@@ -98,6 +108,13 @@ class Profile extends Component {
 
   try {
     var f = evt.target.files[0]; // FileList object
+
+
+    
+    console.log(f.size);
+
+    console.log(f.size);
+
     var reader = new FileReader();
     var thisProfile = this;
     // Closure to capture the file information.
@@ -106,14 +123,14 @@ class Profile extends Component {
         var binaryData = e.target.result;
         //Converting Binary Data to base 64
         var base64String = window.btoa(binaryData);
+        //var  base64String = resizebase64(base64String, 300, 300); 
+        //console.log(base64String );
   
         const user = getCurrentUser();
         const jwt = localStorage.getItem("token");
-  
-  
-  
+
         
-        updatePhotoFile(user, base64String, jwt);
+        updatePhotoFile(user, base64String, jwt); //
         thisProfile.setState({photo: base64String});
   
         
@@ -157,8 +174,8 @@ class Profile extends Component {
               
                 
                 <div>
-                <input type='file' onChange= { this.imageUpload} accept="image/*"  />
-                  <img id="blah"  alt="No Image" width = {75} height = {75}  />
+                <input type='file' onChange= { this.imageUpload} accept="image/*"  width = {300} height = {300}/>
+                  <img id="blah"  alt="No Image"   />
                 </div>
 
                 <div>
@@ -199,7 +216,7 @@ class Profile extends Component {
               <div className="profile-headshot-container">
                  
               <div> 
-                   <img src = {"data:image/jpeg;base64," + this.state.photo} width = {150} height = {150}  />
+                   <img src = {"data:image;base64," + this.state.photo} width = {150} height = {150}  />
             
             </div>
 

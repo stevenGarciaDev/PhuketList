@@ -2,6 +2,7 @@ import http from "./httpService";
 import { apiUrl } from "../config.json";
 
 const apiEndpoint = apiUrl + "/users";
+//var Jimp = require('jimp');
 
 export function register(user) {
   return http.post(apiEndpoint, {
@@ -41,6 +42,7 @@ export async function updateProfile(user, bioText, jwt) {
 
 export async function updatePhotoFile(user, photo, jwt) {
 
+ 
 
   const response = await http.put(`${apiEndpoint}/updatePhoto/${user.email}`,
     { photo },
