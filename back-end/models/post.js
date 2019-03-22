@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Joi = require('Joi');
 Joi.objectId = require('joi-objectid')(Joi);
-const { commentSchema } = require('./comment');
+const { Comment, commentSchema } = require('./comment');
 
 const postSchema = new mongoose.Schema({
   topicID: {

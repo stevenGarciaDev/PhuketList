@@ -23,6 +23,7 @@
     "lodash": "^4.17.11",
     "mongoose": "^5.4.15",
     "multer": "^1.4.1",
+    "node-plantuml": "^0.8.1",
     "nodemailer": "^5.1.1",
     "react-filter-search": "^1.0.8",
     "sequelize": "^5.1.0",
