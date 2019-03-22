@@ -134,7 +134,7 @@ class Profile extends Component {
         thisProfile.setState({photo: base64String});
   
         
-        alert('File converted to base64 successfuly!\nCheck in Textarea');
+       // alert('File converted to base64 successfuly!\nCheck in Textarea');
       };
     })(f);
     // Read in the image file as a data URL.
