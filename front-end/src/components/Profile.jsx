@@ -10,7 +10,7 @@ import { getCurrentUser } from "../services/authService";
 import Form from 'react-bootstrap/Form';
 ////var Jimp = require('jimp');
 ///var resizebase64 = require('resize-base64');  
-
+///<script language="javascript" src="lz-string.js"></script>
 
 
 
@@ -109,7 +109,13 @@ class Profile extends Component {
   try {
     var f = evt.target.files[0]; // FileList object
 
+ 
 
+
+    
+
+
+ 
     
     console.log(f.size);
 
@@ -124,7 +130,12 @@ class Profile extends Component {
         //Converting Binary Data to base 64
         var base64String = window.btoa(binaryData);
         //var  base64String = resizebase64(base64String, 300, 300); 
-        //console.log(base64String );
+        
+
+        //var compressed = LZString.compress(base64String);
+        //str = LZString.decompress(compressed);//////
+
+        console.log(compressed );
   
         const user = getCurrentUser();
         const jwt = localStorage.getItem("token");

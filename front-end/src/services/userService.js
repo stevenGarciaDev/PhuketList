@@ -85,7 +85,7 @@ export async function getUserPHOTO(user) {
 
  });
 
- console.log(returnPhoto);
+ //console.log(returnPhoto);
 
 
 
