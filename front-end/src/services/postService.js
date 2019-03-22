@@ -3,6 +3,13 @@ import { apiUrl } from "../config.json";
 
 const apiEndpoint = apiUrl + "/post";
 
+export async function getAllPost(jwt) {
+  const response = await http.get(`${apiEndpoint}/activityPage`,
+    { 'headers': {'x-auth-token': jwt }
+  });
+  return response.data;
+}
+
 export async function getPosts(task, jwt) {
   const response = await http.get(`${apiEndpoint}/${task.taskId}`);
   return response;
