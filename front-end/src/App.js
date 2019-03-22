@@ -48,7 +48,7 @@ class App extends Component {
             <Route path="/logout" component={Logout} />
             <Route path="/Forgot" component={Forgot} />
             <Route path="/Reset/:token" component={Reset} />
-            <Route path="/userActivityPage" component={UserActivityPage} />
+            <Route path="/userActivityPage" render={(props) => <UserActivityPage user={this.state.user} /> } />
             <Route path="/friends" component={FriendsList} />
             <Route path="/messages" component={Messages} />
             <Route path="/myProfile" render={(props) => <Profile user={this.state.user} /> } />

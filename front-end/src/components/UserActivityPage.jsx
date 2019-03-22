@@ -20,7 +20,6 @@ class UserActivityPage extends Component {
     try {
       const posts = await getAllPost(jwt);
       this.setState({ posts });
-      console.log("POST!!", posts);
     } catch (ex) {
 
     }
@@ -38,12 +37,14 @@ class UserActivityPage extends Component {
               key={post._id}
               id={post._id}
               author={post.author}
+              currentUser={this.props.currentUser}
               image={post.image}
               dateCreated={post.dateCreated}
               text={post.text}
               likes={post.likes}
               comments={post.comments}
             />
+
           ))}
 
         </div>

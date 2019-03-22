@@ -14,20 +14,22 @@ router.get('/activityPage', auth, async (req, res) => {
     const listItems = bucketList[0].listItems;
 
     let recentPostsFeed = [];
-    let recentPost = "";
     //get post from those list items
     for (let i = 0; i < listItems.length; i++) {
       // get all most recent 5 post from the list item
       let topicID = listItems[i]._id;
-      console.log(topicID);
-      recentPost = await Post.find({ topicID })
+      let recentPost = await Post.find({ topicID })
         .sort({ dateCreated: -1 })
         .populate('author', 'name')
+        .populate('likes', '_id')
         .limit(5);
-      console.log("Likes are...", recentPost.likes);
+
+      //console.log("Likes are...", recentPost[0].recentPos);
       recentPostsFeed = [...recentPostsFeed, ...recentPost];
-      console.log('recent post are', recentPostsFeed);
+      //console.log('recent post are', recentPostsFeed);
     }
+
+    //console.log("id for FIRST LIKE", recentPostsFeed[2].likes[0]);
 
     res.send(recentPostsFeed);
   } catch (ex) {

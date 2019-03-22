@@ -4,11 +4,9 @@ import { apiUrl } from "../config.json";
 const apiEndpoint = apiUrl + "/post";
 
 export async function getAllPost(jwt) {
-  console.log('about to get all post');
   const response = await http.get(`${apiEndpoint}/activityPage`,
     { 'headers': {'x-auth-token': jwt }
   });
-  console.log('got all post', response);
   return response.data;
 }
 

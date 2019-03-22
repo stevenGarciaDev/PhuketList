@@ -197,7 +197,7 @@ class BucketList extends Component {
   }
 
   render() {
-    const { user } = this.props; ////
+    const { user } = this.props;
 
     return (
       <div>
