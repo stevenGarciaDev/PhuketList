@@ -16,11 +16,8 @@ class Post extends Component {
       didPrevLike = likes.indexOf(currentUser._id) !== -1 ? true : false;
       this.setState({ didLike: didPrevLike });
     } catch (ex) {
-      //console.log("Current user was not passed", this.props);
-      //console.log("Current user id", this.props.currentUser);
-      console.log(ex);
-    }
 
+    }
     this.state = {
       id: id,
       author: author,
@@ -32,6 +29,10 @@ class Post extends Component {
       comments: comments,
       displayComments: false
     };
+  }
+
+  async componentDidMount () {
+
   }
 
   handleLike = async () => {
@@ -63,7 +64,6 @@ class Post extends Component {
 
   render() {
     const {
-      id,
       author,
       image,
       dateCreated,
@@ -73,8 +73,6 @@ class Post extends Component {
       comments,
       displayComments
     } = this.state;
-
-    console.log("THE POST ID FROM POST IS ", id);
 
     return (
       <div className="Post">
@@ -97,9 +95,7 @@ class Post extends Component {
           <CommentIcon
             amount={comments}
             displayComments={displayComments}
-            handleDropdown={this.handleCommentsDropdown}
-            comments={comments}
-            postId={id} />
+            handleDropdown={this.handleCommentsDropdown} />
         </div>
       </div>
     );

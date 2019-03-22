@@ -40,7 +40,7 @@ router.get('/activityPage', auth, async (req, res) => {
 
 // API endpoint to retrieve post corresponding to a topicID
 router.get('/:topicId', async (req, res) => {
-  let posts = ["No posts yet."];
+  let posts = [];
   try {
     posts = await Post
       .find({ topicID: req.params.topicId })

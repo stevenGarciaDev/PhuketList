@@ -13,11 +13,13 @@ class ActivityFeed extends Component {
   }
 
   async componentDidMount() {
-    const taskId = this.props;
+    const { taskId } = this.props;
     const jwt = localStorage.getItem("token");
 
     let posts = await getPosts(taskId, jwt);
     posts = posts.data;
+    console.log("PROPS ARE", this.props);
+    console.log("POST DATA IS", posts);
     this.setState({ posts });
   }
 
@@ -38,12 +40,11 @@ class ActivityFeed extends Component {
 
           <PostForm taskId={taskId} onNewPost={this.onNewPost} />
 
-          {posts && this.state.posts.map((post) => (
+          {posts.length > 0 && this.state.posts.map((post) => (
             <Post
               key={post._id}
               id={post._id}
               author={post.author}
-              currentUser={this.props.currentUser}
               image={post.image}
               dateCreated={post.dateCreated}
               text={post.text}

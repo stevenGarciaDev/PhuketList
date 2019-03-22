@@ -14,7 +14,7 @@ const CommentIcon = (props) =>  {
       </div>
       { displayComments &&
         <div>
-          <CommentForm postId={postId} />
+          <CommentForm postId={postId}/>
           <Comment postId={postId} />
         </div>
       }

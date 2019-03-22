@@ -32,20 +32,7 @@ class UserActivityPage extends Component {
       <div className="ActivityFeed">
         <div className="activity-content">
 
-          {posts && this.state.posts.map(post => (
-            <Post
-              key={post._id}
-              id={post._id}
-              author={post.author}
-              currentUser={this.props.currentUser}
-              image={post.image}
-              dateCreated={post.dateCreated}
-              text={post.text}
-              likes={post.likes}
-              comments={post.comments}
-            />
-
-          ))}
+        UserActivityPage (Sprint 3)
 
         </div>
       </div>

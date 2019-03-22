@@ -31,18 +31,17 @@ class TaskGroup extends Component {
 	      user_hastask: false,
 	      message: '',
 	      members: [],
-				currentUser: ''
 	    };
 	}
 
 	async componentDidMount() {
 		// User authentication
-    const user = getCurrentUser();
-    const jwt = localStorage.getItem("token");
+	  const user = getCurrentUser();
+	  const jwt = localStorage.getItem("token");
 
 		// Get task name
 		const response = await getListItem(this.state.task_id);
-    this.setState({task_name: response.data.taskName, currentUser: user })
+    this.setState({task_name: response.data.taskName})
 
     // Find if user has task
     const tasksresponse = await getListItems(user, jwt);
@@ -99,32 +98,27 @@ class TaskGroup extends Component {
 	}
 
 	render() {
-		const { currentUser, task_name, task_id, user_hastask, message } = this.state;
+		const { task_name, task_id, user_hastask, message } = this.state;
+
+		console.log("state", this.state);
 
 		return (
 			<React.Fragment>
-				<div className="jumbotron task-group-jumbotron ">
+
+				<div className="jumbotron task-group-jumbotron">
 					<h1 className="shadow-text bold-text">{`"${task_name}" Group`}</h1>
-					{/* TODO: Add user count */}
 					{!user_hastask &&
-						<btn className="btn btn-warning" onClick={this.addTask}>Add to my Bucket List!</btn>}
-						<h3 className="shadow-text">{`${message}`}</h3>
+							<btn className="btn btn-warning" onClick={this.addTask}>Add to my Bucket List!</btn>}
+							<h3 className="shadow-text">{`${message}`}</h3>
 				</div>
-					<div className="row">
-						<div className="col-md-8 col-sm-9 col-lg-9 col-xl-10 nopadding">
-							<div className="task-group-body task-group-feed">
-								<ActivityFeed taskId={task_id} currentUser={currentUser}/>
-							</div>
-						</div>
-						<div className="col-md-4 col-sm-3 col-lg-3 col-xl-2 nopadding">
-							<div className="task-group-members-nav">
-								<h3>Members</h3>
-								<div className="task-group-members-list">
-									
-								</div>
-							</div>
+				<div className="row">
+					<div className="col-md-8 col-sm-9 col-lg-9 col-xl-10 nopadding">
+						<div className="task-group-body task-group-feed">
+							<ActivityFeed taskId={task_id} />
 						</div>
 					</div>
+				</div>
+
 			</React.Fragment>
 		);
 	}

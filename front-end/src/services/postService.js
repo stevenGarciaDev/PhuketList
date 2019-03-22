@@ -23,17 +23,6 @@ export async function createPost(text, image, taskId, jwt) {
   return response.data;
 }
 
-export async function createComment(text, postId, jwt) {
-  console.log("TEXT", text);
-  console.log("POST_ID", postId);
-  const response = await http.post(`${apiEndpoint}/comment/`,
-    { text, postId },
-    { 'headers': {'x-auth-token': jwt }
-  });
-  console.log(response);
-  return response;
-}
-
 export async function updateLikeInfo(likesArr, taskId, jwt) {
   console.log("the likeArr is", likesArr);
   const response = await http.post(`${apiEndpoint}/${taskId}/likes`,
