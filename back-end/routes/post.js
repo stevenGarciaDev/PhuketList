@@ -1,7 +1,6 @@
 const { Post, validate } = require('../models/post');
 const { BucketList } = require('../models/bucketList');
 const { ListItem } = require('../models/listItem');
-const { Comment } = require('../models/Comment');
 const { upload, resize } = require('../middleware/imageUpload');
 const auth = require('../middleware/auth');
 const express = require('express');
@@ -47,9 +46,9 @@ router.get('/:topicId', async (req, res) => {
       .find({ topicID: req.params.topicId })
       .populate('author', 'name')
       .sort({ dateCreated: -1 });
-  //  console.log(posts);
+    console.log(posts);
   } catch(ex) {
-  //  console.log("No post were found");
+    console.log("No post were found");
   }
   res.send(posts);
 });
@@ -57,7 +56,7 @@ router.get('/:topicId', async (req, res) => {
 // create a new Post,
 router.post('/', auth, async (req, res) => {
 
-  //console.log("REQ.BODY", req.body);
+  console.log("REQ.BODY", req.body);
 
   let post = "";
   try {
@@ -74,30 +73,8 @@ router.post('/', auth, async (req, res) => {
   res.send(post);
 });
 
-// create a comment for a post
-router.post('/comment', auth, async (req, res) => {
-  console.log("getting backend request");
-  console.log("ID", req.user._id);
-  console.log("ID", req.body.postId);
-  console.log("ID", req.body.text);
-
-
-  // get the post,
-  try {
-    const post = await Post.findById(req.body.postId);
-    const newComment = {
-      author: req.user._id,
-      post: req.body.postId,
-      text: req.body.text
-    };
-
-    post.comments.push(newComment);
-    await post.save();
-    console.log("NEW COMMENT", post.comments);
-  } catch (ex) {
-    console.log("Could not create comment", ex);
-  }
-
+router.post('/:id', async (req, res) => {
+    console.log("getting backend request");
 });
 
 // for updating the like attribute in Post model
