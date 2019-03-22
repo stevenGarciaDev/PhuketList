@@ -9,9 +9,10 @@ class Post extends Component {
 
   constructor(props) {
     super(props);
-    const { id, author, image, dateCreated, text, likes, comments } = this.props;
+    const { id, author, currentUser, image, dateCreated, text, likes, comments } = this.props;
 
-    const didPrevLike = likes.indexOf(author._id) !== -1 ? true : false;
+    const didPrevLike = likes.indexOf(currentUser._id) !== -1 ? true : false;
+    this.setState({ didLike: didPrevLike });
 
     this.state = {
       id: id,
@@ -24,8 +25,10 @@ class Post extends Component {
       comments: comments,
       displayComments: false
     };
+  }
 
-    console.log(this.state.likes.length);
+  async componentDidMount () {
+
   }
 
   handleLike = async () => {

@@ -155,13 +155,14 @@ router.post('/forgotPassword', async (req,  res)=> {
 });
 
 router.put('/updatePassword',async(req,res)=>{
-  let user = await User.findOne({email: req.body.params.email});
+  let user = await User.findOne({email: req.body.params.params.email});
   if(user){
-    user.password = req.body.params.password;
+    user.password = req.body.params.params.data.Password;
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
     res.send("Password changed");
+    console.log("password changed");
   }
   else{
     res.send("User not found");

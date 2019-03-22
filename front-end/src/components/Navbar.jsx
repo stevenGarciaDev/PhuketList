@@ -25,7 +25,7 @@ class Navbar extends Component {
                 <NavLink className="nav-link" to="/bucketList">MyList <span className="sr-only">(current)</span></NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/activityPage">
+                <NavLink className="nav-link" to="/userActivityPage">
                   Activity Page
                 </NavLink>
               </li>

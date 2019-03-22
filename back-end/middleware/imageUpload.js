@@ -6,7 +6,7 @@ var upload = multer({ dest: 'public/uploads/' });
 const multerOptions = {
   storage: multer.memoryStorage(),
   fileFilter: (req, image, next) => {
-    //const isPhoto = file.mimeType.startsWith('images/');
+    //const isPhoto = file.mimetype.startsWith('images/');
     // if (isPhoto) {
     //   console.log("IS A PHOTO");
     //   next(null, true);

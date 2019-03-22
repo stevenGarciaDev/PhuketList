@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { getCurrentUser } from "../services/authService";
+import { InputGroup } from 'react-bootstrap';
 class SettingDetail extends Component {
 
   constructor(props) {
@@ -10,9 +11,14 @@ class SettingDetail extends Component {
       settingValue: this.props.settingValue,
       detailType: this.props.detailType
     };
+    //console.log(this.props.settingValue);
   }
 
   componentDidMount() {
+    let user = getCurrentUser();
+    if(this.settingProperty === "Full Name")
+      console.log(user.name);
+    else console.log("testing");
     // get current user,
     // populate the field based on settingProperty
   }
@@ -21,6 +27,20 @@ class SettingDetail extends Component {
     this.setState({
       isEditing: !this.state.isEditing
     });
+    if(this.state.settingProperty === "Account Privacy"){
+      if(this.state.settingValue === "Public"){
+        //change db here
+        this.state.settingValue = "Private";
+      }
+      else  this.state.settingValue = "Public";
+    }
+    if(this.state.settingProperty === "Account Status"){
+      if(this.state.settingValue === "Active"){
+        //change db here
+        this.state.settingValue = "Inactive";
+      }
+      else  this.state.settingValue = "Active";
+    }
   }
 
   displayRow = () => {
@@ -30,7 +50,7 @@ class SettingDetail extends Component {
       settingValue,
       detailType
     } = this.state;
-
+    console.log({settingValue})
     const isToggle = detailType != 'content';
 
     if (isEditing) {
@@ -69,6 +89,7 @@ class SettingDetail extends Component {
         </tr>
       );
     }
+    
   }
 
   render() {

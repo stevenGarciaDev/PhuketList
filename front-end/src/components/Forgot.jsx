@@ -28,7 +28,7 @@ class Forgot extends Form {
       const { data } = this.state;
       console.log('test');
       const response = await forgotPassword(data);
-      
+
       window.location = "/login";
     }
     catch (ex) {
@@ -42,7 +42,7 @@ class Forgot extends Form {
         return (
           <React.Fragment>
             <div className="jumbotron" id="auth-jumbotron"></div>
-    
+
             <div className="authenticate-form">
                 <h1>Forgot Password</h1>
                 <form onSubmit={this.handleSubmit}>
@@ -53,7 +53,7 @@ class Forgot extends Form {
           </React.Fragment>
         );
       }
-    
+
 
 }
 export default Forgot;
