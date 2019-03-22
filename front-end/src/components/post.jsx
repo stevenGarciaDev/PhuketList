@@ -29,6 +29,8 @@ class Post extends Component {
       comments: comments,
       displayComments: false
     };
+
+    console.log("In Post component, the comments are ", this.state.comments);
   }
 
   async componentDidMount () {
@@ -64,6 +66,7 @@ class Post extends Component {
 
   render() {
     const {
+      id,
       author,
       image,
       dateCreated,
@@ -93,9 +96,10 @@ class Post extends Component {
             totalLikes={likes}
             onClick={this.handleLike} />
           <CommentIcon
-            amount={comments}
             displayComments={displayComments}
-            handleDropdown={this.handleCommentsDropdown} />
+            comments={comments}
+            handleDropdown={this.handleCommentsDropdown}
+            postId={id} />
         </div>
       </div>
     );

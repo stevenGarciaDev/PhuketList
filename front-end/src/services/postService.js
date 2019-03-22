@@ -10,8 +10,10 @@ export async function getAllPost(jwt) {
   return response.data;
 }
 
-export async function getPosts(task, jwt) {
-  const response = await http.get(`${apiEndpoint}/${task.taskId}`);
+export async function getPosts(taskId, jwt) {
+  const response = await http.get(`${apiEndpoint}/${taskId}`, {
+    'headers': {'x-auth-token': jwt }
+  });
   return response;
 }
 

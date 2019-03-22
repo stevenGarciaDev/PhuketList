@@ -39,9 +39,10 @@ router.get('/activityPage', auth, async (req, res) => {
 });
 
 // API endpoint to retrieve post corresponding to a topicID
-router.get('/:topicId', async (req, res) => {
+router.get('/:topicId', auth, async (req, res) => {
   let posts = [];
   try {
+    console.log("The topic id is", req.params.topicID);
     posts = await Post
       .find({ topicID: req.params.topicId })
       .populate('author', 'name')

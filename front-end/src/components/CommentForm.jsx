@@ -1,30 +1,38 @@
 import React from 'react';
 import Joi from "joi-browser";
 import Form from './common/form';
+import { createComment } from '../services/commentService';
 
 class CommentForm extends Form {
 
   constructor(props) {
     super(props);
     this.state = {
-      data: { comment: "" },
+      data: { text: "" },
       errors: {}
     };
   }
 
   schema = {
-    comment: Joi.string().max(144).required()
+    text: Joi.string().max(144).required()
   };
 
   doSubmit = async () => {
-
+    try {
+      const { postId } = this.props;
+      const { text } = this.state.data;
+      const jwt = localStorage.getItem("token");
+      const response = createComment(text, postId, jwt);
+    } catch (ex) {
+      console.log("Unable to create comment", ex);
+    }
   };
 
   render() {
     return (
       <div className="comment-container">
         <form onSubmit={this.handleSubmit} className="comment-input">
-          {this.renderInput("comment", "", "text", "Add a comment...")}
+          {this.renderInput("text", "", "text", "Add a comment...")}
           {this.renderButton("Submit")}
         </form>
       </div>
