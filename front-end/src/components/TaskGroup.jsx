@@ -31,17 +31,18 @@ class TaskGroup extends Component {
 	      user_hastask: false,
 	      message: '',
 	      members: [],
+				currentUser: ''
 	    };
 	}
 
 	async componentDidMount() {
 		// User authentication
-	    const user = getCurrentUser();
-	    const jwt = localStorage.getItem("token");
+    const user = getCurrentUser();
+    const jwt = localStorage.getItem("token");
 
 		// Get task name
 		const response = await getListItem(this.state.task_id);
-    this.setState({task_name: response.data.taskName})
+    this.setState({task_name: response.data.taskName, currentUser: user })
 
     // Find if user has task
     const tasksresponse = await getListItems(user, jwt);
@@ -98,7 +99,7 @@ class TaskGroup extends Component {
 	}
 
 	render() {
-		const { task_name, task_id, user_hastask, message } = this.state;
+		const { currentUser, task_name, task_id, user_hastask, message } = this.state;
 
 		return (
 			<React.Fragment>
@@ -112,7 +113,7 @@ class TaskGroup extends Component {
 					<div className="row">
 						<div className="col-md-8 col-sm-9 col-lg-9 col-xl-10 nopadding">
 							<div className="task-group-body task-group-feed">
-								<ActivityFeed taskId={task_id}/>
+								<ActivityFeed taskId={task_id} currentUser={currentUser}/>
 							</div>
 						</div>
 						<div className="col-md-4 col-sm-3 col-lg-3 col-xl-2 nopadding">

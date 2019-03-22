@@ -9,7 +9,7 @@ import { getCurrentUser } from "../services/authService";
 
 import Form from 'react-bootstrap/Form';
 ////var Jimp = require('jimp');
-///var resizebase64 = require('resize-base64');  
+///var resizebase64 = require('resize-base64');
 ///<script language="javascript" src="lz-string.js"></script>
 
 
@@ -24,7 +24,7 @@ const $ = window.$;
 //const olol = document.images;
 
 class Profile extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -36,9 +36,9 @@ class Profile extends Component {
 
     }
     this.inputRef = null;
-    
 
-    
+
+
   }
 
   async componentDidMount() {
@@ -63,39 +63,39 @@ class Profile extends Component {
     });
   }
 
- 
+
 
 
 
   handleUpdate = (e) => {
     e.preventDefault();
-    
+
 
 
     try {
 
-      
+
         const user = getCurrentUser();
         const jwt = localStorage.getItem("token");
 
-        
 
-        const a = updateProfile(user, this.inputRef.value, jwt); 
+
+        const a = updateProfile(user, this.inputRef.value, jwt);
         this.setState({bio: this.inputRef.value });
 
-      
+
         this.toggleEdit();
-      
-      
+
+
     } catch (ex) {
       alert("Unable to update the profile.");
-   
+
     }
 
-    
-  }; 
 
- 
+  };
+
+
 
 
 
@@ -109,14 +109,14 @@ class Profile extends Component {
   try {
     var f = evt.target.files[0]; // FileList object
 
- 
 
 
-    
 
 
- 
-    
+
+
+
+
     console.log(f.size);
 
     console.log(f.size);
@@ -129,22 +129,22 @@ class Profile extends Component {
         var binaryData = e.target.result;
         //Converting Binary Data to base 64
         var base64String = window.btoa(binaryData);
-        //var  base64String = resizebase64(base64String, 300, 300); 
-        
+        //var  base64String = resizebase64(base64String, 300, 300);
+
 
         //var compressed = LZString.compress(base64String);
         //str = LZString.decompress(compressed);//////
 
-        console.log(compressed );
-  
+        //console.log(compressed );
+
         const user = getCurrentUser();
         const jwt = localStorage.getItem("token");
 
-        
+
         updatePhotoFile(user, base64String, jwt); //
         thisProfile.setState({photo: base64String});
-  
-        
+
+
        // alert('File converted to base64 successfuly!\nCheck in Textarea');
       };
     })(f);
@@ -154,12 +154,12 @@ class Profile extends Component {
   {
 
   }
-  
+
 }
 
 
 
-  
+
 
 
 /////<button className="btn btn-success" onClick={() => this.toggleEdit() }>Save Changes</button>
@@ -168,7 +168,7 @@ class Profile extends Component {
   displayProfile = () => {
     const { isEditing } = this.state;
     const { user } = this.props;
-    
+
 
     if (isEditing) {
 
@@ -178,33 +178,33 @@ class Profile extends Component {
 
              <div className="profile-headshot-container">
 
-             
-                
+
+
 
                 <p className="profile-name">{user.name}</p>
-              
-                
+
+
                 <div>
                 <input type='file' onChange= { this.imageUpload} accept="image/*"  width = {300} height = {300}/>
                   <img id="blah"  alt="No Image"   />
                 </div>
 
                 <div>
-                
-                  <Form onSubmit={e => this.handleUpdate( e)}> 
+
+                  <Form onSubmit={e => this.handleUpdate( e)}>
                       <Form.Group >
-                      
-                          <Form.Control as="textarea" rows="3"   
+
+                          <Form.Control as="textarea" rows="3"
                           ref={(ref) => {this.inputRef = ref}} type="text" />
                           <div></div>
-                          
+
                           <div className="profile-btn-container">
                             <button className="btn btn-success" type="submit">Save Changes</button>
                         </div>
-                        
+
                       </Form.Group>
                    </Form>
-                
+
                    <div>
                    {this.state.bio}
 
@@ -213,7 +213,7 @@ class Profile extends Component {
                 </div>
              </div>
 
-            
+
            </div>
         </div>
       );
@@ -225,20 +225,20 @@ class Profile extends Component {
             <div className="jumbotron profile-container">
 
               <div className="profile-headshot-container">
-                 
-              <div> 
+
+              <div>
                    <img src = {"data:image;base64," + this.state.photo} width = {150} height = {150}  />
-            
+
             </div>
 
 
                  <p className="profile-name">{user.name}</p>
 
-                <div> {this.state.bio}  
-            
+                <div> {this.state.bio}
+
                  </div>
-                  
-                
+
+
               </div>
 
                <div className="profile-btn-container">

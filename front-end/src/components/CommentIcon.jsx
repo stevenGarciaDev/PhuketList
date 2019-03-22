@@ -4,7 +4,7 @@ import Comment from './Comment';
 
 const CommentIcon = (props) =>  {
 
-  const { amount, displayComments } = props;
+  const { amount, postId, displayComments } = props;
 
   return (
     <React.Fragment>
@@ -14,8 +14,8 @@ const CommentIcon = (props) =>  {
       </div>
       { displayComments &&
         <div>
-          <CommentForm />
-          <Comment />
+          <CommentForm postId={postId} />
+          <Comment postId={postId} />
         </div>
       }
     </React.Fragment>

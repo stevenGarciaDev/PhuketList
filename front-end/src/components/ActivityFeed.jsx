@@ -43,6 +43,7 @@ class ActivityFeed extends Component {
               key={post._id}
               id={post._id}
               author={post.author}
+              currentUser={this.props.currentUser}
               image={post.image}
               dateCreated={post.dateCreated}
               text={post.text}
