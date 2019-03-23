@@ -1,10 +1,24 @@
 const { Post, validate } = require('../models/post');
 const { BucketList } = require('../models/bucketList');
 const { ListItem } = require('../models/listItem');
-const { upload, resize } = require('../middleware/imageUpload');
+const { resize } = require('../middleware/imageUpload');
 const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+
+const multerOptions = {
+  storage: multer.memoryStorage(),
+  fileFilter(req, file, next) {
+    const isPhoto = file.mimetype.startsWith('image/');
+    if (isPhoto) {
+      next(null, true);
+    } else {
+      next({ message: 'That filetype isn\'t allowed!' }, false);
+    }
+  }
+};
+
 
 // API endpoint to retrieve all post related to User
 router.get('/activityPage', auth, async (req, res) => {
@@ -55,9 +69,13 @@ router.get('/:topicId', auth, async (req, res) => {
 });
 
 // create a new Post,
-router.post('/', auth, async (req, res) => {
+router.post('/', auth, multer(multerOptions).single('image'), async (req, res, next) => {
 
-  console.log("REQ.BODY", req.body);
+  try {
+    console.log("the file is ", req.file);
+  } catch (ex) {
+    console.log("that file cause an error");
+  }
 
   let post = "";
   try {

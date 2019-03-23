@@ -54,9 +54,7 @@ class PostForm extends Form {
             {this.renderInput("image", "", "file", "")}
           </div>
           <div>
-
-            <ImageInput handleChange={this.updateFileInputLabel}/>
-
+            <ImageInput onChange={(e) => this.updateFileInputLabel(e)}/>
           </div>
           <div>
             {this.renderButton("Post", "post-btn", "btn btn-info btn-block")}
