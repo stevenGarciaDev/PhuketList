@@ -426,6 +426,7 @@ Task Group page
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url(./assets/images/jennvmy_-1194676-unsplash.jpg);
+  filter: brightness(50%);
   height: 300px;
   width: 100%;
   margin-bottom: 0px !important;
