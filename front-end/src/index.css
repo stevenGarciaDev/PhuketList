@@ -195,7 +195,6 @@ i {
 .Post {
   display: grid;
   background-color: #fff;
-  border: 1px solid #cccccc;
   position: relative;
   margin: 20px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
@@ -288,7 +287,6 @@ i {
 
 .new-post-container {
   padding: 30px 10px;
-  border: 2px solid black;
 }
 
 .new-post-input {

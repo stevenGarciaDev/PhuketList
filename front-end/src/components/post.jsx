@@ -12,6 +12,14 @@ class Post extends Component {
     super(props);
     const { id, author, image, dateCreated, text, likes, comments } = this.props;
 
+    // console.log("THE PROPs for post is", this.props);
+    // need to get the current user based on jwt
+    const user = getCurrentUser();
+    let didPrevLike = likes.indexOf(user._id) !== -1 ? true : false;
+
+    console.log("POST: The Likes array is", likes);
+    console.log("POST: the user id is", user._id);
+
     this.state = {
       id: id,
       author: author,
@@ -19,30 +27,26 @@ class Post extends Component {
       dateCreated: dateCreated,
       text: text,
       likes: likes,
-      didLike: true,
+      didLike: didPrevLike,
       comments: comments,
       displayComments: false
     };
   }
 
   async componentDidMount () {
-    const currentUser = await getCurrentUser();
-    const { likes } = this.state;
-    
-    let didPrevLike = false;
-    didPrevLike = likes.indexOf(currentUser._id) !== -1 ? true : false;
-    this.setState({ didLike: didPrevLike });
+
   }
 
   handleLike = async () => {
-    const { author, didLike, id } = this.state;
+    const user = getCurrentUser();
+    const { didLike, id } = this.state;
     let likes = [...this.state.likes];
     const currentLikeStatus = !didLike; // toggle
 
     if (currentLikeStatus) {
-      likes.push(author._id);
+      likes.push(user._id);
     } else {
-      likes.splice( likes.indexOf(author._id), 1 );
+      likes.splice( likes.indexOf(user._id), 1 );
     }
 
     this.setState({ didLike: currentLikeStatus, likes });
