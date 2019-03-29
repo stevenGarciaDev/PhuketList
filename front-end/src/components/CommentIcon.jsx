@@ -6,7 +6,7 @@ const CommentIcon = (props) =>  {
 
   const { amount, postId, displayComments, comments } = props;
 
-  console.log("In CommentIcon props are", props);
+  //console.log("In CommentIcon props are", props);
 
   return (
     <React.Fragment>
@@ -16,7 +16,7 @@ const CommentIcon = (props) =>  {
       </div>
       { displayComments &&
         <div>
-          <CommentForm postId={postId}/>
+          <CommentForm postId={postId} onNewComment={props.onNewComment}/>
           {comments.length > 0 && comments.map(comment => (
             <Comment
               postId={postId}

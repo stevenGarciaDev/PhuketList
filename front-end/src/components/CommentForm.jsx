@@ -23,6 +23,7 @@ class CommentForm extends Form {
       const { text } = this.state.data;
       const jwt = localStorage.getItem("token");
       const response = createComment(text, postId, jwt);
+      this.props.onNewComment(response);
     } catch (ex) {
       console.log("Unable to create comment", ex);
     }

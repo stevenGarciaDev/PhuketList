@@ -62,4 +62,3 @@ export async function updateTask(user, item, newText, jwt) {
 
   return response;
 }
-

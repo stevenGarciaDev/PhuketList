@@ -50,6 +50,7 @@ class ActivityFeed extends Component {
               text={post.text}
               likes={post.likes}
               comments={post.comments}
+
             />
           ))}
 

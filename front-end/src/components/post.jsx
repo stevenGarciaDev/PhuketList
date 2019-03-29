@@ -56,7 +56,18 @@ class Post extends Component {
       await updateLikeInfo(likes, id, jwt);
     } catch (ex) {
       console.log('did not update');
+
     }
+  }
+
+  handleNewComment = async (comment) => {
+    comment.then(result => {
+      const comments = [...this.state.comments];
+      comments.unshift(result.data);
+      this.setState({ comments });
+    }).catch(err => {
+      console.log("Error", err);
+    });
   }
 
   handleCommentsDropdown = () => {
@@ -100,6 +111,7 @@ class Post extends Component {
             displayComments={displayComments}
             comments={comments}
             handleDropdown={this.handleCommentsDropdown}
+            onNewComment={this.handleNewComment}
             postId={id} />
         </div>
       </div>
