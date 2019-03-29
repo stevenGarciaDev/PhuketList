@@ -10,7 +10,8 @@ router.post('/:userPostId', auth, async (req, res) => {
     const newComment = {
       text: req.body.text,
       post: req.params.userPostId,
-      author: req.user._id
+      author: req.user._id,
+      dateCreated: Date.now()
     };
     post.comments.push(newComment);
     await post.save();

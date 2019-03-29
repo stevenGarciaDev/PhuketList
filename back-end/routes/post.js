@@ -83,7 +83,8 @@ router.post('/', auth, multer(multerOptions).single('image'), async (req, res, n
       text: req.body.text,
       image: req.body.image,
       topicID: req.body.topicID,
-      author: req.user._id
+      author: req.user._id,
+      dateCreated: Date.now()
     });
     await post.save();
   } catch (ex) {

@@ -94,7 +94,7 @@ class Post extends Component {
         <img className="post-profile-img" />
         <h1 className="post-author">{author.name}</h1>
         <h2 className="post-date">
-            <Moment format="MM/DD/YYYY">
+            <Moment fromNow>
               {dateCreated}
            </Moment>
         </h2>
