@@ -16,9 +16,10 @@ if (!config.get('jwtPrivateKey')) {
   process.exit(1);
 }
 
-mongoose.connect("mongodb://localhost/phuketlist")
-  .then(() => console.log("Connected to db"))
-  .catch(() => console.log("Unable to connect to db"));
+const db = config.get('db');
+mongoose.connect(db)
+  .then(() => console.log(`Connected to db: ${db}`))
+  .catch(() => console.log(`Unable to connect to db: ${db}`));
 
 app.use(cors());
 app.use(express.json());
