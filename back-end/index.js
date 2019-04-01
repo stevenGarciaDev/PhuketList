@@ -32,4 +32,8 @@ app.use('/api/comment/', comment);
 app.use('/api/taskGroup/', post);
 
 const port = process.env.PORT || 3900;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+const server = app.listen(port, () => {
+  console.log(`Listening on port ${port}...`);
+});
+
+module.exports = server;

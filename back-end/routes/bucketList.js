@@ -77,6 +77,21 @@ router.post('/update/:id', auth, async (req, res) => {
   res.send(bucketList.listItems);
 });
 
+// remove a list item from user's bucket list
+router.post('/remove/:id', auth, async (req, res) => {
+  // retrieve the user's bucket list
+  let bucketList = await BucketList.find({ owner: req.params.id });
+  bucketList = bucketList[0];
+
+  // remove the list item from the bucket list
+  bucketList.listItems = bucketList.listItems.filter(item => item._id != req.body.item._id );
+  await bucketList.save();
+
+  // remove the list item
+  // await ListItem.deleteOne({ _id: req.body.item._id });
+
+  res.send(bucketList.listItems);
+});
 
 router.put('/:id', auth, async (req, res) => {
   // retrieve user's bucket list
@@ -104,21 +119,6 @@ router.put('/:id', auth, async (req, res) => {
   res.send(bucketList.listItems);
 });
 
-// remove a list item from user's bucket list
-router.post('/remove/:id', auth, async (req, res) => {
-  // retrieve the user's bucket list
-  let bucketList = await BucketList.find({ owner: req.params.id });
-  bucketList = bucketList[0];
-
-  // remove the list item from the bucket list
-  bucketList.listItems = bucketList.listItems.filter(item => item._id != req.body.item._id );
-  await bucketList.save();
-
-  // remove the list item
-  // await ListItem.deleteOne({ _id: req.body.item._id });
-
-  res.send(bucketList.listItems);
-});
 
 
 module.exports = router;
