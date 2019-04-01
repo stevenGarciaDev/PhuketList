@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
   },
   isActiveAccount: {
     type: Boolean,
-    default: false
+    default: true
   },
   password: {
     type: String,
@@ -62,6 +62,8 @@ userSchema.methods.generateAuthToken = function() {
     name: this.name,
     email: this.email,
     isAdmin: this.isAdmin,
+    isActiveAccount: this.isActiveAccount,
+    isPrivateProfile: this.isPrivateProfile
     },
     config.get('jwtPrivateKey')
   );
