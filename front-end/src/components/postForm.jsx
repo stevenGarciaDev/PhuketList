@@ -41,6 +41,9 @@ class PostForm extends Form {
     filename = document.getElementById('post-image');
     filename = filename.value.split("\\").pop();
     console.log("filename is", filename);
+
+
+
   }
 
   render() {
@@ -51,10 +54,7 @@ class PostForm extends Form {
             {this.renderInput("text", "", "text", "Add a new post...")}
           </div>
           <div className="new-post-input">
-            {this.renderInput("image", "", "file", "")}
-          </div>
-          <div>
-            <ImageInput onChange={(e) => this.updateFileInputLabel(e)}/>
+            {this.renderFileInput()}
           </div>
           <div>
             {this.renderButton("Post", "post-btn", "btn btn-info btn-block")}
