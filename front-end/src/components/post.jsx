@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Moment from 'react-moment';
 import Like from './Like';
 import CommentIcon from './CommentIcon';
+import ReportIcon from './ReportIcon';
 import { updateLikeInfo } from '../services/postService';
 import { getCurrentUser } from '../services/authService';
 // import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';
@@ -113,7 +114,18 @@ class Post extends Component {
             handleDropdown={this.handleCommentsDropdown}
             onNewComment={this.handleNewComment}
             postId={id} />
+
+<div> < ReportIcon displayOptions = {true} /></div>
+
         </div>
+
+        
+        
+      
+
+
+
+
       </div>
     );
   }
