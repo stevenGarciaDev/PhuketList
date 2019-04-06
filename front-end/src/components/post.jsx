@@ -108,7 +108,7 @@ class Post extends Component {
             onNewComment={this.handleNewComment}
             postId={id} />
 
-<div> < ReportIcon displayOptions = {true} /></div>
+        <div> < ReportIcon  /></div>
 
         </div>
 

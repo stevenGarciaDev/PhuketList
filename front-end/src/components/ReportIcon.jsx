@@ -11,29 +11,40 @@ class ReportIcon extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: this.props.comments
-    };
+      comments: this.props.comments,
+      DisplayRep: false
+    }
+    
   }
 
 
 
+  displayReport= () => {
+    
+    this.DisplayRep = ! this.DisplayRep;
+    this.setState({
+        DisplayRep: !this.state.DisplayRep
+      });
+
+  };
+
+
   render() {
-    const {  displayOptions } = this.props;
+    
+
 
     return (
      
         <React.Fragment>
             <div className="like-container">
-        
+                    <i onClick={this.displayReport} className="fa fa-comment-o fa-2x" aria-hidden="true"></i>
             </div>
 
-            { displayOptions && 
+            { this.state.DisplayRep && 
 
                 <div>
                         
-                   
-
-                        <div>
+                    <div>
                         <label>
                             <input type="checkbox" id="Tier1" name="Tier1" />
                             <label for="Tier1">Tier-1</label>
