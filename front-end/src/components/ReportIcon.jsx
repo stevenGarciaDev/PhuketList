@@ -31,21 +31,23 @@ class ReportIcon extends Component {
 
                 <div>
                         
-                    <div>
+                   
+
+                        <div>
                         <label>
-                            <input type="checkbox" id="Tier1" name="Tier1" checked/>
+                            <input type="checkbox" id="Tier1" name="Tier1" />
                             <label for="Tier1">Tier-1</label>
 
                         </label>
 
                         <label>
-                            <input type="checkbox" id="Tier2" name="Tier2" checked/>
+                            <input type="checkbox" id="Tier2" name="Tier2" />
                             <label for="Tier2">Tier-2</label>
 
                         </label>
 
                         <label>
-                            <input type="checkbox" id="Tier3" name="Tier3" checked/>
+                            <input type="checkbox" id="Tier3" name="Tier3" />
                             <label for="Tier3">Tier-3</label>
                         </label>
                         
@@ -69,6 +71,11 @@ class ReportIcon extends Component {
                         
                       </Form.Group>
                    </Form>
+
+
+
+
+
 
 
 
