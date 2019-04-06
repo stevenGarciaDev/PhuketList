@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
+import ImageInput from "./imageInput";
 import Input from "./input";
 
 class Form extends Component {
@@ -57,6 +58,16 @@ class Form extends Component {
     );
   }
 
+  renderFileInput() {
+    const { data, errors } = this.state;
+
+    return (
+      <ImageInput
+        onChange={this.handleChange}
+      />
+    );
+  }
+
   renderInput(name, label, type = "text", placeholder = "") {
     const { data, errors } = this.state;
 
@@ -69,10 +80,6 @@ class Form extends Component {
         onChange={this.handleChange}
         error={errors[name]}
         placeholder={placeholder}
-        accept={ type === "file" ?
-          "image/gif, image/png, image/jpeg"
-        :
-          undefined }
       />
     );
   }

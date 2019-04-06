@@ -18,9 +18,6 @@ class Post extends Component {
     const user = getCurrentUser();
     let didPrevLike = likes.indexOf(user._id) !== -1 ? true : false;
 
-    console.log("POST: The Likes array is", likes);
-    console.log("POST: the user id is", user._id);
-
     this.state = {
       id: id,
       author: author,
@@ -32,10 +29,6 @@ class Post extends Component {
       comments: comments,
       displayComments: false
     };
-  }
-
-  async componentDidMount () {
-
   }
 
   handleLike = async () => {
@@ -67,7 +60,7 @@ class Post extends Component {
       comments.unshift(result.data);
       this.setState({ comments });
     }).catch(err => {
-      console.log("Error", err);
+      console.log("Error with comments", err);
     });
   }
 

@@ -5,36 +5,23 @@ import _ from 'lodash';
 
 class CommentIcon extends Component {
 
-  //console.log("In CommentIcon props are", props);
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      comments: this.props.comments
-    };
-  }
-
-  componentDidMount() {
-    let { comments } = this.state;
-    comments = _.orderBy(comments, ['dateCreated'], ['desc']);
-    this.setState({ comments });
-  }
-
   render() {
     const { amount, postId, displayComments } = this.props;
-    const { comments } = this.state;
+    const { comments } = this.props;
+    const commentList = _.orderBy(comments, ['dateCreated'], ['desc']);
 
     return (
       <React.Fragment>
         <div className="comment-icon-container">
           <i onClick={this.props.handleDropdown} className="fa fa-comment-o fa-2x" aria-hidden="true"></i>
-          <span>{comments.length}</span>
+          <span>{commentList.length}</span>
         </div>
         { displayComments &&
           <div>
             <CommentForm postId={postId} onNewComment={this.props.onNewComment}/>
-            {comments.length > 0 && comments.map(comment => (
+            {commentList.length > 0 && commentList.map(comment => (
               <Comment
+                author={comment.author}
                 postId={postId}
                 text={comment.text}
                 dateCreated={comment.dateCreated}

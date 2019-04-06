@@ -34,7 +34,6 @@ export function updatePassword(params){
 
 export async function updateProfile(user, bioText, jwt) {
 
-
   const response = await http.put(`${apiEndpoint}/updateProfile/${user.email}`,
     { bioText },
     { 'headers': {'x-auth-token': jwt }
