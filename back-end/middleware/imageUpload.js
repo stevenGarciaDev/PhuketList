@@ -24,21 +24,22 @@ exports.upload = multer(multerOptions).single('image');
 exports.resize = async (req, res, next) => {
   console.log('resizing');
   console.log("resize REQ", req.body);
-  if (req.image === '') {
+  console.log("resize file to resize is", req.file);
+  if (req.file === '') {
     console.log("no image file passed");
     next();
     return;
   }
 
   try {
-    const extension = req.image.mimetype.split('/')[1];
-    // then setup so that createStore has info to store
-    // need a unique string
-    req.body.image = `${uuid.v4()}.${extension}`;
-    // now resize
+    const originalName = req.file.originalname;
+    req.body.image = new Date().toISOString() + originalName;
+
     const photo = await jimp.read(req.file.buffer);
     await photo.resize(800, jimp.AUTO);
     await photo.write(`./public/uploads/${req.body.image}`);
+
+    //const extension = req.image.mimetype.split('/')[1];
     // written the photo to our filesystem
   } catch (ex) {
     console.log("unable to resize file", ex);

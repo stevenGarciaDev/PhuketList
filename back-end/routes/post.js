@@ -6,18 +6,36 @@ const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const jimp = require('jimp');
 
 const multerOptions = {
   storage: multer.memoryStorage(),
-  fileFilter(req, file, next) {
-    const isPhoto = file.mimetype.startsWith('image/');
+  fileFilter: (req, file, cb) => {
+    const isPhoto = file.mimetype.startsWith('image');
     if (isPhoto) {
-      next(null, true);
+      console.log("the request body is ", req.body);
+      console.log("is photo");
+      cb(null, true);
     } else {
-      next({ message: 'That filetype isn\'t allowed!' }, false);
+      cb({ message: "That filetype isn't allowed!" }, false);
     }
   }
 };
+
+
+
+// const storage = multer.diskStorage({
+//   destination: function(req, file, cb) {
+//     console.log("The request is ", req.body);
+//     console.log("the file is", file);
+//     cb(null, './uploads');
+//   },
+//   filename: function(req, file, cb) {
+//     cb(null, new Date().toISOString() + file.originalname);
+//   }
+// });
+//
+// const upload = multer({ storage: storage });
 
 
 // API endpoint to retrieve all post related to User
@@ -69,9 +87,9 @@ router.get('/:topicId', auth, async (req, res) => {
 });
 
 // create a new Post,
-router.post('/', auth, multer(multerOptions).single('image'), async (req, res, next) => {
-
+router.post('/', multer(multerOptions).single('image'), resize, auth, async (req, res, next) => {
   try {
+    console.log("body is");
     console.log("the file is ", req.file);
   } catch (ex) {
     console.log("that file cause an error");
@@ -81,12 +99,13 @@ router.post('/', auth, multer(multerOptions).single('image'), async (req, res, n
   try {
     post = new Post({
       text: req.body.text,
-      image: req.body.image,
       topicID: req.body.topicID,
       author: req.user._id,
       dateCreated: Date.now()
     });
+    console.log("new post is", post);
     await post.save();
+    console.log("new post saved");
   } catch (ex) {
     console.log('unable to create post', ex);
   }
