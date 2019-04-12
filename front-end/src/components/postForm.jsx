@@ -17,7 +17,7 @@ class PostForm extends Form {
     text: Joi.string()
       .max(255)
       .required(),
-    image: Joi.string().allow(null, '')
+    image: Joi.object().allow(null, '')
   };
 
   doSubmit = async () => {
@@ -41,9 +41,6 @@ class PostForm extends Form {
     filename = document.getElementById('post-image');
     filename = filename.value.split("\\").pop();
     console.log("filename is", filename);
-
-
-
   }
 
   render() {

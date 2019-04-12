@@ -32,6 +32,7 @@ exports.resize = async (req, res, next) => {
   }
 
   try {
+    console.log("file object", req.file);
     const originalName = req.file.originalname;
     req.body.image = new Date().toISOString() + originalName;
 

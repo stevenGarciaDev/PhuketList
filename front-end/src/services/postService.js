@@ -18,8 +18,12 @@ export async function getPosts(taskId, jwt) {
 }
 
 export async function createPost(text, image, taskId, jwt) {
+  const formData = new FormData();
+  formData.append('text', text);
+  formData.append('image', image);
+  formData.append('topicID', taskId);
   const response = await http.post(`${apiEndpoint}/`,
-    {text, image, topicID: taskId },
+    formData,
     { 'headers': {'x-auth-token': jwt }
   });
   return response.data;

@@ -17,25 +17,11 @@ const multerOptions = {
       console.log("is photo");
       cb(null, true);
     } else {
+      console.log("that filetype isn't allowed");
       cb({ message: "That filetype isn't allowed!" }, false);
     }
   }
 };
-
-
-
-// const storage = multer.diskStorage({
-//   destination: function(req, file, cb) {
-//     console.log("The request is ", req.body);
-//     console.log("the file is", file);
-//     cb(null, './uploads');
-//   },
-//   filename: function(req, file, cb) {
-//     cb(null, new Date().toISOString() + file.originalname);
-//   }
-// });
-//
-// const upload = multer({ storage: storage });
 
 
 // API endpoint to retrieve all post related to User

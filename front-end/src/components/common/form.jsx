@@ -50,6 +50,15 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
+  handleFileChange = (event) => {
+    const imageFile = event.target.files[0];
+    console.log('image is', imageFile);
+    const data = { ...this.state.data };
+    data['image'] = imageFile;
+
+    this.setState({ data: data });
+  }
+
   renderButton(label, id="", className="") {
     return (
       <button disabled={this.validate()} id={`${id}`} className={`btn btn-primary btn-block ${className}`}>
@@ -63,7 +72,7 @@ class Form extends Component {
 
     return (
       <ImageInput
-        onChange={this.handleChange}
+        onChange={this.handleFileChange}
       />
     );
   }
