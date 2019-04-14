@@ -129,4 +129,8 @@ router.delete('/:id', auth, async (req, res) => {
 
 });
 
+router.put('/reportPost/:topicId', async (req, res) => {
+  
+});
+
 module.exports = router;

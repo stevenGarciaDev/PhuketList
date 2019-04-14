@@ -50,3 +50,13 @@ export function remove(post) {
 export function update(post) {
 
 }
+
+export async function report(taskId, jwt) {
+  const response = await http.put(`${apiEndpoint}/reportPost/${taskId}`,
+  
+  { 'headers': {'x-auth-token': jwt }
+  });
+  
+  return response;
+}
+
