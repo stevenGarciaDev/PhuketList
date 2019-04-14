@@ -130,7 +130,20 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 router.put('/reportPost/:topicId', async (req, res) => {
+ 
+
+   try {
+    
+     await Post.collection.updateOne({topicID: req.params.topicId}, {$set: {isAppropriate: false}});
+
+
+    } catch (e) {
+        //print(e);
+    }
+   const Posts = await Post.find( {topicID: req.params.topicId} , { isAppropriate: 1} );
+
   
+  res.send(Posts);
 });
 
 module.exports = router;
