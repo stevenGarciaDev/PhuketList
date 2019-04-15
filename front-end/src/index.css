@@ -501,6 +501,26 @@ Task Group page
    margin: 0 !important;
 }
 
+/* ----------
+ Messages
+---------- */
+
+.messages-list {
+  margin-left: px;
+  width: 450px;
+}
+
+.message {
+  border: 1px solid #CCCCCC;
+  height: 150px;
+  width: 400px;
+}
+
+.message:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  width: 410px;
+}
+
 @media (min-width: 800px) {
 
   .activity-content, #post-btn {

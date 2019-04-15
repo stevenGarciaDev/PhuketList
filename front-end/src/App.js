@@ -10,7 +10,7 @@ import Forgot from "./components/Forgot";
 import RegisterForm from "./components/RegisterForm";
 import UserActivityPage from "./components/UserActivityPage";
 import FriendsList from "./components/FriendsList";
-import Messages from "./components/Messages";
+import MessageGroupList from "./components/MessageGroupList";
 import Profile from "./components/Profile";
 import Settings from "./components/Settings";
 import Contact from "./components/Contact";
@@ -50,7 +50,7 @@ class App extends Component {
             <Route path="/Reset/:token" component={Reset} />
             <Route path="/userActivityPage" render={(props) => <UserActivityPage user={this.state.user} /> } />
             <Route path="/friends" component={FriendsList} />
-            <Route path="/messages" component={Messages} />
+            <Route path="/messages" component={MessageGroupList} />
             <Route path="/myProfile" render={(props) => <Profile user={this.state.user} /> } />
             <Route path="/settings" component={Settings} />
             <Route path="/contact" component={Contact} />

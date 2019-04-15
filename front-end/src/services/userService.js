@@ -22,18 +22,26 @@ export function getPublicuser(id) {
 export function forgotPassword(user){
   return http.post(`${apiEndpoint}/forgotPassword`,{email: user.email});
 }
+
 export function resetPassword(params){
   var tokens = params.params.resetPasswordToken;
   return http.get(`${apiEndpoint}/resetPassword`,{params: {token: tokens}});
 }
+
 export function updatePassword(params){
   console.log(params.params.email);
   console.log(params.params.data.Password);
   return http.put(`${apiEndpoint}/updatePassword`,{params});
 }
 
-export async function updateProfile(user, bioText, jwt) {
+export async function updateSettingDetail(user, detailName, value, jwt) {
+  return http.post(`${apiEndpoint}/settingDetail/${user._id}`,
+    { user, detailName, value },
+    { 'headers': {'x-auth-token': jwt }
+  });
+}
 
+export async function updateProfile(user, bioText, jwt) {
   const response = await http.put(`${apiEndpoint}/updateProfile/${user.email}`,
     { bioText },
     { 'headers': {'x-auth-token': jwt }
@@ -41,7 +49,6 @@ export async function updateProfile(user, bioText, jwt) {
   //console.log(response); //user._id
   return response;
 }
-
 
 export async function updatePhotoFile(user, photo, jwt) {
 

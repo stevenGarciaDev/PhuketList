@@ -49,6 +49,14 @@ router.post("/", async (req, res) => {
     });
 });
 
+router.post('/settingDetail/:user_id', async (req, res) => {
+  const { detailName, value } = req.body;
+  const user = await User.findById(req.params.user_id);
+  user[detailName] = value;
+  await user.save();
+  res.send(user);
+});
+
 router.get('/publicUsers', async (req, res) => {
   const users = await User.find({ isPrivateProfile: false });
   console.log('Users are', users);
@@ -89,10 +97,10 @@ router.put('/updateProfile/:user_id', async (req, res) => {
 
 
 router.put('/updatePhoto/:user_id', async (req, res) => {
- 
+
 
   try {
-    
+
 
      await User.collection.updateOne({email: req.params.user_id}, {$set: {photo: req.body.photo}});
 
@@ -193,7 +201,7 @@ router.get('/UserBio/:user_id', async (req, res) => {
 
 
 router.get('/UserPhoto/:user_id', async (req, res) => {
- 
+
   const users = await User.find( {email: req.params.user_id},  { photo: 1}  );
 
   res.send(users);

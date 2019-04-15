@@ -53,9 +53,6 @@ class Navbar extends Component {
                 Login
               </NavLink>
 
-
-
-
               <NavLink className="nav-link" to="/register">
                 Register
               </NavLink>
