@@ -3,7 +3,7 @@ import Moment from 'react-moment';
 import Like from './Like';
 import CommentIcon from './CommentIcon';
 import ReportIcon from './ReportIcon';
-import { updateLikeInfo, report } from '../services/postService';
+import { updateLikeInfo, report, getIsAppropriate } from '../services/postService';
 import { getCurrentUser } from '../services/authService';
 // import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';
 
@@ -27,8 +27,18 @@ class Post extends Component {
       likes: likes,
       didLike: didPrevLike,
       comments: comments,
-      displayComments: false
+      displayComments: false,
+      isAppropriate: false
     };
+  }
+
+
+  async componentDidMount() {
+    const jwt = localStorage.getItem("token");
+    const isAppro = await getIsAppropriate(this.state.id, jwt);
+
+    this.setState({isAppropriate: isAppro });
+
   }
 
   handleLike = async () => {
@@ -83,7 +93,7 @@ class Post extends Component {
       displayComments
     } = this.state;
 
-    return (
+    return ( (true)?
       <div className="Post">
         <img className="post-profile-img" />
         <h1 className="post-author">{author.name}</h1>
@@ -112,14 +122,10 @@ class Post extends Component {
 
         </div>
 
-
-
-
-
-
-
-
       </div>
+
+      : 
+      <div>This Post is Hidden</div>
     );
   }
 };
