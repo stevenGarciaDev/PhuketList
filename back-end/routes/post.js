@@ -146,4 +146,12 @@ router.put('/reportPost/:topicId', async (req, res) => {
   res.send(Posts);
 });
 
+
+router.get('/getIsAppropriate/:topicId', async (req, res) => {
+  
+  const Posts = await Post.find( {topicID: req.params.topicId},  { isAppropriate: 1}  );
+
+  res.send(Posts);
+});
+
 module.exports = router;

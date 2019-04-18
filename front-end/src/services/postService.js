@@ -60,3 +60,16 @@ export async function report(taskId, jwt) {
   return response;
 }
 
+export async function getIsAppropriate(taskId, jwt) {
+  var IsAppro = true;
+
+  await http.get(`${apiEndpoint}/getIsAppropriate/${taskId}`, {}).then(function(result) {
+
+    IsAppro = result.data[0].isAppropriate;//////bio???
+
+ });
+
+
+
+ return IsAppro;
+}
