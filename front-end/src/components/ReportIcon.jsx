@@ -14,13 +14,13 @@ class ReportIcon extends Component {
       comments: this.props.comments,
       DisplayRep: false
     }
-    
+
   }
 
 
 
   displayReport= () => {
-    
+
     this.DisplayRep = ! this.DisplayRep;
     this.setState({
         DisplayRep: !this.state.DisplayRep
@@ -30,20 +30,20 @@ class ReportIcon extends Component {
 
 
   render() {
-    
+
 
 
     return (
-     
+
         <React.Fragment>
             <div className="like-container">
-                    <i onClick={this.displayReport} className="fa fa-comment-o fa-2x" aria-hidden="true"></i>
+                    <i onClick={this.displayReport} className="fa fa-flag fa-2x" aria-hidden="true"></i>
             </div>
 
-            { this.state.DisplayRep && 
+            { this.state.DisplayRep &&
 
                 <div>
-                        
+
                     <div>
                         <label>
                             <input type="checkbox" id="Tier1" name="Tier1" />
@@ -61,43 +61,31 @@ class ReportIcon extends Component {
                             <input type="checkbox" id="Tier3" name="Tier3" />
                             <label for="Tier3">Tier-3</label>
                         </label>
-                        
-                       
 
-                        
                     </div>
 
 
 
-                    <Form > 
+                    <Form >
                       <Form.Group >
-                      
+
                           <Form.Control as="textarea" rows="3"  type="text" />
-                          
-                          
+
+
                           <div className="profile-btn-container">
                             <button >Report</button>
                             <button >Cancel Report</button>
                           </div>
-                        
+
                       </Form.Group>
                    </Form>
-
-
-
-
-
-
-
-
-
                 </div>
 
             }
-  
+
 
         </React.Fragment>
-        
+
 
     );
   }
