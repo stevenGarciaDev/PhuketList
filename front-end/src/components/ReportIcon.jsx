@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 
 class ReportIcon extends Component {
 
-  //console.log("In CommentIcon props are", props);
+ 
 
   constructor(props) {
     super(props);
@@ -19,9 +19,9 @@ class ReportIcon extends Component {
 
 
 
-  displayReport= () => {
+  displayReport= (e) => {
 
-    this.DisplayRep = ! this.DisplayRep;
+    e.preventDefault();
     this.setState({
         DisplayRep: !this.state.DisplayRep
       });
@@ -37,7 +37,7 @@ class ReportIcon extends Component {
 
         <React.Fragment>
             <div className="like-container">
-                    <i onClick={this.displayReport} className="fa fa-flag fa-2x" aria-hidden="true"></i>
+                    <i onClick={e =>this.displayReport(e)} className="fa fa-flag fa-2x" aria-hidden="true"></i>
             </div>
 
             { this.state.DisplayRep &&
@@ -73,8 +73,8 @@ class ReportIcon extends Component {
 
 
                           <div className="profile-btn-container">
-                            <button >Report</button>
-                            <button >Cancel Report</button>
+                            <button onClick={e => e.preventDefault()} >Report</button>
+                            <button onClick={e =>this.displayReport(e)} >Cancel Report</button>
                           </div>
 
                       </Form.Group>
@@ -82,7 +82,7 @@ class ReportIcon extends Component {
                 </div>
 
             }
-
+  
 
         </React.Fragment>
 
@@ -92,3 +92,4 @@ class ReportIcon extends Component {
 }
 
 export default ReportIcon;
+//e.preventDefault()

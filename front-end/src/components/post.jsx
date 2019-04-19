@@ -36,18 +36,12 @@ class Post extends Component {
   async componentDidMount() {
     const jwt = localStorage.getItem("token");
     const isAppro = await getIsAppropriate(this.state.id, jwt);
-    console.log(isAppro); ///
+    
     this.setState({isAppropriate: isAppro });
 
   }
 
   handleLike = async () => {
-
-
-    const jwt = localStorage.getItem("token");
-    const isAppro = await getIsAppropriate(this.state.id, jwt);
-    console.log(isAppro); ///
-
 
     const user = getCurrentUser();
     const { didLike, id } = this.state;
@@ -87,6 +81,18 @@ class Post extends Component {
     });
   }
 
+  handleReportButton = async () => {
+    this.setState({
+      isAppropriate: false
+    });
+    // update database
+
+    const jwt = localStorage.getItem("token");
+    await report(this.state.id, jwt);
+
+  }
+
+
   render() {
     const {
       id,
@@ -125,14 +131,14 @@ class Post extends Component {
             onNewComment={this.handleNewComment}
             postId={id} />
 
-        <div> < ReportIcon  /></div>
+        <div> < ReportIcon   onClick={this.handleReportButton}/></div>
 
         </div>
 
       </div>
 
       : 
-      <div>This Post is Hidden {console.log("dffdf")} </div>
+      <div>This Post is Hidden </div>
     );
   }
 };

@@ -136,14 +136,14 @@ router.put('/reportPost/:topicId', async (req, res) => {
     
      await Post.collection.updateOne({topicID: req.params.topicId}, {$set: {isAppropriate: false}});
 
+     const Posts = await Post.find( {topicID: req.params.topicId} , { isAppropriate: 1} );
 
+  
+     res.send(Posts);
     } catch (e) {
         //print(e);
     }
-   const Posts = await Post.find( {topicID: req.params.topicId} , { isAppropriate: 1} );
-
-  
-  res.send(Posts);
+   
 });
 
 

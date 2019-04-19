@@ -65,12 +65,10 @@ export async function getIsAppropriate(taskId, jwt) {
 
   await http.get(`${apiEndpoint}/getIsAppropriate/${taskId}`, {}).then(function(result) {
 
-    IsAppro = result.data;//////bio???
-
+    IsAppro = result.data;
  });
 
- console.log(IsAppro);
- console.log("IsAppro");
+
 
 
  return IsAppro;
