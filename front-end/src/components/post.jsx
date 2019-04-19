@@ -17,7 +17,7 @@ class Post extends Component {
     // need to get the current user based on jwt
     const user = getCurrentUser();
     let didPrevLike = likes.indexOf(user._id) !== -1 ? true : false;
-
+    
     this.state = {
       id: id,
       author: author,
@@ -36,12 +36,19 @@ class Post extends Component {
   async componentDidMount() {
     const jwt = localStorage.getItem("token");
     const isAppro = await getIsAppropriate(this.state.id, jwt);
-
+    console.log(isAppro); ///
     this.setState({isAppropriate: isAppro });
 
   }
 
   handleLike = async () => {
+
+
+    const jwt = localStorage.getItem("token");
+    const isAppro = await getIsAppropriate(this.state.id, jwt);
+    console.log(isAppro); ///
+
+
     const user = getCurrentUser();
     const { didLike, id } = this.state;
     let likes = [...this.state.likes];
@@ -93,7 +100,7 @@ class Post extends Component {
       displayComments
     } = this.state;
 
-    return ( (true)?
+    return ( (this.state.isAppropriate)? // this.state.isAppropriate
       <div className="Post">
         <img className="post-profile-img" />
         <h1 className="post-author">{author.name}</h1>
@@ -125,7 +132,7 @@ class Post extends Component {
       </div>
 
       : 
-      <div>This Post is Hidden</div>
+      <div>This Post is Hidden {console.log("dffdf")} </div>
     );
   }
 };

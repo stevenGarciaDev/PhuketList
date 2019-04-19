@@ -148,10 +148,21 @@ router.put('/reportPost/:topicId', async (req, res) => {
 
 
 router.get('/getIsAppropriate/:topicId', async (req, res) => {
-  
-  const Posts = await Post.find( {topicID: req.params.topicId},  { isAppropriate: 1}  );
+  try {
+    
+    //const Posts = await Post.collection.find({ topicID: req.params.topicId  } , { isAppropriate: 1}) ;//.find( {topicID: req.params.topicId} , { isAppropriate: 1} ); // .find({ topicID: req.params.topicId })
+    
+    const Posts = await Post.findById(req.params.topicId);
+    console.log(Posts.isAppropriate);
+    res.send(Posts.isAppropriate);
 
-  res.send(Posts);
+   } catch (e) {
+       //print(e);
+   }
+ 
+ // console.log(Posts.isAppropriate);
+  
+  
 });
 
 module.exports = router;
