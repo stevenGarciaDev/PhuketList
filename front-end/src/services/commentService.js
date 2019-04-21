@@ -1,7 +1,7 @@
 import http from "./httpService";
-import { apiUrl } from "../config.json";
 
-const apiEndpoint = apiUrl + "/comment";
+//const apiEndpoint = apiUrl + "/comment";
+const apiEndpoint = "/comment";
 
 export async function createComment(text, postId, jwt) {
   const response = await http.post(`${apiEndpoint}/${postId}`,

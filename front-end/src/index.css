@@ -254,6 +254,11 @@ i {
   border-radius: 50%;
 }
 
+.post-img {
+  margin: 0 auto;
+
+}
+
 .post-author {
   font-size: 14px;
   position: absolute;

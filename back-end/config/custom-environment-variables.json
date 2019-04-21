@@ -1,3 +1,4 @@
 {
-  "jwtPrivateKey": "phuketList_jwtPrivateKey"
+  "jwtPrivateKey": "phuketList_jwtPrivateKey",
+  "db": "phuketlist_db"
 }

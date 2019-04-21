@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Joi from "joi-browser";
 import ImageInput from "./imageInput";
 import Input from "./input";
+import axios from "axios";
 
 class Form extends Component {
   state = {
@@ -30,7 +31,7 @@ class Form extends Component {
     e.preventDefault();
 
     const errors = this.validate();
-    console.log("error!!", errors);
+    //console.log("error!!", errors);
     this.setState({ errors: errors || {} });
 
     if (errors) return;
@@ -50,9 +51,8 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  handleFileChange = (event) => {
+  handleFileChange = async (event) => {
     const imageFile = event.target.files[0];
-    console.log('image is', imageFile);
     const data = { ...this.state.data };
     data['image'] = imageFile;
 

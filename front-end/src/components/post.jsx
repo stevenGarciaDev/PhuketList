@@ -17,7 +17,7 @@ class Post extends Component {
     // need to get the current user based on jwt
     const user = getCurrentUser();
     let didPrevLike = likes.indexOf(user._id) !== -1 ? true : false;
-    
+
     this.state = {
       id: id,
       author: author,
@@ -36,7 +36,7 @@ class Post extends Component {
   async componentDidMount() {
     const jwt = localStorage.getItem("token");
     const isAppro = await getIsAppropriate(this.state.id, jwt);
-    
+
     this.setState({isAppropriate: isAppro });
 
   }
@@ -117,7 +117,7 @@ class Post extends Component {
         </h2>
         <p className="post-content">{text}</p>
 
-        { image !== '' && <img src={image} /> }
+        { image !== '' && <img src={image} className="img-responsive post-img" /> }
 
         <div>
           <Like
@@ -137,7 +137,7 @@ class Post extends Component {
 
       </div>
 
-      : 
+      :
       <div>This Post is Hidden </div>
     );
   }

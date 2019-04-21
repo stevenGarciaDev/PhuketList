@@ -11,7 +11,7 @@ class MessageGroupList extends Component {
   }
 
   componentDidMount() {
-
+    
   }
 
   render() {

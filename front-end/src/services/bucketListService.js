@@ -1,8 +1,10 @@
 import http from './httpService';
-import { apiUrl } from "../config.json";
 
-const apiEndpoint = apiUrl + "/bucketList";
-const apiEndpointListItems = apiUrl + "/ListItem";
+//const apiEndpoint = apiUrl + "/bucketList";
+//const apiEndpointListItems = apiUrl + "/ListItem";
+
+const apiEndpoint = "/bucketList";
+const apiEndpointListItems = "/ListItem";
 
 export async function getListItems(user, jwt) {
   const response = await http.get(`${apiEndpoint}/${user._id}`,

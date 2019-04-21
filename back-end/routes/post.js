@@ -1,28 +1,9 @@
 const { Post, validate } = require('../models/post');
 const { BucketList } = require('../models/bucketList');
 const { ListItem } = require('../models/listItem');
-const { resize } = require('../middleware/imageUpload');
 const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const jimp = require('jimp');
-
-const multerOptions = {
-  storage: multer.memoryStorage(),
-  fileFilter: (req, file, cb) => {
-    const isPhoto = file.mimetype.startsWith('image');
-    if (isPhoto) {
-      console.log("the request body is ", req.body);
-      console.log("is photo");
-      cb(null, true);
-    } else {
-      console.log("that filetype isn't allowed");
-      cb({ message: "That filetype isn't allowed!" }, false);
-    }
-  }
-};
-
 
 // API endpoint to retrieve all post related to User
 router.get('/activityPage', auth, async (req, res) => {
@@ -73,18 +54,12 @@ router.get('/:topicId', auth, async (req, res) => {
 });
 
 // create a new Post,
-router.post('/', multer(multerOptions).single('image'), resize, auth, async (req, res, next) => {
-  try {
-    console.log("body is");
-    console.log("the file is ", req.file);
-  } catch (ex) {
-    console.log("that file cause an error");
-  }
-
+router.post('/', auth, async (req, res, next) => {
   let post = "";
   try {
     post = new Post({
       text: req.body.text,
+      image: req.body.image,
       topicID: req.body.topicID,
       author: req.user._id,
       dateCreated: Date.now()
@@ -130,28 +105,28 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 router.put('/reportPost/:topicId', async (req, res) => {
- 
+
 
    try {
-    
+
      await Post.collection.updateOne({topicID: req.params.topicId}, {$set: {isAppropriate: false}});
 
      const Posts = await Post.find( {topicID: req.params.topicId} , { isAppropriate: 1} );
 
-  
+
      res.send(Posts);
     } catch (e) {
         //print(e);
     }
-   
+
 });
 
 
 router.get('/getIsAppropriate/:topicId', async (req, res) => {
   try {
-    
+
     //const Posts = await Post.collection.find({ topicID: req.params.topicId  } , { isAppropriate: 1}) ;//.find( {topicID: req.params.topicId} , { isAppropriate: 1} ); // .find({ topicID: req.params.topicId })
-    
+
     const Posts = await Post.findById(req.params.topicId);
     console.log(Posts.isAppropriate);
     res.send(Posts.isAppropriate);
@@ -159,10 +134,10 @@ router.get('/getIsAppropriate/:topicId', async (req, res) => {
    } catch (e) {
        //print(e);
    }
- 
+
  // console.log(Posts.isAppropriate);
-  
-  
+
+
 });
 
 module.exports = router;
