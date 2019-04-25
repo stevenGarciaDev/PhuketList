@@ -9,6 +9,13 @@ export async function getAllPost(jwt) {
   return response.data;
 }
 
+export async function getFeedPosts(jwt, limit, skip) {
+  const response = await http.get(`${apiEndpoint}/activityFeed/${limit}/${skip}`,
+    { 'headers': {'x-auth-token': jwt }
+  });
+  return response.data;
+}
+
 export async function getPosts(taskId, jwt) {
   const response = await http.get(`${apiEndpoint}/${taskId}`, {
     'headers': {'x-auth-token': jwt }
@@ -62,6 +69,7 @@ export function update(post) {
 }
 
 export async function report(taskId, jwt) {
+  console.log("apple beexs");
   const response = await http.put(`${apiEndpoint}/reportPost/${taskId}`,
 
   { 'headers': {'x-auth-token': jwt }

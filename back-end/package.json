@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --verbose",
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "engines": {
     "version": "10.15.3"

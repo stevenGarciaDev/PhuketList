@@ -10,12 +10,21 @@ export function register(user) {
   });
 }
 
-export function getUsers() {
-  return http.get(`${apiEndpoint}/publicUsers`);
+export async function getUsers() {
+  return await http.get(`${apiEndpoint}/publicUsers`);
 }
+
+export async function getUser(id) {
+  return await http.get(`${apiEndpoint}/retrieveUser/${id}`);
+}
+
 
 export function getPublicuser(id) {
   return http.get(`${apiEndpoint}/publicUsers/${id}`);
+}
+
+export async function getUserPhotoByID(id) {
+  return http.get(`${apiEndpoint}/UserProfilePhoto/${id}`);
 }
 
 export function forgotPassword(user){
@@ -34,14 +43,27 @@ export function updatePassword(params){
 }
 
 export async function updateSettingDetail(user, detailName, value, jwt) {
-  return http.post(`${apiEndpoint}/settingDetail/${user._id}`,
+
+  const response = await http.post(`${apiEndpoint}/settingDetail/${user._id}`,
     { user, detailName, value },
     { 'headers': {'x-auth-token': jwt }
   });
+  //console.log(response); //user._id
+  return response;
+}
+
+export async function getSettingtDetail(user, jwt) {
+
+  const response = await http.get(`${apiEndpoint}/settingInfo/${user._id}`,
+
+    { 'headers': {'x-auth-token': jwt }
+  });
+  //console.log(response); //user._id
+  return response;
 }
 
 export async function updateProfile(user, bioText, jwt) {
-  const response = await http.put(`${apiEndpoint}/updateProfile/${user.email}`,
+  const response = await http.post(`${apiEndpoint}/updateBio/${user._id}`,
     { bioText },
     { 'headers': {'x-auth-token': jwt }
   });
@@ -49,8 +71,38 @@ export async function updateProfile(user, bioText, jwt) {
   return response;
 }
 
-export async function updatePhotoFile(user, photo, jwt) {
+export async function uploadNewProfileImage(image, jwt) {
+  let uploadData = new FormData();
+  uploadData.append('upload_preset', 'phuketlist');
+  uploadData.append('file', image);
+  uploadData.append('api_key', "771354541174957");
+  const endpoint = "https://api.cloudinary.com/v1_1/phuketlist/image/upload";
 
+  try {
+    // send image to Cloudinary
+    //console.log("about to send image");
+    const res = await http.post(endpoint, uploadData);
+    //console.log('@response is ', res.data.secure_url);
+    image = res.data.secure_url;
+  } catch (e) {
+    console.log("Unable to send");
+  }
+
+  //console.log("@image is ", image);
+  return image;
+}
+
+export async function updateProfileImage(image, jwt) {
+  // save image, secure_url to User instance
+  const response = await http.post(`${apiEndpoint}/updateProfileImage`,
+    { image },
+    { 'headers': {'x-auth-token': jwt }
+  });
+  console.log(`!response is ${response}`);
+  return response;
+}
+
+export async function updatePhotoFile(user, photo, jwt) {
 
   const response = await http.put(`${apiEndpoint}/updatePhoto/${user.email}`,
     { photo },
@@ -61,7 +113,6 @@ export async function updatePhotoFile(user, photo, jwt) {
 }
 
 
-
 export async function getUserBIO(user) {
    var returnBIO = "";
 
@@ -70,11 +121,6 @@ export async function getUserBIO(user) {
     returnBIO = result.data[0].bio;
 
   });
-
-  console.log(returnBIO);
-
-
-
   return returnBIO;
 }
 
@@ -87,10 +133,5 @@ export async function getUserPHOTO(user) {
   returnPhoto = result.data[0].photo;
 
  });
-
- console.log(returnPhoto);
-
-
-
  return returnPhoto;
 }

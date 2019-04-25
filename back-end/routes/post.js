@@ -20,8 +20,7 @@ router.get('/activityPage', auth, async (req, res) => {
       let recentPost = await Post.find({ topicID })
         .sort({ dateCreated: -1 })
         .populate('author', 'name')
-        .populate('likes', '_id')
-        .limit(5);
+        .limit(25);
 
       //console.log("Likes are...", recentPost[0].recentPos);
       recentPostsFeed = [...recentPostsFeed, ...recentPost];
@@ -29,7 +28,6 @@ router.get('/activityPage', auth, async (req, res) => {
     }
 
     //console.log("id for FIRST LIKE", recentPostsFeed[2].likes[0]);
-
     res.send(recentPostsFeed);
   } catch (ex) {
     console.log('unable to query', ex);
@@ -37,16 +35,45 @@ router.get('/activityPage', auth, async (req, res) => {
 
 });
 
+// API endpoint to retrieve activity feed posts 
+router.get('/activityFeed/:limit/:skip', auth, async (req, res) => {
+  try {
+    // so get User's bucket list, and their list items,
+    const bucketList = await BucketList.find({ owner: req.user._id });
+    const listItems = bucketList[0].listItems;
+
+    // Get IDs only from users list
+    let userItemsIDs = [];
+    for (let i = 0; i < listItems.length; i++) {
+        let topicID = listItems[i]._id;
+        userItemsIDs = userItemsIDs.concat(topicID);
+    }
+
+    // Get all posts from list simultaneously
+    // For future reference, when friends are implemented
+    // {$or: [{ topicID: { $in: userItemsIDs }},
+    // { authorID: { $in: __ARRAY OF FRIEND IDS__ ] }}]}
+    let recentPosts = await Post.find({$or: [{ topicID: { $in: userItemsIDs }}]})
+      .sort({ dateCreated:-1 })
+      .populate('author', 'name')
+      .limit(parseInt(req.params.limit))
+      .skip(parseInt(req.params.skip));
+    res.send(recentPosts);
+  } catch (ex) {
+    console.log('unable to query', ex);
+  }
+});
+
 // API endpoint to retrieve post corresponding to a topicID
 router.get('/:topicId', auth, async (req, res) => {
   let posts = [];
   try {
-    console.log("The topic id is", req.params.topicID);
+    //console.log("The topic id is", req.params.topicID);
     posts = await Post
       .find({ topicID: req.params.topicId })
       .populate('author', 'name')
       .sort({ dateCreated: -1 });
-    console.log(posts);
+    //console.log(posts);
   } catch(ex) {
     console.log("No post were found");
   }
@@ -109,12 +136,11 @@ router.put('/reportPost/:topicId', async (req, res) => {
 
    try {
 
-     await Post.collection.updateOne({topicID: req.params.topicId}, {$set: {isAppropriate: false}});
 
-     const Posts = await Post.find( {topicID: req.params.topicId} , { isAppropriate: 1} );
+     const Posts = await Post.findById(req.params.topicId);
+     Posts.isAppropriate = false;
+     Posts.save();
 
-
-     res.send(Posts);
     } catch (e) {
         //print(e);
     }
@@ -125,17 +151,15 @@ router.put('/reportPost/:topicId', async (req, res) => {
 router.get('/getIsAppropriate/:topicId', async (req, res) => {
   try {
 
-    //const Posts = await Post.collection.find({ topicID: req.params.topicId  } , { isAppropriate: 1}) ;//.find( {topicID: req.params.topicId} , { isAppropriate: 1} ); // .find({ topicID: req.params.topicId })
+
 
     const Posts = await Post.findById(req.params.topicId);
-    console.log(Posts.isAppropriate);
+
     res.send(Posts.isAppropriate);
 
    } catch (e) {
        //print(e);
    }
-
- // console.log(Posts.isAppropriate);
 
 
 });

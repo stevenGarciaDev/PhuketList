@@ -1,20 +1,76 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Moment from 'react-moment';
+import { getUser } from '../services/userService';
 
-const Comment = (props) => {
+class Comment extends Component {
 
-  const { author, text, dateCreated } = props;
+  constructor(props) {
+    super(props);
+    this.state = {
+      profileImageURL: "",
+      authorName: ""
+    }
+  }
 
-  return (
-    <div className="comment-container">
-      <div className="Comment Post">
-        <img className="post-profile-img" />
-        <h1 className="post-author">{author}</h1>
-        <p className="comment-content">
-          {text}
-        </p>
+  componentDidMount = async () => {
+    // get user by id
+    const user = await getUser(this.props.author);
+    const { name, photo} = user.data;
+    this.setState({ profileImageURL: photo, authorName: name });
+  }
+
+  render() {
+    const { text, dateCreated } = this.props;
+    const { profileImageURL, authorName } = this.state;
+    /*
+    return (
+      <div className="comment-container">
+        <div className="Comment Post">
+          <img className="post-profile-img" />
+          <h1 className="post-author">{author}</h1>
+          <p className="comment-content">
+            {text}
+          </p>
+        </div>
       </div>
-    </div>
-  );
+    );*/
+
+    return(
+      <div className="comment-module">
+
+        <div className="row nopadding">
+          <div className="comment-module-author col-md-8 text-left">
+            {this.state.profileImageURL ?
+                (<img
+                    className="post-module-profile-img"
+                    src={this.state.profileImageURL}
+                    alt="Img" />)
+                :
+                (<img
+                    className="post-module-profile-img"
+                    src="https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg"
+                    alt="Img" />)
+              }
+            <small className="post-module-author-name">{authorName}</small>
+          </div>
+
+          <div className="col-md-3 text-right nopadding">
+            <small>
+              <Moment fromNow>
+                {dateCreated}
+              </Moment>
+            </small>
+          </div>
+        </div>
+
+        <div className="comment-module-content col-md-12">
+          <p className="text-left">{text}</p>
+        </div>
+
+      </div>
+    );
+  }
+
 }
 
 export default Comment;

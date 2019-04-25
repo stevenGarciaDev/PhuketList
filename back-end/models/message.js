@@ -22,4 +22,15 @@ const messageSchema = new mongoose.Schema({
 
 const Message = mongoose.model('Message', messageSchema);
 
+function validate(message) {
+  const schema = {
+    message: Joi.string().max(144).required(),
+    sender: Joi.objectId().required()
+  };
+
+  return Joi.validate(message, schema);
+}
+
 module.exports.Message = Message;
+module.exports.messageSchema = messageSchema;
+module.exports.validate = validate;

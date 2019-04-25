@@ -12,6 +12,7 @@ const nodemailer = require('nodemailer');
 const Sequelize =require( 'sequelize');
 const Op = Sequelize.Op;
 require('dotenv').config();
+
 // get a user,
 // read from JSON web tokens; req.user._id
 router.get("/me", auth, async (req, res) => {
@@ -51,11 +52,40 @@ router.post("/", async (req, res) => {
 
 router.post('/settingDetail/:user_id', async (req, res) => {
   const { detailName, value } = req.body;
+
   const user = await User.findById(req.params.user_id);
+
+  console.log(user[detailName]);
+
   user[detailName] = value;
   await user.save();
+
+
+
+  //const userss = await User.findById(req.params.user_id);
+  //console.log(userss[detailName]);
   res.send(user);
 });
+
+
+
+
+router.get('/settingInfo/:user_id', async (req, res) => {
+ // const { detailName, value } = req.body;
+
+  const user = await User.findById(req.params.user_id);
+  const info =  {
+    name: user["name"],
+    email: user["email"],
+    isPrivate: user["isPrivateProfile"],
+    isActive: user["isActiveAccount"],
+  };
+  //const userss = await User.findById(req.params.user_id);
+  //console.log(userss[detailName]);
+  res.send(info);
+});
+
+
 
 router.get('/publicUsers', async (req, res) => {
   const users = await User.find({ isPrivateProfile: false });
@@ -70,7 +100,37 @@ router.get('/publicUsers/:id', async (req, res) => {
   res.send(users);
 });
 
+// get User by id
+router.get('/retrieveUser/:id', async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password');
+  res.send(user);
+});
 
+// update User's profile image
+router.post('/updateProfileImage', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    user.photo = req.body.image;
+    //console.log(`photo is ${user.photo}`);
+    await user.save();
+    return user;
+  } catch (ex) {
+    console.log("unable to upload profile image");
+  }
+});
+
+router.post('/updateBio/:user_id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.user_id);
+    console.log("user is ", user);
+    user.bio = req.body.bioText;
+    const res = await user.save();
+    console.log("res is ", res);
+    return user;
+  } catch (e) {
+    console.log("Unable to upload bio", e);
+  }
+});
 
 router.put('/updateProfile/:user_id', async (req, res) => {
   // receive uploaded image and bio
@@ -205,6 +265,17 @@ router.get('/UserPhoto/:user_id', async (req, res) => {
   const users = await User.find( {email: req.params.user_id},  { photo: 1}  );
 
   res.send(users);
+});
+
+router.get('/UserProfilePhoto/:user_id', async (req, res) => {
+
+  try {
+    const response = await User.find( {_id: req.params.user_id}, { photo: 1}  );
+    res.send(response);
+  } catch (ex) {
+    console.log("Could not retrieve user profile photo: " + ex);
+  }
+
 });
 
 

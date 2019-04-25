@@ -13,7 +13,7 @@ class ImageInput extends Component {
           className="input-file"
           accept="image/gif, image/png, image/jpeg"
           onChange={this.props.onChange} />
-        <label for="post-image">
+        <label htmlFor="post-image">
           <i className="fa fa-upload" aria-hidden="true"></i>
           Choose an image...
         </label>

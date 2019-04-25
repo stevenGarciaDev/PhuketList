@@ -18,8 +18,8 @@ class ActivityFeed extends Component {
 
     let posts = await getPosts(taskId, jwt);
     posts = posts.data;
-    console.log("PROPS ARE", this.props);
-    console.log("POST DATA IS", posts);
+    //console.log("PROPS ARE", this.props);
+    //console.log("POST DATA IS", posts);
     this.setState({ posts });
   }
 

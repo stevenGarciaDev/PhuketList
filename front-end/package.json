@@ -16,6 +16,7 @@
     "react": "^16.8.1",
     "react-adopt": "^0.6.0",
     "react-bootstrap": "^1.0.0-beta.5",
+    "react-bottom-scroll-listener": "^2.1.2",
     "react-dom": "^16.8.1",
     "react-filter-search": "^1.0.8",
     "react-moment": "^0.8.4",

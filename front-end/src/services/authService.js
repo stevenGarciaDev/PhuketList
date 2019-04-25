@@ -19,6 +19,18 @@ export function getCurrentUser() {
   }
 }
 
+
+export function refreshCurrentUser() {
+  try {
+    const jwt = localStorage.getItem('token');
+    const user = jwtDecode(jwt);
+    return user;
+  }
+  catch (ex) {
+    return null;
+  }
+}
+
 export function getBucketList(user) {
   return http.get(`${apiEndpoint}/${user._id}`);
 }

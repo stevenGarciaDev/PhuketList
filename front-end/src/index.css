@@ -183,9 +183,64 @@ i {
 /* -------------
  Activity Feed
 ------------- */
+.post-module {
+  background-color: #fff;
+  border: 1px solid #e9ebee;
+  padding: 0 !important;
+  margin: 0 0 15px 0 !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #e9ebee;
+}
+
+.border-top {
+  border-top: 1px solid #e9ebee;
+}
+
+.post-module-content {
+  padding-top: 5px;
+  padding-bottom: 2px;
+}
+
+.post-module-top {
+  padding: 10px !important;
+  margin: 0px !important;
+}
+
+.post-module-author-name {
+  color: #17a2b8;
+}
+
+
+.post-module-profile-img {
+  background-image: url(./assets/images/dog1-sq.jpg);
+  background-size: cover;
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.comment-module {
+  background-color: #fff;
+  border: 1px solid #e9ebee;
+  padding: 5 !important;
+  margin: 0 0 15px 0 !important;
+}
+
+.comment-module-author {
+  padding: 10px !important;
+  margin: 0 !important;
+}
+
+.comment-module-content {
+  padding: 15px !important;
+  margin: 0 !important;
+}
 
 .ActivityFeed {
-  padding: 50px;
+  margin-top: 15px;
 }
 
 .activity-content {
@@ -244,6 +299,16 @@ i {
 	outline: -webkit-focus-ring-color auto 5px;
 }
 
+
+
+.card {
+  margin: 10px;
+}
+
+.card-header {
+  width: 100%;
+}
+
 .post-profile-img {
   background-image: url(./assets/images/dog1-sq.jpg);
   background-size: cover;
@@ -291,12 +356,16 @@ i {
 }
 
 .new-post-container {
-  padding: 30px 10px;
+  padding: 30px;
+  margin-bottom: 15px;
+  background-color: #fbfbfb;
+  border: 1px solid #e9ebee;
 }
 
 .new-post-input {
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
+  padding: 5px;
 }
 
 #post-btn {
@@ -306,14 +375,42 @@ i {
 }
 
 /* -------
+ Friends
+-------- */
+
+.segmentBtn-container {
+  margin: 30px;
+}
+
+.friend-info-item {
+  border: 1px solid #ccc;
+  display: flex;
+  height: 70px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.friend-username {
+  position: relative;
+  top: 7px;
+}
+
+.friend-info-item:hover {
+  border-color: #ffc600;
+  box-shadow: 0 0 1rem #ffc600;
+}
+
+/* -------
 User Profile
 --------- */
 
+
 .profile-container {
-  background-color: #2c3e50;
+  /* background-color: #2c3e50;
   padding-top: 70px;
   width: 100%;
-  height: 550px;
+  height: 550px; */
+  margin-top: 30px;
 }
 
 .profile-headshot-container {
@@ -341,6 +438,11 @@ User Profile
   height: 150px;
   width: 150px;
   border-radius: 50%;
+}
+
+.profile-image {
+  height: 200px;
+  border-radius: 10px;
 }
 
 /* ---------
@@ -388,6 +490,27 @@ Like component
   width: 80%;
 }
 
+.report-modal-content {
+  margin: auto;
+  padding: 25px;
+  background-color: #fff;
+  width: 80%;
+}
+
+.report-modal-display {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
 /* ---------
 Settings
 ---------- */
@@ -414,10 +537,114 @@ td {
   width:33%;
   text-align: left;
 }
+/* ---------
+Activity Feed page
+---------- */
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 15px;
+}
+
+.activity-feed-content {
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.activity-feed-user-info {
+  padding: 5px !important;
+}
+
+.activity-feed-user-info-module {
+  background-color: #f6f6f6;
+  border: 1px solid #e9ebee;
+  border-radius: 2px;
+  margin-top: 10px !important;
+  padding-bottom: 15px;
+}
+
+.activity-feed-user-info-card-bg {
+  height: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(./assets/images/jennvmy_-1194676-unsplash.jpg);
+}
+
+.activity-feed-user-info-card-body {
+  padding: 5px 15px;
+  margin: 0px 0px !important;
+}
+
+.activity-feed-user-info-card-avatar {
+  margin-top: -40px;
+  border-radius: 50%;
+  height: 72px;
+  width: 72px;
+  border: 2px solid #f6f6f6;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.activity-feed-user-info-card-name {
+  margin-left: 15px;
+}
+
+.activity-feed-user-info-card-bio {
+  margin: 0 !important;
+  padding: 0 15px !important;
+}
+
+.activity-feed-user-groups-item {
+  background-color: #fff;
+  padding: 5px 5px;
+  border: 1px solid #e9ebee;
+}
+
+.activity-feed-body {
+  padding: 5px !important;
+}
+
+.activity-feed-body-module {
+  background-color: #f6f6f6;
+  border: 1px solid #e9ebee;
+  border-radius: 2px;
+  margin-top: 10px !important;
+  padding-bottom: 15px;
+}
+
+.activity-feed-body-load {
+  background-color: #dcdcdc;
+  padding: 5px;
+  border: 1px solid #e9ebee;
+}
+
+.activity-feed-friends {
+  padding: 5px !important;
+}
+
+.activity-feed-friends-module {
+  background-color: #f6f6f6;
+  border: 1px solid #e9ebee;
+  border-radius: 2px;
+  margin-top: 10px !important;
+  padding-bottom: 15px;
+}
+
+.module-no-bg {
+  border: none;
+  background-color: inherit !important;
+}
 
 /* ---------
 Task Group page
 ---------- */
+.task-group-content {
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
 .task-group-body {
   width: 100%;
   min-height: 100vh;
@@ -429,7 +656,7 @@ Task Group page
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url(./assets/images/jennvmy_-1194676-unsplash.jpg);
-  filter: brightness(50%);
+  /*filter: brightness(50%);*/
   height: 300px;
   width: 100%;
   margin-bottom: 0px !important;
@@ -449,10 +676,10 @@ Task Group page
 }
 
 .task-group-members-nav {
-  min-height: 100vh;
   background-color: #fff;
   border: 1px solid #cccccc;
   width: 100%;
+  margin-top: 15px;
   padding: 15px;
 }
 
@@ -510,30 +737,137 @@ Task Group page
  Messages
 ---------- */
 
+#MessagePage {
+
+}
+
+.message-form {
+  margin: 20px 0px 100px 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.message-btn {
+  display: inline;
+}
+
+.MessageFeed {
+  margin-top: 100px;
+  width: 100%;
+  height: 550px;
+  border: 2px solid #ededed;
+  overflow-y: scroll;
+}
+
 .messages-list {
-  margin-left: px;
+  margin: 0 auto;
+  margin-top: 50px;
   width: 450px;
+  height: 450px;
+  overflow-y: scroll;
 }
 
-.message {
-  border: 1px solid #CCCCCC;
+.msg-author {
+  font-size: 25px;
+  position: relative;
+  top: 5px;
+}
+
+.msg-created-at {
+  margin: 10px;
+  text-align: right;
+  color: #gray;
+}
+
+.msg-header-container {
+  position: relative;
+  left: 35px;
+  top: 10px;
+}
+
+.msg-text-container {
+  margin: 5px;
+  position: relative;
+  left: 20px;
+  top: 10px;
+  text-align: left;
+  width: 90%;
+}
+
+.message-group-list-item {
+  border: 2px solid #ededed;
   height: 150px;
-  width: 400px;
+  padding: 10px;
+  width: 100%;
 }
 
-.message:hover {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  width: 410px;
+.message-group-list-item:hover {
+  border-color: gray;
+  cursor: pointer;
+}
+
+.message-divider {
+  width: 80%;
+}
+
+.list-item-msg {
+  position: relative;
+  top: 8px;
+}
+
+.new-group-container {
+  margin-top: 20px;
+}
+
+.add-member-input {
+  margin-right: 10px;
+}
+
+.new-group-item {
+  margin: 5px;
+}
+
+
+.circle-background,
+.circle-progress {
+  fill: none;
+}
+
+.circle-background {
+  stroke: #bfbfbf;
+}
+
+.circle-progress {
+  stroke: #17a2b8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.circle-text {
+  font-size: 2em;
+  font-weight: bold;
+  fill: #17a2b8;
+}
+
+.circle-text-small {
+  font-size: 1em;
+  fill: #17a2b8;
+}
+
+.circle-text-bottom {
+  font-size: 2em;
+  font-weight: bold;
+  color: #17a2b8;
 }
 
 @media (min-width: 800px) {
 
   .activity-content, #post-btn {
-    width: 50%;
+    width: 100%;
   }
 
   .new-post-input {
-    width: 50%;
+    width: 100%;
   }
 
 }
@@ -541,7 +875,7 @@ Task Group page
 @media (min-width: 1200px) {
 
   .activity-content, #post-btn {
-    width: 580px;
+    width: 100%;
   }
 
   .ListItem {
@@ -550,7 +884,7 @@ Task Group page
   }
 
   .new-post-input {
-    width: 580px;
+    width: 100%;
   }
 
 }

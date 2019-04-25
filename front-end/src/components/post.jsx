@@ -5,6 +5,9 @@ import CommentIcon from './CommentIcon';
 import ReportIcon from './ReportIcon';
 import { updateLikeInfo, report, getIsAppropriate } from '../services/postService';
 import { getCurrentUser } from '../services/authService';
+import {
+  getUserPhotoByID
+} from "../services/userService";
 // import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';
 
 class Post extends Component {
@@ -13,14 +16,13 @@ class Post extends Component {
     super(props);
     const { id, author, image, dateCreated, text, likes, comments } = this.props;
 
-    // console.log("THE PROPs for post is", this.props);
-    // need to get the current user based on jwt
     const user = getCurrentUser();
     let didPrevLike = likes.indexOf(user._id) !== -1 ? true : false;
 
     this.state = {
       id: id,
       author: author,
+      authorProfileAvatar: "",
       image: image,
       dateCreated: dateCreated,
       text: text,
@@ -36,9 +38,11 @@ class Post extends Component {
   async componentDidMount() {
     const jwt = localStorage.getItem("token");
     const isAppro = await getIsAppropriate(this.state.id, jwt);
-
     this.setState({isAppropriate: isAppro });
 
+    // Grab user's avatar profile picture by ID, since this should be public.
+    const userPhoto = await getUserPhotoByID(this.props.author._id);
+    this.setState({authorProfileAvatar: userPhoto.data[0].photo})
   }
 
   handleLike = async () => {
@@ -81,19 +85,20 @@ class Post extends Component {
     });
   }
 
-  handleReportButton = async () => {
+
+  handleReportButton = async() => {
+
+
     this.setState({
       isAppropriate: false
     });
-    // update database
 
-    const jwt = localStorage.getItem("token");
-    await report(this.state.id, jwt);
 
-  }
+}
 
 
   render() {
+    const { user } = this.props;
     const {
       id,
       author,
@@ -106,39 +111,65 @@ class Post extends Component {
       displayComments
     } = this.state;
 
-    return ( (this.state.isAppropriate)? // this.state.isAppropriate
-      <div className="Post">
-        <img className="post-profile-img" />
-        <h1 className="post-author">{author.name}</h1>
-        <h2 className="post-date">
-            <Moment fromNow>
-              {dateCreated}
-           </Moment>
-        </h2>
-        <p className="post-content">{text}</p>
+    return ( (this.state.isAppropriate) ?
+      <div className="post-module">
+          <div className="post-module-top row">
+            <div className="col-md-4 text-left nopadding">
+              {this.state.authorProfileAvatar ?
+                (<img
+                    className="post-module-profile-img"
+                    src={this.state.authorProfileAvatar}
+                    alt="Img" />)
+                :
+                (<img
+                    className="post-module-profile-img"
+                    src="https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg"
+                    alt="Img" />)
+              }
+              <small className="post-module-author-name"><strong>{author.name}</strong></small>
+            </div>
+            <div className="col-md-8 text-right nopadding">
+              <small>
+                  <Moment fromNow>
+                    {dateCreated}
+                 </Moment>
+              </small>
+            </div>
+          </div>
 
-        { image !== '' && <img src={image} className="img-responsive post-img" /> }
+          <div className="post-module-content">
+            <div className="row nopadding">
+              <p className="col-md-12 text-left">{text}</p>
+              <div className="col-md-12">
+              { image !== '' && <img src={image} className="img-responsive post-img" /> }
+              </div>
+            </div>
+          </div>
 
-        <div>
-          <Like
-            hasLiked={didLike}
-            totalLikes={likes}
-            onClick={this.handleLike} />
-          <CommentIcon
-            displayComments={displayComments}
-            comments={comments}
-            handleDropdown={this.handleCommentsDropdown}
-            onNewComment={this.handleNewComment}
-            postId={id} />
-
-        <div> < ReportIcon   onClick={this.handleReportButton}/></div>
-
-        </div>
-
+          <div className="post-module-bottom">
+            <div className="row nopadding">
+              <div className="col-md-12">
+                <Like
+                  hasLiked={didLike}
+                  totalLikes={likes}
+                  onClick={this.handleLike} />
+                <CommentIcon
+                  displayComments={displayComments}
+                  comments={comments}
+                  handleDropdown={this.handleCommentsDropdown}
+                  onNewComment={this.handleNewComment}
+                  postId={id} />
+              </div>
+              <div className="col-md-12">
+                <div><ReportIcon taskId = {this.state.id} handleReport={this.handleReportButton}/></div>
+              </div>
+            </div>
+          </div>
       </div>
 
       :
-      <div>This Post is Hidden </div>
+
+      <div className="post-module">This Post is Hidden </div>
     );
   }
 };

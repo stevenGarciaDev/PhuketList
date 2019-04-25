@@ -4,12 +4,22 @@ class SettingDetail extends Component {
 
   constructor(props) {
     super(props);
+    
     this.state = {
       isEditing: false,
       displayName: this.props.displayName,
       settingProperty: this.props.settingProperty,
       settingValue: this.props.settingValue,
     };
+
+  }
+
+  componentWillReceiveProps(nextProps){ //update this child if information sent is updated
+    if(nextProps.settingValue !== this.props.settingValue){
+        this.setState({settingValue:nextProps.settingValue});
+    }
+
+    
   }
 
   handleInputChange = (e) => {
@@ -42,6 +52,7 @@ class SettingDetail extends Component {
 
     return (
       <React.Fragment>
+        
         <tr>
           <td>{displayName}</td>
 

@@ -101,30 +101,31 @@ class TaskGroup extends Component {
 
 		return (
 			<React.Fragment>
-
 				<div className="jumbotron task-group-jumbotron "><h1 className="shadow-text bold-text">{`"${task_name}" Group`}</h1>
 					{/* TODO: Add user count */}
 					{!user_hastask &&
-						<btn className="btn btn-warning" onClick={this.addTask}>Add to my Bucket List!</btn>}
+						<button className="btn btn-warning" onClick={this.addTask}>Add to my Bucket List!</button>}
 						<h3 className="shadow-text">{`${message}`}</h3>
 				</div>
-					<div className="row">
-						<div className="col-md-8 col-sm-9 col-lg-9 col-xl-10 nopadding">
-							<div className="task-group-body task-group-feed">
-								<ActivityFeed taskId={task_id} />
-							</div>
-						</div>
-						<div className="col-md-4 col-sm-3 col-lg-3 col-xl-2 nopadding">
-							<div className="task-group-members-nav">
-								<h3>Members</h3>
-								<div className="task-group-members-list">
-									{this.state.members.map(function(item, i){
-									  return <div className="task-group-members-list-item">{`${item.name}`}</div>
-									})}
+				<div className="task-group-content">
+          			<div className="row nopadding">
+          				<div className="task-group-feed col-md-9">
+          					<ActivityFeed taskId={task_id} />
+          				</div>
+          				<div className="task-group-members col-md-3">
+          					<div className="sticky">
+          						<div className="task-group-members-nav">
+									<h3>Members</h3>
+									<div className="task-group-members-list">
+											{this.state.members.map(function(item, i){
+											return <div className="task-group-members-list-item" key={item._id}>{`${item.name}`}</div>
+										})}
+									</div>
 								</div>
-							</div>
-						</div>
-					</div>
+          					</div>
+          				</div>
+          			</div>
+          		</div>
 			</React.Fragment>
 		);
 	}

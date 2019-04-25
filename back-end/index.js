@@ -7,6 +7,7 @@ const users = require("./routes/users");
 const post = require("./routes/post");
 const comment = require("./routes/comment");
 const taskGroup = require("./routes/taskGroup");
+const friends = require("./routes/friendship");
 var cors = require('cors');
 const express = require("express");
 const app = express();
@@ -30,6 +31,7 @@ app.use('/api/listitem', listItem);
 app.use('/api/post/', post);
 app.use('/api/comment/', comment);
 app.use('/api/taskGroup/', post);
+app.use('/api/friends/', friends);
 
 const port = process.env.PORT || 3900;
 const server = app.listen(port, () => {

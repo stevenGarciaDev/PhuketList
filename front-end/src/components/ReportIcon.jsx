@@ -3,6 +3,7 @@ import CommentForm from './CommentForm';
 import Comment from './Comment';
 import _ from 'lodash';
 import Form from 'react-bootstrap/Form';
+import { report } from '../services/postService';
 
 class ReportIcon extends Component {
 
@@ -11,8 +12,8 @@ class ReportIcon extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: this.props.comments,
-      DisplayRep: false
+      DisplayRep: false,
+      taskId: this.props.taskId
     }
 
   }
@@ -26,24 +27,35 @@ class ReportIcon extends Component {
         DisplayRep: !this.state.DisplayRep
       });
 
+
+
+  };
+
+  handleReportButton = async (e) => {
+    e.preventDefault(); // prevent refresh
+    
+
+   this.setState({ // turns of display for this button
+    DisplayRep: !this.state.DisplayRep
+  });
+
+   this.props.handleReport(); // use function in post component to make post hidden
+    const jwt = localStorage.getItem("token"); //update database
+    await report(this.state.taskId, jwt);
   };
 
 
   render() {
-
-
-
     return (
-
         <React.Fragment>
             <div className="like-container">
                     <i onClick={e =>this.displayReport(e)} className="fa fa-flag fa-2x" aria-hidden="true"></i>
             </div>
 
             { this.state.DisplayRep &&
-
-                <div>
-
+              <div className="report-modal-display">
+                <div className="report-modal-content">
+                  <div>
                     <div>
                         <label>
                             <input type="checkbox" id="Tier1" name="Tier1" />
@@ -63,9 +75,6 @@ class ReportIcon extends Component {
                         </label>
 
                     </div>
-
-
-
                     <Form >
                       <Form.Group >
 
@@ -73,22 +82,20 @@ class ReportIcon extends Component {
 
 
                           <div className="profile-btn-container">
-                            <button onClick={e => e.preventDefault()} >Report</button>
+                            <button onClick={e=> this.handleReportButton(e) } >Report</button>
                             <button onClick={e =>this.displayReport(e)} >Cancel Report</button>
                           </div>
 
                       </Form.Group>
                    </Form>
+                  </div>
                 </div>
-
+              </div>
             }
-  
-
         </React.Fragment>
-
-
     );
   }
+  
 }
 
 export default ReportIcon;

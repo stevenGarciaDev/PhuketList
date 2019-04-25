@@ -50,11 +50,17 @@ class PostForm extends Form {
     return (
       <div className="new-post-container">
         <form onSubmit={this.handleSubmit} encType="multipart/form-data">
-          <div className="new-post-input">
-            {this.renderInput("text", "", "text", "Add a new post...")}
-          </div>
-          <div className="new-post-input">
-            {this.renderFileInput()}
+          <div className="row nopadding">
+            <div className="col-md-8 nopadding">
+              <div className="new-post-input">
+                {this.renderInput("text", "", "text", "Add a new post...")}
+              </div>
+            </div>
+            <div className="col-md-4 nopadding">
+              <div className="new-post-input">
+                {this.renderFileInput()}
+              </div>
+            </div>
           </div>
           <div>
             {this.renderButton("Post", "post-btn", "btn btn-info btn-block")}
