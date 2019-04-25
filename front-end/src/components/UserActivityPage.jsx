@@ -14,7 +14,7 @@ import {
   getCurrentUser 
 } from "../services/authService";
 import {
-  updateProfile, getUserBIO, getUserPHOTO, getUserPhotoByID
+  getUserBIO, getUserPHOTO, getUserPhotoByID
 } from "../services/userService";
 
 import {
@@ -40,7 +40,6 @@ class UserActivityPage extends Component {
       profileAvatar: "",
       profileBio: "",
     }
-
   };
 
   async componentDidMount() {
@@ -128,7 +127,7 @@ class UserActivityPage extends Component {
                 </div>
 
                 <div className="activity-feed-user-info-module">
-                  <p>My Groups</p>
+                  <p className="module-title">My Groups</p>
                   {this.state.listItems.length > 0 &&
                         this.state.listItems.map(item => (
                           <Link to={`/taskgroup/${item._id}`} key={item._id}>
@@ -139,13 +138,17 @@ class UserActivityPage extends Component {
                   ))}
                 </div>
                 <div className="activity-feed-user-info-module">
-                  <p>My Bucket List</p>
+                  <p className="module-title">My Bucket List</p>
                   <div className="col-md-12 nopadding">
                     <CircularProgressBar
                       strokeWidth="5"
                       sqSize="150"
-                      percentage={((this.state.totalComplete) / 
-                        (this.state.totalComplete + this.state.totalIncomplete) * 100).toFixed(0)}/>
+                      percentage={this.state.listItems.length > 0 ?
+                        (((this.state.totalComplete) / 
+                        (this.state.totalComplete + this.state.totalIncomplete) * 100).toFixed(0))
+                        :
+                        0
+                      }/>
                   </div>
                   <div className="row nopadding">
                     <div className="col-md-6">
@@ -203,15 +206,15 @@ class UserActivityPage extends Component {
             <div className="activity-feed-friends col-md-3">
               <div className="sticky">
                 <div className="activity-feed-friends-module">
-                  <p>My Friends</p>
+                  <p className="module-title">My Friends</p>
                 </div>
 
                 <div className="activity-feed-friends-module">
-                  <p>My Messages</p>
+                  <p className="module-title">My Messages</p>
                 </div>
 
                 <div className="activity-feed-friends-module">
-                  <p>People you may know</p>
+                  <p className="module-title">People you may know</p>
                 </div>
               </div>
             </div>

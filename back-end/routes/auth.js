@@ -1,5 +1,6 @@
 const { User } = require("../models/user");
 const { BucketList } = require("../models/bucketList");
+const { Friendship } = require("../models/friendship");
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const Joi = require("joi");
@@ -18,7 +19,16 @@ router.post("/", async (req, res) => {
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send('Invalid email or password.');
-
+  let friendsList = await Friendship.findOne({owner: user._id}); 
+  if(!friendsList) {const userFreinds = new Friendship();
+    console.log(user._id)
+    userFreinds.owner = user._id;
+    try{
+    await userFreinds.save();
+    }
+    catch(ex){
+    console.log("err");} }
+      
   const token = user.generateAuthToken();
   res
     .header('x-auth-token', token)

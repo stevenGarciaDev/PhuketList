@@ -35,29 +35,30 @@ class OptionsToolbar extends Component {
 
     return (
       <React.Fragment>
-        <span>
+        <div className="col-md-3 nopadding">
           <Link to={`/taskgroup/${this.props.item._id}`}>
             <button className="btn btn-warning">Groups</button>
           </Link>
-        </span>
+        </div>
 
-        <span>
+        <div className="col-md-3 nopadding">
           <i className="fa fa-pencil-square-o fa-2x"
              aria-hidden="true"
              onClick={ this.props.onEdit }></i>
-        </span>
+        </div>
 
-        <span>
+        <div className="col-md-3 nopadding">
           <i className="fa fa-check-circle-o fa-2x"
              aria-hidden="true"
              onClick={ () => this.props.onComplete(item) }></i>
-        </span>
+        </div>
 
-        <span>
+        <div className="col-md-3 nopadding">
           <i className="fa fa-trash fa-2x"
              aria-hidden="true"
+             title={"delete-" + item.taskName}
              onClick={() => this.props.onDelete(item )}></i>
-        </span>
+        </div>
       </React.Fragment>
     );
   }

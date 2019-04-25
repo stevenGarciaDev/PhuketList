@@ -12,6 +12,7 @@ import UserActivityPage from "./components/UserActivityPage";
 import FriendsList from "./components/FriendsList";
 import MessagePage from "./components/MessagePage";
 import Profile from "./components/Profile";
+import PublicProfile from "./components/PublicProfile";
 import Settings from "./components/Settings";
 import Contact from "./components/Contact";
 import Logout from './components/logout';
@@ -43,6 +44,7 @@ class App extends Component {
               render={(props) => <BucketList user={this.state.user} {...props} /> }
             />
             <Route path="/taskgroup/:task_id" component={TaskGroup} />
+            <Route path="/profile/:user_id" component={PublicProfile} />
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
             <Route path="/logout" component={Logout} />
@@ -50,7 +52,7 @@ class App extends Component {
             <Route path="/Reset/:token" component={Reset} />
             <Route path="/userActivityPage" render={(props) => <UserActivityPage user={this.state.user} /> } />
             <Route path="/friends" component={FriendsList} />
-            <Route path="/messages" component={MessagePage} />
+            //<Route path="/messages" component={MessagePage} />
             <Route path="/myProfile" render={(props) => <Profile user={this.state.user} /> } />
             <Route path="/settings" component={Settings} />
             <Route path="/contact" component={Contact} />

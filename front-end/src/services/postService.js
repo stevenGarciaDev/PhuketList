@@ -16,6 +16,12 @@ export async function getFeedPosts(jwt, limit, skip) {
   return response.data;
 }
 
+export async function getUserPostsByID(jwt, id, limit, skip) {
+  return http.get(`${apiEndpoint}/UserPostFeed/${id}/${limit}/${skip}`,
+    { 'headers': {'x-auth-token': jwt }
+  });
+}
+
 export async function getPosts(taskId, jwt) {
   const response = await http.get(`${apiEndpoint}/${taskId}`, {
     'headers': {'x-auth-token': jwt }

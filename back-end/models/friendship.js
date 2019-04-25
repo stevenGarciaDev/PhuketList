@@ -1,23 +1,15 @@
 const mongoose = require('mongoose');
-
+const { FriendSchema } = require("./Friend");
 const friendshipSchema = new mongoose.Schema({
-  status: {
-    type: String,
-    enum: ['no connection', 'declined', 'accepted', 'pending'],
-    default: 'no connection'
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
-  friends: [
-    {
-      id: mongoose.Schema.Types.ObjectId,
-      name: String,
-      photo: String,
-    },
-    {
-      id: mongoose.Schema.Types.ObjectId,
-      name: String,
-      photo: String
-    }
-  ]
+  friends: {
+    type: [FriendSchema],
+    default: []
+  }
 });
 
 const Friendship = mongoose.model('Friendship', friendshipSchema);

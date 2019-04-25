@@ -17,10 +17,25 @@ export async function getUsers() {
 export async function getUser(id) {
   return await http.get(`${apiEndpoint}/retrieveUser/${id}`);
 }
+export async function getUserbyEmail(email) {
+  return await http.get(`${apiEndpoint}/retrieveUserbyEmail/${email}`);
+}
+
+export async function retrieveUserId(name) {
+  return await http.get(`${apiEndpoint}/retrieveUserId/${name}`);
+}
 
 
 export function getPublicuser(id) {
   return http.get(`${apiEndpoint}/publicUsers/${id}`);
+}
+
+export function getUserBasic(id) {
+  return http.get(`${apiEndpoint}/user/basic/${id}`);
+}
+
+export async function getUserBioByID(id) {
+  return http.get(`${apiEndpoint}/UserProfileBio/${id}`);
 }
 
 export async function getUserPhotoByID(id) {

@@ -7,6 +7,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require('../middleware/auth');
 const { BucketList } = require("../models/bucketList");
+const {Friendship} = require("../models/friendship");
 const crypto =require( 'crypto');
 const nodemailer = require('nodemailer');
 const Sequelize =require( 'sequelize');
@@ -38,6 +39,14 @@ router.post("/", async (req, res) => {
   const newList = new BucketList();
   newList.owner = user._id;
   await newList.save();
+  console.log("test");
+  //creating friends list for user that registers
+  const userFreinds = new Friendship();
+  
+  userFreinds.owner = user._id;
+  await userFreinds.save();
+  
+  //console.log(this.userFreinds);
 
   const token = user.generateAuthToken();
   res
@@ -105,6 +114,21 @@ router.get('/retrieveUser/:id', async (req, res) => {
   const user = await User.findById(req.params.id).select('-password');
   res.send(user);
 });
+router.get('/retrieveUserbyEmail/:id', async (req, res) => {
+  const user = await User.findOne({email:req.params.id});
+  
+  res.send(user);
+});
+
+router.get('/retrieveUserId/:name', async (req, res) => {
+  try {
+    const user = await User.find({ name: req.params.name });
+    res.send(user);
+  } catch (ex) {
+    console.log("unable to retrieve name", ex);
+  }
+});
+
 
 // update User's profile image
 router.post('/updateProfileImage', auth, async (req, res) => {
@@ -278,9 +302,25 @@ router.get('/UserProfilePhoto/:user_id', async (req, res) => {
 
 });
 
+// Get public user name and privacy status
+router.get('/user/basic/:id', async (req, res) => {
+  try {
+    const data = await User.findById(req.params.id)
+    .select('name isPrivateProfile');
+  res.send(data);
+  } catch (ex) {
+    console.log("Cannot retrieve user information." + ex);
+  }
+});
 
-
-
+router.get('/UserProfileBio/:user_id', async (req, res) => {
+  try {
+    const response = await User.find( {_id: req.params.user_id}, { bio: 1}  );
+    res.send(response);
+  } catch (ex) {
+    console.log("Could not retrieve user profile bio: " + ex);
+  }
+});
 
 
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const messageSchema = require('messageSchema');
+const { messageSchema } = require('./message');
 
 const messageGroupSchema = new mongoose.Schema({
   dateCreated: {

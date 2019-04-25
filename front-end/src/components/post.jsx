@@ -3,6 +3,9 @@ import Moment from 'react-moment';
 import Like from './Like';
 import CommentIcon from './CommentIcon';
 import ReportIcon from './ReportIcon';
+import { 
+  Link 
+} from 'react-router-dom';
 import { updateLikeInfo, report, getIsAppropriate } from '../services/postService';
 import { getCurrentUser } from '../services/authService';
 import {
@@ -126,7 +129,7 @@ class Post extends Component {
                     src="https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg"
                     alt="Img" />)
               }
-              <small className="post-module-author-name"><strong>{author.name}</strong></small>
+              <small className="post-module-author-name"><strong><Link to={`/profile/${author._id}`} >{author.name}</Link></strong></small>
             </div>
             <div className="col-md-8 text-right nopadding">
               <small>

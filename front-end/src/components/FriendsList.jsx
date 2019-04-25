@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FriendInfoItem from './FriendInfoItem';
-import { getPotentialFriends } from '../services/friendshipService';
+import { getPotentialFriends,getFriends,getFriendstatus } from '../services/friendshipService';
+import { getCurrentUser } from '../services/authService';
+import { getUserbyEmail } from '../services/userService';
 
 class FriendsList extends Component {
 
@@ -14,9 +16,23 @@ class FriendsList extends Component {
   }
 
   componentDidMount = async () => {
-    const potentialFriends = await getPotentialFriends();
-    console.log('potentialFriends are', potentialFriends);
+    const potentialFriends = await getPotentialFriends(getCurrentUser().email);
+    //console.log('potentialFriends are', potentialFriends);
     this.setState({ potentialFriends });
+    //console.log(potentialFriends);
+    const friends = await getFriends(getCurrentUser().email);
+    console.log(friends);
+    var i;
+    var frData = [];
+    //var frnd = []
+    for (i=0;i<friends.data.length;i++){
+      let user = await getUserbyEmail(friends.data[i].userEmail);
+      var obj ={'email':user.data.email,'name':user.data.name,'photo':user.data.photo,'status':friends.data[i].status};
+       frData.push(obj);
+    }
+    console.log(frData);
+    this.setState({friends:frData});
+    console.log(frData);
   }
 
   toggleSegmentBtn = (text) => {
@@ -24,6 +40,9 @@ class FriendsList extends Component {
     if (currentView === text) return;
     const updatedView = currentView === 'find' ? 'edit' : 'find';
     this.setState({ currentView: updatedView });
+  }
+  handleAdd = () => {
+    console.log("test");
   }
 
   render() {
@@ -49,13 +68,14 @@ class FriendsList extends Component {
         { currentView === 'find' ?
 
           <div className="container friends-list-content">
-            <input type="text" className="form-control col-md-6 offset-md-3" placeholder="Search by name..." />
+            <input type="text" className="form-control col-md-6 offset-md-3" placeholder="Search by name..." onclick=""/>
             <h2>People You May Know</h2>
 
             <div className="row">
               { potentialFriends.length > 0 &&
                 potentialFriends.map(user => (
-                  <FriendInfoItem user={user} />
+                  <FriendInfoItem user={user} 
+                                  />
                 ))
               }
             </div>
@@ -66,7 +86,17 @@ class FriendsList extends Component {
           <div>
 
             { friends.length > 0 ?
-              <h2>Friends</h2>
+            <div className="container friends-list-content">
+              <h2>Friends {friends.length}</h2>
+              <div className="row">
+              {
+                friends.map(user=>(
+                  <FriendInfoItem user={user}
+                  />
+                ))
+              }
+              </div>
+              </div>
             :
               <h2>Add bucket list tasks and begin adding friends!</h2>
             }

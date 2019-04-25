@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
+import { 
+  Link 
+} from 'react-router-dom';
 import { getUser } from '../services/userService';
+
 
 class Comment extends Component {
 
@@ -20,7 +24,7 @@ class Comment extends Component {
   }
 
   render() {
-    const { text, dateCreated } = this.props;
+    const { author, text, dateCreated } = this.props;
     const { profileImageURL, authorName } = this.state;
     /*
     return (
@@ -51,7 +55,7 @@ class Comment extends Component {
                     src="https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg"
                     alt="Img" />)
               }
-            <small className="post-module-author-name">{authorName}</small>
+            <small className="post-module-author-name"><Link to={`/profile/${author}`} >{authorName}</Link></small>
           </div>
 
           <div className="col-md-3 text-right nopadding">

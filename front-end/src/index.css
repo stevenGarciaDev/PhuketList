@@ -39,14 +39,16 @@ nav {
   align-items: center;
   border: 1px solid #DCDCDC;
   display: flex;
-  height: 60px;
   justify-content: space-between;
-  margin-left: -39px;
-  padding: 5px;
+  padding: 10px 15px;
+}
+
+.ListItem:hover {
+  background-color: #f8f9fa;
 }
 
 .task-name {
-  margin-left: 10px;
+  margin: 15px 0;
 }
 
 .item-modify-options {
@@ -84,6 +86,13 @@ i {
   position: relative;
   top: 4px;
   cursor: pointer;
+}
+
+.module-title {
+  padding: 5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #17a2b8;
 }
 
 .fa-pencil-square-o:hover {
@@ -147,6 +156,19 @@ i {
 /* -------------
  User's Bucket List Component/Page
 ------------- */
+.bucket-list-content {
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.bucket-list-count {
+  
+}
+
+.bucket-list-items {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 #bucket-list-jumbotron {
   background-position: center;
@@ -171,13 +193,22 @@ i {
 }
 
 .container-list-filter {
-  margin-bottom: 5px;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+  padding: 3px !important;
+  margin-bottom: 5px !important;
 }
 
 .list-filter {
-  padding: 5px;
+  padding: 15px 5px;
   border: 1px solid rgb(220, 220, 220);
   border-radius: 2px;
+  background-color: #f8f9fa;
+}
+
+.list-filter-dropdown {
+  width: 100%;
+  padding: 15px 5px !important;
 }
 
 /* -------------
@@ -444,6 +475,7 @@ User Profile
   height: 200px;
   border-radius: 10px;
 }
+
 
 /* ---------
 Like component
@@ -827,7 +859,53 @@ Task Group page
   margin: 5px;
 }
 
+/* ----------
+ Public Profile
+---------- */
+.public-profile-content {
+  max-width: 75rem;
+  margin: 0 auto;
+}
 
+.public-profile-posts {
+  margin-top: 15px !important;
+  padding: 0px !important;
+}
+
+.public-profile-basic {
+  max-width: 75rem;
+  padding: 25px !important;
+  background-color: #f6f6f6;
+}
+
+.public-profile-avatar {
+  margin-top: -125px;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  border: 5px solid #f6f6f6;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.public-profile-basic-bg {
+  height: 250px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(./assets/images/jennvmy_-1194676-unsplash.jpg);
+}
+
+.public-profile-bucket-list-module {
+  margin-top: 15px !important;
+  padding: 5px 15px !important;
+  border: 1px solid #e9ebee;
+}
+
+/* ----------
+ MISC
+---------- */
 .circle-background,
 .circle-progress {
   fill: none;
@@ -879,7 +957,7 @@ Task Group page
   }
 
   .ListItem {
-    max-width: 80%;
+    max-width: 100%;
     margin: 0 auto;
   }
 

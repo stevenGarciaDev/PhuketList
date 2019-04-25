@@ -21,17 +21,21 @@ class ListItem extends Component {
     const { task } = this.props;
     return (
       <React.Fragment>
-        <li className="ListItem">
+        <div className="ListItem row">
 
-          <TaskName isEditing={this.state.isEditing}
+          <div className="col-md-7 task-name text-left">
+            <TaskName isEditing={this.state.isEditing}
                     task={task} />
-          <OptionsToolbar isEditing={this.state.isEditing}
+          </div>
+          <div  className="col-md-5 nopadding">
+            <OptionsToolbar isEditing={this.state.isEditing}
                           onEdit={this.toggleEditMode}
                           onDelete={this.props.onDelete}
                           onUpdate={this.props.onUpdate}
                           onComplete={this.props.onComplete}
                           item={task} />
-        </li>
+          </div>
+        </div>
       </React.Fragment>
     );
   }

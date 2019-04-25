@@ -35,7 +35,7 @@ router.get('/activityPage', auth, async (req, res) => {
 
 });
 
-// API endpoint to retrieve activity feed posts 
+// API endpoint to retrieve activity feed posts
 router.get('/activityFeed/:limit/:skip', auth, async (req, res) => {
   try {
     // so get User's bucket list, and their list items,
@@ -162,6 +162,20 @@ router.get('/getIsAppropriate/:topicId', async (req, res) => {
    }
 
 
+});
+
+// API endpoint to retrieve activity feed posts
+router.get('/UserPostFeed/:id/:limit/:skip', auth, async (req, res) => {
+  try {
+    let recentPosts = await Post.find({author: req.params.id})
+      .sort({ dateCreated:-1 })
+      .populate('author', 'name')
+      .limit(parseInt(req.params.limit))
+      .skip(parseInt(req.params.skip));
+    res.send(recentPosts);
+  } catch (ex) {
+    console.log('unable to query', ex);
+  }
 });
 
 module.exports = router;

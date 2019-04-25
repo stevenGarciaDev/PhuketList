@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 
 class Message extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    //const { name, photo, message, dateCreated } = this.props.feed;
+    console.log("PROPS", this.props);
+
     return (
       <div className="message">
         <div className="text-left row msg-header-container">
@@ -15,7 +22,7 @@ class Message extends Component {
         </div>
 
         <div className="msg-text-container">
-          If you can, make a more advanced solution that would “preload” images that are one page below/after the current positi
+          Text
         </div>
 
         <hr className="message-divider" />

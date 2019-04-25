@@ -103,7 +103,7 @@ class Profile extends Component {
   displayUserBio = () => {
     const { bio, isEditing } = this.state;
     if (isEditing) {
-      return <textarea value={bio} onChange={this.handleBioChange}/>;
+      return <div><textarea value={bio} onChange={this.handleBioChange}/></div>;
     } else {
       return <p className="card-text">{bio || 'No bio available'}</p>;
     }
@@ -137,7 +137,7 @@ class Profile extends Component {
         </div>
 
         <div className="row profile-container">
-          <div className="col-md-4 col-md-pull-9">
+          <div className="col-md-4">
 
             <form onSubmit={(e) => {
               this.handleFileSubmit(e);
@@ -147,7 +147,7 @@ class Profile extends Component {
             </form>
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-8">
             <div className="card text-left">
               <div className="card-header">
                 My Bucket List

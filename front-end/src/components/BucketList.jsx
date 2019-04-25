@@ -80,24 +80,25 @@ class BucketList extends Component {
   };
 
   handleDelete = async item => {
-    if (this.confirmDelete(item)) {
-      const originalList = this.state.listItems;
-      const modifiedList = [...this.state.listItems];
-      const index = modifiedList.indexOf(item);
-      modifiedList.splice(index, 1);
-      this.setState({ listItems: modifiedList });
+    const originalList = this.state.listItems;
+    const modifiedList = [...this.state.listItems];
+    const index = modifiedList.indexOf(item);
+    modifiedList.splice(index, 1);
+    this.setState({ listItems: modifiedList });
 
-      try {
-        const user = getCurrentUser();
-        const jwt = localStorage.getItem("token");
+    try {
+      const user = getCurrentUser();
+      const jwt = localStorage.getItem("token");
 
-        const response = await removeTask(user, item, jwt);
+      const response = await removeTask(user, item, jwt);
         //const listItems = response.data;
-      } catch (ex) {
-        alert('Unable to delete item.');
-        this.setState({ listItems: originalList });
-      }
+    } catch (ex) {
+      alert('Unable to delete item.');
+      this.setState({ listItems: originalList });
     }
+    //if (this.confirmDelete(item)) {
+    //  
+    //}
   };
 
   handleCompleted = async item => {
@@ -278,11 +279,17 @@ class BucketList extends Component {
           </div>
         </div>
 
-        <div>
-          <p>{`There are currently ${
-            this.state.listItems.length
-          } items in your bucket list`}</p>
-          <ul id="bucket-list-items">
+        <div className="bucket-list-content">
+          <div className="row nopadding">
+            <div className="bucket-list-count col-md-12">
+              <p>
+                {`There are currently ${
+                  this.state.listItems.length
+                } items in your bucket list`}
+              </p>
+            </div>
+          </div>
+          <ul id="bucket-list-items" className="bucket-list-items">
             <div className="row container-list-filter">
               {/* Search bar to filter user's list items. */}
               <input    onChange={this.onFilterSearch}
@@ -291,16 +298,16 @@ class BucketList extends Component {
                         id="filter_list"
                         name="filter_list"
                         autoComplete="off"
-                        className="list-filter col-7 offset-2"
+                        className="list-filter col-md-10"
                         aria-describedby="inputGroup-sizing-default"
                 />
 
                 {/* Drop down for filter type */}
-                <Dropdown className="col-2">
-                  <Dropdown.Toggle className="btn btn-info" variant="success" id="dropdown-basic">
+                <Dropdown className="col-md-2">
+                  <Dropdown.Toggle className="btn btn-info list-filter-dropdown" variant="success" id="dropdown-basic">
                     Filter by..
                   </Dropdown.Toggle>
-                  <Dropdown.Menu>
+                  <Dropdown.Menu >
                     <Dropdown.Item onClick={() => { this.filterSort(0) }}>Alphabetical (ascending)</Dropdown.Item>
                     <Dropdown.Item onClick={() => { this.filterSort(1) }}>Alphabetical (descending)</Dropdown.Item>
                     <Dropdown.Item onClick={() => { this.filterSort(2) }}>Default (newest first)</Dropdown.Item>
@@ -312,7 +319,7 @@ class BucketList extends Component {
                 value={this.state.listFilterSearch}
                 data={this.state.listItems}
                 renderResults={results => (
-                  <div>
+                  <div className="col-md-12 nopadding">
                     {results.length > 0 &&
                       results.map(item => (
                         <ListItem

@@ -32,11 +32,12 @@ class Navbar extends Component {
 
               <NavDropdown title="Connect" id="basic-nav-dropdown">
                 <Link className="nav-link dropdown-item" to="/friends">Friends</Link>
-                <Link className="nav-link dropdown-item" to="/messages">Messages</Link>
+              
               </NavDropdown>
 
               <NavDropdown title="Account" id="basic-nav-dropdown">
-                <Link className="nav-link dropdown-item" to="/myProfile">My Profile</Link>
+                <Link className="nav-link dropdown-item" to={`/profile/${user._id}`}>My Profile</Link>
+                <Link className="nav-link dropdown-item" to="/myProfile">Edit Profile</Link>
                 <Link className="nav-link dropdown-item" to="/settings">Setting</Link>
                 <Link className="nav-link dropdown-item" to="/contact">Contact</Link>
                 <NavDropdown.Divider />
