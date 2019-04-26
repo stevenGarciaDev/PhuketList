@@ -33,6 +33,14 @@ app.use(function(req, res, next) {
     req.io = io;
     next();
 });
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'https://phuket-list-api.herokuapp.com/api');
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/bucketList', bucketList);

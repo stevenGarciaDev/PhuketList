@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --verbose",
-    "start": "node ./index.js",
+    "start": "node index.js",
     "server": "nodemon index.js"
   },
   "engines": {
@@ -31,6 +31,7 @@
     "express": "^4.16.4",
     "helmet": "^3.16.0",
     "jimp": "^0.6.0",
+    "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.11",
