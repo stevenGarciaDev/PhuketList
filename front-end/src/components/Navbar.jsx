@@ -32,7 +32,7 @@ class Navbar extends Component {
 
               <NavDropdown title="Connect" id="basic-nav-dropdown">
                 <Link className="nav-link dropdown-item" to="/friends">Friends</Link>
-              
+
               </NavDropdown>
 
               <NavDropdown title="Account" id="basic-nav-dropdown">
