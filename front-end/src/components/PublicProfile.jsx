@@ -1,12 +1,12 @@
 import React, {
 	Component
 } from "react";
-import { 
-  Link 
+import {
+  Link
 } from 'react-router-dom';
 import BottomScrollListener from 'react-bottom-scroll-listener';
 import Post from './post';
-import { 
+import {
 	getUserBasic, getUserBioByID, getUserPhotoByID
 } from '../services/userService';
 import {
@@ -54,10 +54,10 @@ class PublicProfile extends Component {
 		    this.setState({profile_bio: userBio.data[0].bio });
 		    const userPhoto = await getUserPhotoByID(this.state.profile_id);
 		    this.setState({profile_avatar: userPhoto.data[0].photo });
-			
+
 			// Get Posts
-			this.loadPosts(jwt, 
-				this.state.profile_id, 
+			this.loadPosts(jwt,
+				this.state.profile_id,
 				this.state.profile_posts_limit,
 				this.state.profile_posts_skip);
 			// Get List Items
@@ -86,12 +86,12 @@ class PublicProfile extends Component {
 
 	      // Get more posts
 	      const feed = await getUserPostsByID(jwt, this.state.profile_id, newLimit, newSkip);
-	        if (feed.data.length == 0) {
+	        if (feed.data.length === 0) {
 	          this.setState({feedEnd: true});
 	          return;
 	        }
 	      this.setState({profile_posts: this.state.profile_posts.concat(feed.data)});
-	    } 
+	    }
 	  }
 
 	render() {
@@ -101,7 +101,7 @@ class PublicProfile extends Component {
                 </div>
 				<div className="public-profile-basic row nopadding">
 					<div className="col-md-12 nopadding">
-						<img src={this.state.profile_avatar} className="public-profile-avatar" />
+						<img alt="profile" src={this.state.profile_avatar} className="public-profile-avatar" />
 						<h2 className="module-title">{this.state.profile_name}</h2>
 						<small>{`${this.state.profile_bio}`}</small>
 					</div>
@@ -116,7 +116,7 @@ class PublicProfile extends Component {
 		                    this.state.profile_listItems.map(item => (
 		                    <Link to={`/taskgroup/${item._id}`} key={item._id}>
 		                         <div className="activity-feed-user-groups-item">
-		                            <small>{item.taskName}</small> 
+		                            <small>{item.taskName}</small>
 		                        </div>
 		                	</Link>
 		                ))}
@@ -134,7 +134,7 @@ class PublicProfile extends Component {
 				                comments={post.comments}
 				            />
 				           ))}
-						{ !this.state.feedEnd ? 
+						{ !this.state.feedEnd ?
 		                  (
 		                    <div className="activity-feed-body-load">
 		                      <small><i className="fa fa-level-down" aria-hidden="true"></i>Load More</small>

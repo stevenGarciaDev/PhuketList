@@ -4,10 +4,6 @@ import MessageForm from './MessageForm';
 
 class MessageFeed extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     let objDiv = document.querySelector(".MessageFeed");
     objDiv.scrollTop = objDiv.scrollHeight;

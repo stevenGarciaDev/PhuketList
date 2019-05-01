@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 
 class Message extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     //const { name, photo, message, dateCreated } = this.props.feed;
     console.log("PROPS", this.props);

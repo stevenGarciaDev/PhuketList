@@ -1,20 +1,19 @@
-import React, { 
-  Component 
+import React, {
+  Component
 } from 'react';
 import BottomScrollListener from 'react-bottom-scroll-listener';
-import { 
-  Link 
+import {
+  Link
 } from 'react-router-dom';
-import ActivityFeed from './ActivityFeed';
 import Post from './post';
-import { 
-  getAllPost, getFeedPosts 
+import {
+  getFeedPosts
 } from '../services/postService';
-import { 
-  getCurrentUser 
+import {
+  getCurrentUser
 } from "../services/authService";
 import {
-  getUserBIO, getUserPHOTO, getUserPhotoByID
+  getUserBIO, getUserPHOTO
 } from "../services/userService";
 
 import {
@@ -58,7 +57,7 @@ class UserActivityPage extends Component {
     const items = await getListItems(user, jwt);
     const listItems = items.data[0].listItems;
     this.setState({ listItems: listItems });
-    
+
     for (var i = 0; i < listItems.length; i++) {
       if (listItems[i].isCompleted) {
         this.setState({totalComplete: this.state.totalComplete + 1});
@@ -87,7 +86,7 @@ class UserActivityPage extends Component {
 
       // Get more posts
       const feed = await getFeedPosts(jwt, newLimit, newSkip);
-        if (feed.length == 0) {
+        if (feed.length === 0) {
           this.setState({feedEnd: true});
           return;
         }
@@ -98,7 +97,6 @@ class UserActivityPage extends Component {
 
   render() {
     const { user } = this.props;
-    const { posts } = this.state.posts;
 
     return (
       <div className="activity-feed-content">
@@ -111,9 +109,9 @@ class UserActivityPage extends Component {
                   </div>
                   <div className="activity-feed-user-info-card-body row">
                     {this.state.profileAvatar ?
-                      (<img src={this.state.profileAvatar} className="activity-feed-user-info-card-avatar" />)
+                      (<img alt="profile" src={this.state.profileAvatar} className="activity-feed-user-info-card-avatar" />)
                       :
-                      (<img src="https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg" className="activity-feed-user-info-card-avatar" />)
+                      (<img alt="default profile" src="https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg" className="activity-feed-user-info-card-avatar" />)
                     }
                     <p className="activity-feed-user-info-card-name">{`${user.name}`}</p>
                   </div>
@@ -132,7 +130,7 @@ class UserActivityPage extends Component {
                         this.state.listItems.map(item => (
                           <Link to={`/taskgroup/${item._id}`} key={item._id}>
                             <div className="activity-feed-user-groups-item">
-                              <small>{item.taskName}</small> 
+                              <small>{item.taskName}</small>
                             </div>
                           </Link>
                   ))}
@@ -144,7 +142,7 @@ class UserActivityPage extends Component {
                       strokeWidth="5"
                       sqSize="150"
                       percentage={this.state.listItems.length > 0 ?
-                        (((this.state.totalComplete) / 
+                        (((this.state.totalComplete) /
                         (this.state.totalComplete + this.state.totalIncomplete) * 100).toFixed(0))
                         :
                         0
@@ -184,7 +182,7 @@ class UserActivityPage extends Component {
 
                   />
                 ))}
-                { !this.state.feedEnd ? 
+                { !this.state.feedEnd ?
                   (
                     <div className="activity-feed-body-load">
                       <small><i className="fa fa-level-down" aria-hidden="true"></i>Load More</small>

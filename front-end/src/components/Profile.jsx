@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import { getCurrentUser } from "../services/authService";
 import { getUser, uploadNewProfileImage, updateProfileImage, updateProfile } from "../services/userService";
+import { getListItems } from "../services/bucketListService";
 import ImageInput from "./common/imageInput";
 
 class Profile extends Component {
@@ -21,8 +21,12 @@ class Profile extends Component {
   async componentDidMount() {
     const currentUser = await getCurrentUser();
     const user = await getUser(currentUser._id);
+    const jwt = localStorage.getItem("token");
+    const response = await getListItems(currentUser, jwt);
+    const listItems = response.data[0].listItems;
+
     //console.log("current user's photo is ", user.data.photo);
-    this.setState({ user: user.data, photo: user.data.photo, bio: user.data.bio });
+    this.setState({ user: user.data, photo: user.data.photo, bio: user.data.bio, listItems: listItems });
   }
 
   toggleEdit = () => {
@@ -57,7 +61,7 @@ class Profile extends Component {
   handleBioUpdate = async () => {
     this.toggleEdit();
     console.log("bio update ..");
-    const { user, bio, isEditing } = this.state;
+    const { user, bio } = this.state;
     const jwt = localStorage.getItem("token");
     const UIResponse = await updateProfile(user, bio, jwt);
     console.log("The UIResponse is", UIResponse);
@@ -110,15 +114,18 @@ class Profile extends Component {
   }
 
   render() {
-    const { bio, listItems, user, photo } = this.state;
+    const { listItems, photo } = this.state;
     //console.log('user photo is', user.photo);
+    console.log(listItems);
 
     return (
       <div className="container">
 
+
         <div className="row profile-container">
           <div className="col-md-4 col-md-push-8">
             <img
+              alt="profile"
               className="profile-image"
               src={photo || "https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg"} />
           </div>

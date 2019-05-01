@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import MessageGroupList from './MessageGroupList';
 import MessageFeed from './MessageFeed';
-import openSocket from 'socket.io-client';
 import { getCurrentUser } from '../services/authService';
 import { retrieveMessageGroups, getMessageFeedData } from '../services/messageService';
 
@@ -26,7 +25,7 @@ class MessagePage extends Component {
       currentGroupFeed = res.data[0];
       //console.log("!!currentGroupFeed", currentGroupFeed);
 
-      const data = await this.populateMessageFeed(currentGroupFeed);
+      this.populateMessageFeed(currentGroupFeed);
       //console.log("%% data is ", data);
     } else {
       console.log("no message group", res.data);
@@ -44,7 +43,6 @@ class MessagePage extends Component {
 
   populateMessageFeed = async (currentGroup) => {
     //console.log("%%the message feed is ", currentGroup);
-    const { currentGroupFeed } = this.state;
     const response = await getMessageFeedData(currentGroup);
     console.log("**the response is ", response.data);
 

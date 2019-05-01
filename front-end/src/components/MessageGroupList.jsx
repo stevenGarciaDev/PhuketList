@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import MessageListItem from './MessageListItem';
-import { Link } from 'react-router-dom';
-import MessageGroupForm from './MessageGroupForm';
-import { createNewGroup, retrieveMessageGroups } from '../services/messageService';
+import { createNewGroup } from '../services/messageService';
 import { retrieveUserId } from '../services/userService';
 import { getCurrentUser } from '../services/authService';
 
@@ -73,7 +71,7 @@ class MessageGroupList extends Component {
   }
 
   render() {
-    const { buttonText, unreadMessages, isCreatingGroup } = this.state;
+    const { buttonText, isCreatingGroup } = this.state;
     const { messageGroups } = this.props;
 
     return (

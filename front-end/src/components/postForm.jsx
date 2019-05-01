@@ -1,6 +1,5 @@
 import React from 'react';
 import Form from './common/form';
-import ImageInput from './common/imageInput';
 import Joi from "joi-browser";
 import { createPost } from '../services/postService';
 

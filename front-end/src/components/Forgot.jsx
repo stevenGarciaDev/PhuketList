@@ -27,7 +27,7 @@ class Forgot extends Form {
     try {
       const { data } = this.state;
       console.log('test');
-      const response = await forgotPassword(data);
+      await forgotPassword(data);
 
       window.location = "/login";
     }

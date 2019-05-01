@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { FriendSchema } = require("./Friend");
+
 const friendshipSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,

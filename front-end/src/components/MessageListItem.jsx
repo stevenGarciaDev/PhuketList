@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getMostRecentMessage } from '../services/messageService';
+//import { getMostRecentMessage } from '../services/messageService';
 
 class MessageListItem extends Component {
 
@@ -12,7 +12,7 @@ class MessageListItem extends Component {
 
   componentDidMount = async () => {
     //console.log("The PROPS ARE", this.props.group);
-    const res = await getMostRecentMessage(this.props.group._id);
+    //const res = await getMostRecentMessage(this.props.group._id);
     // console.log("recent message", res);
   }
 
@@ -22,7 +22,7 @@ class MessageListItem extends Component {
   }
 
   render() {
-    const { members, messages } = this.props.group;
+    const { messages } = this.props.group;
 
     //console.log("**Groups in items is ", group);
 

@@ -23,6 +23,18 @@ code {
 }
 
 /* ----------
+ alert messages
+---------- */
+
+#alert-container {
+  margin: 0 auto;
+}
+
+.alert {
+  margin-top: 20px;
+}
+
+/* ----------
  Navbar
 ---------- */
 
@@ -162,7 +174,7 @@ i {
 }
 
 .bucket-list-count {
-  
+
 }
 
 .bucket-list-items {
@@ -429,6 +441,10 @@ i {
 .friend-info-item:hover {
   border-color: #ffc600;
   box-shadow: 0 0 1rem #ffc600;
+}
+
+.friends-page-title {
+  margin: 20px 0px;
 }
 
 /* -------

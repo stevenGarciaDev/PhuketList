@@ -16,13 +16,13 @@ class SettingDetailToggle extends Component {
   componentWillReceiveProps(nextProps){ //update this child if information sent is updated
     if(nextProps.boolValue !== this.state.isEditing){ // update if this property is true or false
         this.setState({isEditing:nextProps.boolValue});
-       
+
     }
 
     if(nextProps.settingValue !== this.props.settingValue){ // update if setting value is different
       this.setState({settingValue:nextProps.settingValue});
   }
-  
+
   }
 
   toggleEdit = () => {
@@ -38,15 +38,15 @@ class SettingDetailToggle extends Component {
 
   toggleName = (togValue) =>
   {
-    if(this.state.settingProperty == "isActiveAccount")
+    if(this.state.settingProperty === "isActiveAccount")
     {
       this.setState({settingValue:(togValue ? 'Active' : 'NonActive')});
-        
+
     }
     else
     {
       this.setState({settingValue:(togValue ? 'Private' : 'Public')});
-        
+
     }
   }
 
@@ -55,7 +55,6 @@ class SettingDetailToggle extends Component {
       isEditing,
       displayName,
       settingValue,
-      detailType
     } = this.state;
 
     return (

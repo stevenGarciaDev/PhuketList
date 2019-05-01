@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import CommentForm from './CommentForm';
-import Comment from './Comment';
-import _ from 'lodash';
 import Form from 'react-bootstrap/Form';
 import { report } from '../services/postService';
 
 class ReportIcon extends Component {
-
- 
 
   constructor(props) {
     super(props);
@@ -15,26 +10,17 @@ class ReportIcon extends Component {
       DisplayRep: false,
       taskId: this.props.taskId
     }
-
   }
 
-
-
   displayReport= (e) => {
-
     e.preventDefault();
     this.setState({
         DisplayRep: !this.state.DisplayRep
       });
-
-
-
   };
 
   handleReportButton = async (e) => {
     e.preventDefault(); // prevent refresh
-    
-
    this.setState({ // turns of display for this button
     DisplayRep: !this.state.DisplayRep
   });
@@ -95,7 +81,7 @@ class ReportIcon extends Component {
         </React.Fragment>
     );
   }
-  
+
 }
 
 export default ReportIcon;

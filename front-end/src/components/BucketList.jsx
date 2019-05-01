@@ -25,6 +25,7 @@ class BucketList extends Component {
       loading: "",
       listFilterSearch: '',
       listFilterItems: [],
+      inputError: null
     };
   }
 
@@ -41,12 +42,27 @@ class BucketList extends Component {
 
   handleAdd = e => {
     e.preventDefault();
-    if (document.getElementById("new_task").value.length < 5) {
+    console.log("adding..");
+    const newTaskName = document.getElementById("new_task").value;
+    if (newTaskName.length === 0) {
+      this.setState({ inputError: "Must add a task first" });
+      return;
+    } else if (newTaskName.length < 5) {
+      this.setState({ inputError: "Task must be more than 5 letters" });
+      return;
+    } else if (newTaskName.length > 50) {
+      this.setState({ inputError: "Task must be less than 50 letters" });
       return;
     }
 
-    const newTaskName = document.getElementById("new_task").value;
     const originalList = this.state.listItems;
+    // check if already have item in the list
+    for (let item of originalList) {
+      if (item.taskName.toLowerCase() === newTaskName.toLowerCase()) {
+        this.setState({ inputError: "Unable to add duplicate" });
+        return;
+      }
+    }
     let updatedList = [...this.state.listItems];
     const newItem = { taskName: newTaskName, isCompleted: false };
     updatedList.push(newItem);
@@ -90,14 +106,14 @@ class BucketList extends Component {
       const user = getCurrentUser();
       const jwt = localStorage.getItem("token");
 
-      const response = await removeTask(user, item, jwt);
+      await removeTask(user, item, jwt);
         //const listItems = response.data;
     } catch (ex) {
       alert('Unable to delete item.');
       this.setState({ listItems: originalList });
     }
     //if (this.confirmDelete(item)) {
-    //  
+    //
     //}
   };
 
@@ -112,8 +128,7 @@ class BucketList extends Component {
       const user = getCurrentUser();
       const jwt = localStorage.getItem("token");
 
-      const response = await toggleComplete(user, item, jwt);
-      const listItems = response.data;
+      await toggleComplete(user, item, jwt);
     } catch (ex) {
       this.setState({ listItems: originalList });
     }
@@ -136,6 +151,9 @@ class BucketList extends Component {
       return;
     }
     var searchInput = e.target.value;
+
+    console.log("search input is ", searchInput);
+
     this.setState({searchInput: searchInput});
     searchInput = searchInput.toLowerCase(); // Lowercase for uniform search
     if (searchInput.length > 0) {
@@ -161,9 +179,9 @@ class BucketList extends Component {
 
   async filterSort(value) {
     console.log("Sorting started...");
+    var sortedArray = this.state.listItems;
     switch(value) {
       case 0: // Alphabetical sort (ascending)
-        var sortedArray = this.state.listItems;
         sortedArray.sort(function (a, b) {
                     var textA = a.taskName.toUpperCase();
                     var textB = b.taskName.toUpperCase();
@@ -173,7 +191,6 @@ class BucketList extends Component {
         this.setState({listItems: sortedArray});
         return;
       case 1: // Alphabetical sort (descending)
-        var sortedArray = this.state.listItems;
         sortedArray.sort(function (a, b) {
                     var textA = a.taskName.toUpperCase();
                     var textB = b.taskName.toUpperCase();
@@ -191,6 +208,7 @@ class BucketList extends Component {
         const response = await getListItems(user, jwt);
         const listItems = response.data[0].listItems;
         this.setState({ listItems: listItems });
+        return;
       default:
         console.log("Sorting: invalid");
         return;
@@ -199,6 +217,7 @@ class BucketList extends Component {
 
   render() {
     const { user } = this.props;
+    const { inputError } = this.state;
 
     return (
       <div>
@@ -226,54 +245,62 @@ class BucketList extends Component {
                   highlightedIndex,
                   selectedItem
                 }) => (
-                  <form
-                    onSubmit={this.handleAdd}
-                    className="input-group col-md-6 col-md-offset-3"
-                  >
-                    <input
-                      {...getInputProps({
-                        type: "search",
-                        placeholder: "Enter a bucket list item!",
-                        id: "new_task",
-                        name: "new_task",
-                        className: this.state.loading ? "loading" : "",
-                        onChange: e => {
-                          e.persist();
-                          this.onChange(e);
-                        }
-                      })}
-                      autoComplete="off"
-                      className="form-control"
-                      aria-describedby="inputGroup-sizing-default"
-                    />
+                  <div>
+                    <form
+                      onSubmit={this.handleAdd}
+                      className="input-group col-md-6 col-md-offset-3"
+                    >
+                      <input
+                        {...getInputProps({
+                          type: "search",
+                          placeholder: "Enter a bucket list item!",
+                          id: "new_task",
+                          name: "new_task",
+                          className: this.state.loading ? "loading" : "",
+                          onChange: e => {
+                            e.persist();
+                            this.onChange(e);
+                          }
+                        })}
+                        autoComplete="off"
+                        className="form-control"
+                        aria-describedby="inputGroup-sizing-default"
+                      />
 
-                    <div className="input-group-append">
-                      <button className="btn btn-outline-success" type="submit">
-                        Add New Task
-                      </button>
-                    </div>
-                    {isOpen && (
-                      <DropDown>
-                        {this.state.searchResults.map((item, index) => (
-                          <DropDownItem
-                            {...getItemProps({ item })}
-                            key={item.taskName}
-                            highlighted={index === highlightedIndex}
-                          >
-                            {item.taskName}
-                          </DropDownItem>
-                        ))}
-                        {!this.state.searchResults.length &&
-                          !this.state.loading && (
-                            <DropDownItem>
-                              {" "}
-                              Nothing Found For: {inputValue}
+                      <div>
+                        <button className="btn btn-outline-success" type="submit">
+                          Add New Task
+                        </button>
+                      </div>
+
+                      {isOpen && (
+                        <DropDown>
+                          {this.state.searchResults.map((item, index) => (
+                            <DropDownItem
+                              {...getItemProps({ item })}
+                              key={item.taskName}
+                              highlighted={index === highlightedIndex}
+                            >
+                              {item.taskName}
                             </DropDownItem>
-                          )}
-                      </DropDown>
-                    )}
-                  </form>
+                          ))}
+                          {!this.state.searchResults.length &&
+                            !this.state.loading && (
+                              <DropDownItem>
+                                {" "}
+                                Nothing Found For: {inputValue}
+                              </DropDownItem>
+                            )}
+                        </DropDown>
+                      )}
+                    </form>
+                    {inputError &&
+                      <div id="alert-container" className="col-md-6 col-md-offset-3 alert alert-danger">
+                        <strong>{inputError}</strong>
+                      </div>}
+                  </div>
                 )}
+
               </Downshift>
             </SearchStyles>
           </div>

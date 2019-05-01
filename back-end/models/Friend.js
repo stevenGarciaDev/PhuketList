@@ -2,20 +2,20 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const FriendSchema = new mongoose.Schema({
-    userid:{
-        id: mongoose.Schema.Types.ObjectId
-    },
-    userEmail:{
-        type: String
-    },
-    userPhoto:{
-        type: String
-    },
-    status: {
-        type: String,
-        enum: ['Accept', 'Remove', 'pending','Add Friend'],
-        default: ' Add Friend'
-    }
+  userid: {
+    id: mongoose.Schema.Types.ObjectId
+  },
+  userEmail: {
+    type: String
+  },
+  userPhoto: {
+    type: String
+  },
+  status: {
+    type: String,
+    enum: ['Accept', 'Remove', 'Pending', 'Add Friend'],
+    default: 'Add Friend'
+  }
 });
 
 const Friends = mongoose.model("Friends", FriendSchema);

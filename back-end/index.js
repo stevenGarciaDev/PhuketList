@@ -13,7 +13,7 @@ var cors = require('cors');
 const express = require("express");
 const app = express();
 const httpServer = require('http').Server(app);
-const io = require("socket.io")(httpServer)
+const io = require("socket.io")(httpServer);
 
 if (!config.get('jwtPrivateKey')) {
   console.log('FATAL ERROR: jwtPrivateKey is not defined');

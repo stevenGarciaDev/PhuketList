@@ -6,7 +6,7 @@ import _ from 'lodash';
 class CommentIcon extends Component {
 
   render() {
-    const { amount, postId, displayComments } = this.props;
+    const { postId, displayComments } = this.props;
     const { comments } = this.props;
     const commentList = _.orderBy(comments, ['dateCreated'], ['desc']);
 

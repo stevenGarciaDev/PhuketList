@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
-import { 
-  Link 
+import {
+  Link
 } from 'react-router-dom';
 import { getUser } from '../services/userService';
 
@@ -26,28 +26,16 @@ class Comment extends Component {
   render() {
     const { author, text, dateCreated } = this.props;
     const { profileImageURL, authorName } = this.state;
-    /*
-    return (
-      <div className="comment-container">
-        <div className="Comment Post">
-          <img className="post-profile-img" />
-          <h1 className="post-author">{author}</h1>
-          <p className="comment-content">
-            {text}
-          </p>
-        </div>
-      </div>
-    );*/
 
     return(
       <div className="comment-module">
 
         <div className="row nopadding">
           <div className="comment-module-author col-md-8 text-left">
-            {this.state.profileImageURL ?
+            {profileImageURL ?
                 (<img
                     className="post-module-profile-img"
-                    src={this.state.profileImageURL}
+                    src={profileImageURL}
                     alt="Img" />)
                 :
                 (<img

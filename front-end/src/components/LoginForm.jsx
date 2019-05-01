@@ -3,7 +3,6 @@ import Joi from "joi-browser";
 import Form from "./common/form";
 import { login } from "../services/authService";
 import { Link } from "react-router-dom";
-import { loadClient } from "../services/OAuthServices";
 class LoginForm extends Form {
 
   constructor(props) {
@@ -49,7 +48,7 @@ class LoginForm extends Form {
     return (
       <React.Fragment>
 
-        
+
         <div className="jumbotron" id="auth-jumbotron"></div>
 
         <div className="authenticate-form">
@@ -61,8 +60,8 @@ class LoginForm extends Form {
               <Link to="/Forgot">Forgot password?</Link>
               {}
             </form>
-            
-            
+
+
         </div>
       </React.Fragment>// <button onClick={ loadClient()}>  Sign In with Gmail  </button>
     );

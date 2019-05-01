@@ -3,14 +3,10 @@ import Moment from 'react-moment';
 import Like from './Like';
 import CommentIcon from './CommentIcon';
 import ReportIcon from './ReportIcon';
-import { 
-  Link 
-} from 'react-router-dom';
-import { updateLikeInfo, report, getIsAppropriate } from '../services/postService';
+import { Link } from 'react-router-dom';
+import { updateLikeInfo, getIsAppropriate } from '../services/postService';
 import { getCurrentUser } from '../services/authService';
-import {
-  getUserPhotoByID
-} from "../services/userService";
+import { getUserPhotoByID } from "../services/userService";
 // import photo from '../assets/images/jackie-tsang-458443-unsplash.jpg';
 
 class Post extends Component {
@@ -101,7 +97,6 @@ class Post extends Component {
 
 
   render() {
-    const { user } = this.props;
     const {
       id,
       author,
@@ -144,7 +139,7 @@ class Post extends Component {
             <div className="row nopadding">
               <p className="col-md-12 text-left">{text}</p>
               <div className="col-md-12">
-              { image !== '' && <img src={image} className="img-responsive post-img" /> }
+              { image !== '' && <img alt="post" src={image} className="img-responsive post-img" /> }
               </div>
             </div>
           </div>

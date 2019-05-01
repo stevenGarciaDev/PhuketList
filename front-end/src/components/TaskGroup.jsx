@@ -1,25 +1,14 @@
-import Joi from "joi-browser";
-import React, {
-	Component
-} from "react";
-import {
-	Redirect
-} from 'react-router-dom';
+import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import ActivityFeed from "./ActivityFeed";
-import {
-	getCurrentUser
-} from "../services/authService";
+import { getCurrentUser } from "../services/authService";
 import {
 	getListItems,
 	getListItem,
 	findOrCreateTask,
 	getTaskUsers
 } from "../services/bucketListService";
-import {
-	getPublicuser
-} from "../services/userService";
-import PostForm from './postForm';
-
+import { getPublicuser } from "../services/userService";
 
 class TaskGroup extends Component {
 

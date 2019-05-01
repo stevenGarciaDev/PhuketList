@@ -23,7 +23,7 @@ class Settings extends Component {
     console.log(setInfo.data);
     this.setState({name: setInfo.data["name"], email: setInfo.data["email"],
      isPrivate: setInfo.data["isPrivate"], isActive: setInfo.data["isActive"]  });
-     
+
 
      console.log(this.state);
 
@@ -41,9 +41,9 @@ class Settings extends Component {
   }
 
   render() {
-    const { user,name, email, isPrivate, isActive } = this.state;
- 
-    
+    const { name, email, isPrivate, isActive } = this.state;
+
+
     return (
       <div className="container" id="body-wrapper">
        <h1>Account Settings</h1>
@@ -53,10 +53,10 @@ class Settings extends Component {
         <SettingDetailInput
           displayName={"Full Name"}
           settingProperty="name"
-          settingValue={name} 
+          settingValue={name}
           onUpdate={this.handleUpdate} />
 
-         
+
 
         <SettingDetailInput
           displayName="Email"

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Joi from "joi-browser";
 import ImageInput from "./imageInput";
 import Input from "./input";
-import axios from "axios";
 
 class Form extends Component {
   state = {
@@ -68,8 +67,6 @@ class Form extends Component {
   }
 
   renderFileInput() {
-    const { data, errors } = this.state;
-
     return (
       <ImageInput
         onChange={this.handleFileChange}
