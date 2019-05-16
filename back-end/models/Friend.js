@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
-const Joi = require("joi");
+const Joi = require('@hapi/joi');
 
 const FriendSchema = new mongoose.Schema({
   userid: {
     id: mongoose.Schema.Types.ObjectId
+  },
+  username: {
+    type: String
   },
   userEmail: {
     type: String
@@ -13,12 +16,12 @@ const FriendSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Accept', 'Remove', 'Pending', 'Add Friend'],
+    enum: ['Accept', 'Unfriend', 'Add Friend'],
     default: 'Add Friend'
   }
 });
 
-const Friends = mongoose.model("Friends", FriendSchema);
+const Friend = mongoose.model("Friend", FriendSchema);
 
-module.exports.Friends = Friends;
+module.exports.Friend = Friend;
 module.exports.FriendSchema = FriendSchema;

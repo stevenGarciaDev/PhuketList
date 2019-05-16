@@ -6,6 +6,7 @@ const router = express.Router();
 
 // req.params.id is the user id
 router.get('/:id', auth, async (req, res) => {
+  console.log("io is ", req.io);
   const listItems = await BucketList
     .find({ owner: req.params.id })
     .select('listItems');

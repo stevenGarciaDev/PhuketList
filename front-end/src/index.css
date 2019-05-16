@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
   margin: 0;
   padding: 0;
@@ -785,10 +787,6 @@ Task Group page
  Messages
 ---------- */
 
-#MessagePage {
-
-}
-
 .message-form {
   margin: 20px 0px 100px 0px;
   display: flex;
@@ -811,7 +809,7 @@ Task Group page
   margin: 0 auto;
   margin-top: 50px;
   width: 450px;
-  height: 450px;
+  height: 500px;
   overflow-y: scroll;
 }
 
@@ -836,7 +834,7 @@ Task Group page
 .msg-text-container {
   margin: 5px;
   position: relative;
-  left: 20px;
+  left: 70px;
   top: 10px;
   text-align: left;
   width: 90%;
@@ -867,12 +865,37 @@ Task Group page
   margin-top: 20px;
 }
 
+.new-group-form-container {
+  display: flex;
+}
+
 .add-member-input {
   margin-right: 10px;
 }
 
 .new-group-item {
   margin: 5px;
+}
+
+.new-member {
+  font-family: 'Wendy One', sans-serif;
+  font-size: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 5px;
+  padding: 5px 10px 0px 10px;
+}
+
+.new-member:hover {
+  transform: scale(1.1);
+  transition: all .2s ease-in-out;
+}
+
+.new-member-remove-icon {
+  margin-left: 10px;
+  position: relative;
+  top: 1px;
 }
 
 /* ----------
@@ -922,6 +945,21 @@ Task Group page
 /* ----------
  MISC
 ---------- */
+.button-google {
+  border: none;
+  color: #757575;
+  background-color: #FFF;
+  padding: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.button-google-logo {
+  width: 18px;
+  height: 18px;
+  margin-right: 24px;
+}
+
 .circle-background,
 .circle-progress {
   fill: none;

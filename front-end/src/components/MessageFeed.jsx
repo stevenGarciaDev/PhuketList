@@ -7,24 +7,33 @@ class MessageFeed extends Component {
   componentDidMount() {
     let objDiv = document.querySelector(".MessageFeed");
     objDiv.scrollTop = objDiv.scrollHeight;
+  };
+
+  retrieveUsername = (userId) => {
+    const { feed } = this.props;
+    let user = feed.members.filter(m => m._id === userId);
+    user = user[0];
+    return user.name;
   }
 
   render() {
     const { feed } = this.props;
-    console.log("feed is ", feed)
-    console.log("PROPS", this.props.feed);
+    console.log("PROPS", this.props);
 
     return (
       <div className="message-feed-container">
         <div className="MessageFeed">
           { feed.messages &&
-            feed.messages.map(message => (
+            feed.messages.map(data => (
               <Message
-
-                />
-            ))}
+                sender={ this.retrieveUsername(data.sender) }
+                text={data.message}
+                dateCreated={data.dateCreated}
+              />
+            ))
+          }
         </div>
-        <MessageForm />
+        <MessageForm sendMessage={this.props.sendMessage} />
       </div>
     );
   }

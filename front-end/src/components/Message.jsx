@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import Moment from 'react-moment';
 
 class Message extends Component {
 
   render() {
     //const { name, photo, message, dateCreated } = this.props.feed;
-    console.log("PROPS", this.props);
+    //console.log("PROPS", this.props);
+
+    const { sender, text, dateCreated } = this.props;
+    //console.log("text is ", text);
 
     return (
       <div className="message">
@@ -13,12 +17,16 @@ class Message extends Component {
             className="post-module-profile-img"
             src={"" || "https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg"}
             alt="Img" />
-          <h2 className="msg-author">John Snow</h2>
-          <p className="msg-created-at">11:00 PM</p>
+          <h2 className="msg-author">{sender}</h2>
+          <p className="msg-created-at">
+            <Moment fromNow>
+              {dateCreated}
+           </Moment>
+          </p>
         </div>
 
         <div className="msg-text-container">
-          Text
+          { text }
         </div>
 
         <hr className="message-divider" />

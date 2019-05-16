@@ -14,6 +14,7 @@ const express = require("express");
 const app = express();
 const httpServer = require('http').Server(app);
 const io = require("socket.io")(httpServer);
+var passport = require("passport");
 
 if (!config.get('jwtPrivateKey')) {
   console.log('FATAL ERROR: jwtPrivateKey is not defined');
@@ -25,22 +26,25 @@ mongoose.connect(db)
   .then(() => console.log(`Connected to db: ${db}`))
   .catch(() => console.log(`Unable to connect to db: ${db}`));
 
+io.on('connect', (socket) => {
+  console.log("User connected");
+})
 
 app.use(cors());
 app.options('*', cors()); // this will enable cors for all your route.
 app.use(express.json());
 app.use(function(req, res, next) {
-    req.io = io;
-    next();
+  req.io = io;
+  next();
 });
 app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'https://phuket-list-api.herokuapp.com/api');
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,x-auth-token,access-control-expose-headers,Content-Type,Accept,content-type,application/json');
+  next();
 });
+
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/bucketList', bucketList);
@@ -50,9 +54,12 @@ app.use('/api/comment/', comment);
 app.use('/api/taskGroup/', post);
 app.use('/api/friends/', friends);
 app.use('/api/messages', message);
+app.use(passport.initialize());
+require("./config/passport");
+
 
 const port = process.env.PORT || 3900;
-const server = app.listen(port, () => {
+const server = httpServer.listen(port, () => {
   console.log(`Listening on port ${port}...`);
 });
 

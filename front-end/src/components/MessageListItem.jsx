@@ -23,27 +23,21 @@ class MessageListItem extends Component {
 
   render() {
     const { messages } = this.props.group;
+    const { group } = this.props;
 
-    //console.log("**Groups in items is ", group);
+    console.log("GROUP", group);
 
     return (
-      <div className="message-group-list-item">
+      <div className="message-group-list-item" onClick={(e) => this.props.onItemClick(group)}>
         <h2>Group Message</h2>
 
         { messages.length === 0 ?
-            <p>No messages in this group.</p>
+            <p>No recent messages.</p>
           :
             <React.Fragment>
-              <div className="float-left">
-                <img
-                 className="post-module-profile-img"
-                 src={"" || "https://pbs.twimg.com/profile_images/901947348699545601/hqRMHITj_400x400.jpg"}
-                 alt="Img" />
-                <span>John Snow</span>
-              </div>
-
-              <div className="list-item-msg">
-                {this.displayPreviewText("Eating carne asada tacos...")}
+              <div>
+                Amount of Members:
+                <span>{ group.members.length }</span>
               </div>
             </React.Fragment>
         }

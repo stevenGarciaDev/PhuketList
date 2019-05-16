@@ -4,7 +4,7 @@ import AlertMessage from './AlertMessage';
 import {
   getPotentialFriends,
   getFriends,
-  addUser,
+  addFriend,
   acceptFriend,
   removeFriend } from "../services/friendshipService";
 import { getCurrentUser } from '../services/authService';
@@ -19,6 +19,7 @@ class FriendsList extends Component {
       filteredPotentialFriends: [],
       currentView: 'find',
       friends: [],
+      filteredFriends: [],
       displayAlert: false,
       alertMessage: ""
     };
@@ -37,14 +38,14 @@ class FriendsList extends Component {
       var obj = {'email':user.data.email,'name':user.data.name,'photo':user.data.photo,'status':friends.data[i].status};
       frData.push(obj);
     }
-    this.setState({friends:frData, potentialFriends, filteredPotentialFriends: potentialFriends });
+    this.setState({friends:frData, filteredFriends: frData, potentialFriends, filteredPotentialFriends: potentialFriends });
   }
-
+  
   toggleSegmentBtn = (text) => {
-    const { currentView } = this.state;
+    const { currentView, potentialFriends, friends } = this.state;
     if (currentView === text) return;
     const updatedView = currentView === 'find' ? 'edit' : 'find';
-    this.setState({ currentView: updatedView });
+    this.setState({ currentView: updatedView, filteredPotentialFriends: potentialFriends, filteredFriends: friends });
   }
 
   filterFriendOptions = (e) => {
@@ -58,6 +59,17 @@ class FriendsList extends Component {
     this.setState({ filteredPotentialFriends });
   }
 
+  filterExistingFriends = (e) => {
+    let friends = [ ...this.state.friends ];
+    if (e.target.value === "") {
+      this.setState({ filteredFriends: friends});
+      return;
+    }
+    const regex = new RegExp(`^${e.target.value.toLowerCase()}`, 'g');
+    const filteredFriends = friends.filter(f => f.name.toLowerCase().match(regex));
+    this.setState({ filteredFriends });
+  }
+
   handleEditFriendStatus = async (e, user) => {
     console.log("user is ", user);
 
@@ -67,10 +79,16 @@ class FriendsList extends Component {
       displayAlert,
       alertMessage,
       currentView,
-      filteredPotentialFriends
+      potentialFriends,
+      friends,
+      filteredPotentialFriends,
+      filteredFriends
      } = this.state;
     const currentUser = getCurrentUser();
     const emailuse = currentUser.email;
+
+    console.log("!currentUser", currentUser);
+    console.log("!user", user);
 
     switch (user.status) {
       case "Accept":
@@ -79,19 +97,22 @@ class FriendsList extends Component {
         displayAlert = true;
         break;
       case "Add Friend":
-        addUser(user.email, user.userid, emailuse);
+        addFriend(currentUser.email, user.email,);
         alertMessage = `Sent Friend Request to ${user.name}`
         displayAlert = true;
-        filteredPotentialFriends = filteredPotentialFriends.filter(f => f.name !== user.name);
+
+        potentialFriends = potentialFriends.filter(f => f.name !== user.name);
+        user.status = 'Unfriend';
+        friends.push(user);
         break;
-      case "Remove":
-        removeFriend(user.email, user.id, emailuse);
-        alertMessage = `Rejected Friend Request to ${user.name}`
+      case "Unfriend":
+        removeFriend(user.email, currentUser.email);
+        alertMessage = `Unfriend ${user.name}`;
         displayAlert = true;
-        break;
-      case "Pending":
-        alertMessage = ""
-        displayAlert = false;
+
+        friends = friends.filter(f => f.name !== user.name);
+        user.status = 'Add Friend';
+        potentialFriends.push(user);
         break;
       default:
         alertMessage = ""
@@ -99,11 +120,18 @@ class FriendsList extends Component {
         break;
     }
 
-    this.setState({ displayAlert, alertMessage, filteredPotentialFriends });
+    this.setState({
+      displayAlert,
+      alertMessage,
+      potentialFriends,
+      friends,
+      filteredPotentialFriends: potentialFriends,
+      filteredFriends: friends,
+    });
   }
 
   render() {
-    const { currentView, potentialFriends, filteredPotentialFriends, friends, displayAlert, alertMessage } = this.state;
+    const { currentView, potentialFriends, filteredPotentialFriends, friends, filteredFriends, displayAlert, alertMessage } = this.state;
     let findFriendsClass;
     let editFriendsClass;
 
@@ -149,10 +177,14 @@ class FriendsList extends Component {
 
             { friends.length > 0 ?
               <div className="container friends-list-content">
+                <input type="text"
+                  className="form-control col-md-6 offset-md-3"
+                  placeholder="Search by name..."
+                  onChange={(e) => this.filterExistingFriends(e)} />
                 <h2>Friends {friends.length}</h2>
                 <div className="row">
                 {
-                  friends.map(user => <FriendInfoItem
+                  filteredFriends.map(user => <FriendInfoItem
                                         key={user._id}
                                         user={user}
                                         onEditFriendStatus={this.handleEditFriendStatus} />)

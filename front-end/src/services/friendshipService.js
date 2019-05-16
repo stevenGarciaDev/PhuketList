@@ -7,16 +7,16 @@ export async function getPotentialFriends(email) {
   return res.data;
 }
 
-export function addUser(email,userid,emailuse){
-  return http.put(`${apiEndpoint}/addFriend`,{email,userid,emailuse});
+export function addFriend(currentUserEmail, requestedUserEmail){
+  return http.post(`${apiEndpoint}/addFriend`,{ currentUserEmail, requestedUserEmail });
 }
 
 export function acceptFriend(email,userid,emailuse){
   return http.put(`${apiEndpoint}/acceptFriend`,{email,userid,emailuse});
 }
 
-export function removeFriend(email,userid,emailuse){
-  return http.put(`${apiEndpoint}/removeFriend`,{email,userid,emailuse});
+export function removeFriend(userEmailToRemove, currentUserEmail){
+  return http.put(`${apiEndpoint}/removeFriend`,{ userEmailToRemove, currentUserEmail });
 }
 
 export async function getFriends(email){

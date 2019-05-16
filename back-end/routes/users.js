@@ -42,10 +42,10 @@ router.post("/", async (req, res) => {
   console.log("test");
   //creating friends list for user that registers
   const userFreinds = new Friendship();
-  
+
   userFreinds.owner = user._id;
   await userFreinds.save();
-  
+
   //console.log(this.userFreinds);
 
   const token = user.generateAuthToken();
@@ -114,15 +114,17 @@ router.get('/retrieveUser/:id', async (req, res) => {
   const user = await User.findById(req.params.id).select('-password');
   res.send(user);
 });
+
 router.get('/retrieveUserbyEmail/:id', async (req, res) => {
   const user = await User.findOne({email:req.params.id});
-  
+
   res.send(user);
 });
 
 router.get('/retrieveUserId/:name', async (req, res) => {
   try {
-    const user = await User.find({ name: req.params.name });
+    const regex = new RegExp(`^${req.params.name}$`, 'i');
+    const user = await User.find({ name: regex });
     res.send(user);
   } catch (ex) {
     console.log("unable to retrieve name", ex);

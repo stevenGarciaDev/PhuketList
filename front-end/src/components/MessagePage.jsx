@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import MessageGroupList from './MessageGroupList';
 import MessageFeed from './MessageFeed';
+import MessageGroupForm from './MessageGroupForm';
 import { getCurrentUser } from '../services/authService';
-import { retrieveMessageGroups, getMessageFeedData } from '../services/messageService';
+import {
+  createNewGroup,
+  retrieveMessageGroups,
+  getCurrentGroupMembers,
+  sendMessage } from '../services/messageService';
+import { getFriends } from '../services/friendshipService';
+import socketIOClient from "socket.io-client";
 
 class MessagePage extends Component {
 
@@ -11,57 +18,90 @@ class MessagePage extends Component {
     this.state = {
       messageGroups: [],
       currentGroupFeed: [],
+      friendsList: [],
+      currentGroupMembers: []
     };
   }
 
   componentDidMount = async () => {
     // get message groups for this user
     const user = await getCurrentUser();
+    const friendsList = await getFriends(user.email);
     const res = await retrieveMessageGroups(user);
-    // console.log("** response ** ", res);
     let currentGroupFeed = [];
 
     if (res.data.length > 0) {
       currentGroupFeed = res.data[0];
-      //console.log("!!currentGroupFeed", currentGroupFeed);
 
       this.populateMessageFeed(currentGroupFeed);
-      //console.log("%% data is ", data);
     } else {
       console.log("no message group", res.data);
     }
 
-    this.setState({ messageGroups: res.data });
+    this.setState({ messageGroups: res.data, friendsList: friendsList.data });
   }
 
-  updateGroupList = (newGroup) => {
-    const messageGroups = [ ...this.state.messageGroups ];
-    //console.log("new group is ", newGroup.data);
-    messageGroups.push(newGroup.data);
+  makeNewGroup = async (membersToAdd) => {
+    let messageGroups = [ ...this.state.messageGroups ];
+    const user = getCurrentUser();
+    membersToAdd.push({ id: user._id });
+    const newGroup = await createNewGroup(membersToAdd);
+    console.log("new group is ", newGroup);
+
+    messageGroups.push(newGroup);
+    console.log("messageGroups are now ", messageGroups);
     this.setState({ messageGroups });
   }
 
   populateMessageFeed = async (currentGroup) => {
-    //console.log("%%the message feed is ", currentGroup);
-    const response = await getMessageFeedData(currentGroup);
-    console.log("**the response is ", response.data);
+    const socket = socketIOClient(process.env.REACT_APP_SOCKET_ENDPOINT);
+    socket.on('update messages', async (groupFeed) => {
+      //console.log("currentGroupFeed", currentGroupFeed);
+      //console.log("groupFeed", groupFeed);
 
-    this.setState({ currentGroupFeed: response.data });
+      let currentGroupFeed = await getCurrentGroupMembers(groupFeed);
+      this.setState({ currentGroupFeed });
+      return;
+    });
+
+    let currentGroupFeed = await getCurrentGroupMembers(currentGroup);
+    this.setState({ currentGroupFeed });
+  }
+
+  sendMessage = async (e, msg) => {
+    e.preventDefault();
+    const user = getCurrentUser();
+    let { currentGroupFeed } = this.state;
+
+    const response = sendMessage(user._id, msg, currentGroupFeed._id);
+
+    response.then(data => {
+      //console.log("data is ", data);
+      currentGroupFeed.messages.push(data);
+      this.setState({ currentGroupFeed });
+    }).catch(ex => {
+      console.log("unable to handle data", ex);
+    });
   }
 
   render() {
-    const { messageGroups, currentGroupFeed } = this.state;
-    //console.log("currentGroupFeed are ", currentGroupFeed)
+    const { messageGroups, friendsList } = this.state;
+    let currentGroupFeed = { ...this.state.currentGroupFeed };
+
+    //console.log("Current group feed is ", currentGroupFeed);
+
+    //console.log("current group feed is ", currentGroupFeed.messages);
 
     return (
       <div id="MessagePage" className="container-fluid">
         <div className="row">
           <div className="col-lg-4">
-            <MessageGroupList messageGroups={messageGroups} updateGroupList={this.updateGroupList} />
+            <MessageGroupForm friendsList={friendsList} onMakeNewGroup={this.makeNewGroup}/>
+            <MessageGroupList messageGroups={messageGroups} onItemClick={this.populateMessageFeed} />
           </div>
           <div className="col-lg-8">
             { currentGroupFeed &&
-              <MessageFeed feed={currentGroupFeed} />
+              <MessageFeed feed={currentGroupFeed} sendMessage={this.sendMessage} />
             }
           </div>
         </div>

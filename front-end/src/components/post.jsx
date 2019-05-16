@@ -109,6 +109,8 @@ class Post extends Component {
       displayComments
     } = this.state;
 
+    console.log("author is ", author);
+
     return ( (this.state.isAppropriate) ?
       <div className="post-module">
           <div className="post-module-top row">

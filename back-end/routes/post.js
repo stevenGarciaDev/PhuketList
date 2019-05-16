@@ -1,4 +1,5 @@
 const { Post, validate } = require('../models/post');
+const { User } = require('../models/user');
 const { BucketList } = require('../models/bucketList');
 const { ListItem } = require('../models/listItem');
 const auth = require('../middleware/auth');
@@ -91,8 +92,11 @@ router.post('/', auth, async (req, res, next) => {
       author: req.user._id,
       dateCreated: Date.now()
     });
-    console.log("new post is", post);
+
+    const username = await User.findById(req.user._id ).select('name');
     await post.save();
+    post.author = username;
+    console.log("post is ", post)
     console.log("new post saved");
   } catch (ex) {
     console.log('unable to create post', ex);
